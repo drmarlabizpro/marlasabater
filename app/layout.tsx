@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
-import Nav from "@/components/Nav";
+import { Newsreader, Archivo } from "next/font/google";
 import "./globals.css";
+
+const newsreader = Newsreader({
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-serif",
+  display: "swap",
+});
+
+const archivo = Archivo({
+  weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://marlasabater.com"),
@@ -53,11 +68,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body style={{ backgroundColor: "var(--color-base)" }}>
-        <Nav />
-        {children}
-      </body>
+    <html
+      lang="en"
+      className={`${newsreader.variable} ${archivo.variable}`}
+      style={{ colorScheme: "light" }}
+    >
+      <body>{children}</body>
     </html>
   );
 }

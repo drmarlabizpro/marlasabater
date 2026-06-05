@@ -1,2088 +1,979 @@
-import Link from "next/link";
+"use client";
+
+import { useState } from "react";
+
+const GRAIN_URL =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
+
+function Grain() {
+  return (
+    <div
+      aria-hidden
+      style={{
+        position: "absolute",
+        inset: 0,
+        pointerEvents: "none",
+        opacity: 0.06,
+        mixBlendMode: "multiply",
+        backgroundImage: GRAIN_URL,
+      }}
+    />
+  );
+}
+
+const COMPANIES = [
+  { no: "01", name: "Dr. Marla Biz Pro Corp", role: "LEADERSHIP & STRATEGY" },
+  {
+    no: "02",
+    name: "Premium Services Enterprise",
+    role: "INVESTMENTS & ACQUISITIONS",
+    flagship: true,
+  },
+  {
+    no: "03",
+    name: "Premium Services Corporation",
+    role: "FINANCIAL & WEALTH MANAGEMENT",
+  },
+  {
+    no: "04",
+    name: "Premium Services Group",
+    role: "CONSTRUCTION & DEVELOPMENT",
+  },
+  { no: "05", name: "Flavor Movement", role: "FOOD & HOSPITALITY" },
+  { no: "06", name: "Legacy Production House", role: "MEDIA & TALENT" },
+  {
+    no: "07",
+    name: "Marvic Hospitality Group",
+    role: "HOSPITALITY & ENTERTAINMENT",
+  },
+  { no: "08", name: "PSG Motor Group", role: "AUTOMOTIVE SALES & SERVICES" },
+];
+
+const SERVICES = [
+  {
+    no: "01",
+    title: "Accounting",
+    body: "Clean books, accurate reporting, and tax strategy. From monthly bookkeeping to full CFO advisory.",
+  },
+  {
+    no: "02",
+    title: "Payroll",
+    body: "Accurate on-time payroll, direct deposit, tax filings, and compliance. Your team gets paid correctly, every time.",
+  },
+  {
+    no: "03",
+    title: "Business Advisory",
+    body: "Strategic guidance for business owners at every stage. Financial planning, business structuring, and growth strategy.",
+  },
+];
+
+const CONTACT_ITEMS = [
+  "356 Manton Avenue, Suite 1A, Providence, RI 02909",
+  "(401) 321-3781",
+  "Marla@msabater.com",
+  "@drmarlabizpro",
+];
 
 export default function Home() {
+  const [sent, setSent] = useState(false);
+
   return (
     <>
-    <main>
-      <section
-        className="hero"
+      <style>{`
+        @media (max-width: 767px) {
+          .nav-links, .nav-cta { display: none !important; }
+        }
+        @media (min-width: 768px) {
+          .services-grid { grid-template-columns: repeat(3, 1fr) !important; }
+          .contact-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        .form-field:focus { border-color: var(--gold) !important; }
+      `}</style>
+
+      <header
         style={{
-          minHeight: "100vh",
+          position: "sticky",
+          top: 0,
+          zIndex: 50,
+          background: "var(--bordeaux)",
+          padding: "20px var(--gut)",
           display: "flex",
-          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        <div
-          className="hero-left"
+        <a
+          href="#top"
           style={{
-            width: "55%",
-            background: "var(--color-dark)",
-            padding: "96px 64px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
+            fontFamily: "var(--serif)",
+            fontWeight: 400,
+            fontSize: 22,
+            color: "var(--cream)",
+            textDecoration: "none",
           }}
         >
-          <div>
-            <div
+          Dr. Marla
+        </a>
+        <nav
+          className="nav-links"
+          style={{ display: "flex", alignItems: "center", gap: 28 }}
+        >
+          {["Ecosystem", "About", "Contact"].map((label) => (
+            <a
+              key={label}
+              href={`#${label.toLowerCase()}`}
               style={{
-                fontFamily: "var(--font-mono)",
+                fontFamily: "var(--sans)",
+                fontWeight: 600,
                 fontSize: 11,
-                letterSpacing: "0.14em",
-                color: "var(--color-gold)",
+                letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                marginBottom: 48,
+                color: "rgba(242,233,218,0.7)",
+                textDecoration: "none",
               }}
             >
-              PROVIDENCE, RHODE ISLAND. SERVING NATIONWIDE.
-            </div>
-
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 600,
-                lineHeight: 0.95,
-                color: "var(--color-ink-light)",
-                fontSize: "clamp(64px, 7vw, 96px)",
-                opacity: 0,
-                animation: "fadeUp 0.6s ease forwards",
-                animationDelay: "0s",
-              }}
-            >
-              30 Years.
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 600,
-                lineHeight: 0.95,
-                color: "var(--color-ink-light)",
-                fontSize: "clamp(64px, 7vw, 96px)",
-                opacity: 0,
-                animation: "fadeUp 0.6s ease forwards",
-                animationDelay: "0.15s",
-              }}
-            >
-              1,000 Clients.
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 600,
-                lineHeight: 0.95,
-                color: "var(--color-ink-light)",
-                fontSize: "clamp(64px, 7vw, 96px)",
-                opacity: 0,
-                animation: "fadeUp 0.6s ease forwards",
-                animationDelay: "0.3s",
-              }}
-            >
-              One Standard:
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontWeight: 600,
-                lineHeight: 0.95,
-                color: "var(--color-gold)",
-                fontStyle: "italic",
-                fontSize: "clamp(64px, 7vw, 96px)",
-                opacity: 0,
-                animation: "fadeUp 0.6s ease forwards",
-                animationDelay: "0.45s",
-              }}
-            >
-              Yours.
-            </div>
-
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 17,
-                lineHeight: 1.75,
-                color: "#9AA4B8",
-                maxWidth: 460,
-                marginTop: 40,
-              }}
-            >
-              Dr. Marla Sabater has spent three decades building businesses and
-              serving clients across Rhode Island and beyond. Accounting.
-              Payroll. Business advisory. Bilingual service in English and
-              Spanish.
-            </p>
-
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 32,
-                marginTop: 48,
-              }}
-            >
-              <Link
-                href="#contact"
-                className="cta-primary"
-                style={{
-                  display: "inline-block",
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  fontWeight: 500,
-                  background: "var(--color-gold)",
-                  color: "var(--color-dark)",
-                  padding: "16px 32px",
-                  textDecoration: "none",
-                  borderRadius: 0,
-                }}
-              >
-                BOOK A STRATEGY SESSION
-              </Link>
-              <Link
-                href="#services"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  color: "var(--color-gold)",
-                  textDecoration: "none",
-                }}
-              >
-                EXPLORE SERVICES →
-              </Link>
-            </div>
-          </div>
-
-          <div
-            style={{
-              paddingTop: 48,
-              borderTop: "1px solid rgba(201, 168, 76, 0.25)",
-              display: "flex",
-              gap: 48,
-            }}
-          >
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 52,
-                  fontWeight: 600,
-                  color: "var(--color-gold)",
-                  lineHeight: 1,
-                }}
-              >
-                30+
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.12em",
-                  color: "rgba(245, 240, 232, 0.5)",
-                  textTransform: "uppercase",
-                  marginTop: 8,
-                }}
-              >
-                YEARS EXPERIENCE
-              </div>
-            </div>
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 52,
-                  fontWeight: 600,
-                  color: "var(--color-gold)",
-                  lineHeight: 1,
-                }}
-              >
-                1,000+
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.12em",
-                  color: "rgba(245, 240, 232, 0.5)",
-                  textTransform: "uppercase",
-                  marginTop: 8,
-                }}
-              >
-                CLIENTS SERVED
-              </div>
-            </div>
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 52,
-                  fontWeight: 600,
-                  color: "var(--color-gold)",
-                  lineHeight: 1,
-                }}
-              >
-                5
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.12em",
-                  color: "rgba(245, 240, 232, 0.5)",
-                  textTransform: "uppercase",
-                  marginTop: 8,
-                }}
-              >
-                COMPANIES BUILT
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className="hero-right"
+              {label}
+            </a>
+          ))}
+        </nav>
+        <a
+          href="#contact"
+          className="nav-cta"
           style={{
-            width: "45%",
-            background: "var(--color-warm)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            position: "relative",
-            minHeight: "100%",
+            border: "1px solid var(--gold)",
+            color: "var(--gold)",
+            padding: "10px 18px",
+            fontFamily: "var(--sans)",
+            fontWeight: 600,
+            fontSize: 10,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            textDecoration: "none",
           }}
         >
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(120px, 15vw, 200px)",
-                fontWeight: 300,
-                color: "var(--color-gold)",
-                opacity: 0.2,
-                lineHeight: 1,
-                textAlign: "center",
-              }}
-            >
-              MS
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                letterSpacing: "0.14em",
-                color: "var(--color-ink-muted)",
-                textAlign: "center",
-                marginTop: 16,
-              }}
-            >
-              PHOTO COMING SOON
-            </div>
-            {/* TODO: Replace placeholder with <Image src="/marla.jpg" alt="Dr. Marla Sabater" fill className="object-cover object-top" priority /> wrapped in a div with position relative, width 100%, height 100% */}
-          </div>
-        </div>
-      </section>
+          Schedule a Consultation
+        </a>
+      </header>
 
       <section
-        className="trust-bar"
+        id="top"
         style={{
-          background: "var(--color-warm)",
-          borderTop: "1px solid var(--color-border)",
-          borderBottom: "1px solid var(--color-border)",
-          padding: "0 64px",
+          position: "relative",
+          overflow: "hidden",
+          height: "100vh",
+          background:
+            "radial-gradient(100% 80% at 28% 26%, rgba(201,162,60,0.18), rgba(90,26,36,0) 56%), linear-gradient(165deg, #7C2230, #5A1A24 58%, #4A1620)",
+          padding: "0 var(--gut)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
         }}
       >
-        <div
-          style={{
-            maxWidth: 1400,
-            margin: "0 auto",
-            height: 72,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "var(--color-ink-secondary)",
-            }}
-          >
-            Certified Public Accountant
-          </span>
+        <Grain />
+        <div style={{ position: "relative", zIndex: 1 }}>
           <div
             style={{
-              width: 1,
-              height: 16,
-              background: "var(--color-gold)",
-              opacity: 0.5,
-              flexShrink: 0,
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
+              fontFamily: "var(--sans)",
+              fontWeight: 600,
               fontSize: 11,
-              letterSpacing: "0.12em",
+              letterSpacing: "0.3em",
               textTransform: "uppercase",
-              color: "var(--color-ink-secondary)",
-            }}
-          >
-            Faith-Forward Integrity
-          </span>
-          <div
-            style={{
-              width: 1,
-              height: 16,
-              background: "var(--color-gold)",
-              opacity: 0.5,
-              flexShrink: 0,
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "var(--color-ink-secondary)",
-            }}
-          >
-            Bilingual EN. ES.
-          </span>
-          <div
-            style={{
-              width: 1,
-              height: 16,
-              background: "var(--color-gold)",
-              opacity: 0.5,
-              flexShrink: 0,
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "var(--color-ink-secondary)",
-            }}
-          >
-            Serving Nationwide
-          </span>
-        </div>
-      </section>
-
-      <section
-        id="services"
-        className="services-section"
-        style={{
-          background: "var(--color-base)",
-          padding: "96px 64px",
-        }}
-      >
-        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.14em",
-              color: "var(--color-gold)",
-              textTransform: "uppercase",
+              color: "var(--gold-soft)",
               marginBottom: 24,
             }}
           >
-            OUR SERVICES
+            Dr. Marla Ecosystem
           </div>
-          <div
+          <h1
             style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(42px, 5vw, 64px)",
-              fontWeight: 600,
-              color: "var(--color-ink)",
-              lineHeight: 1.1,
-              maxWidth: 600,
-              marginBottom: 64,
+              fontFamily: "var(--serif)",
+              fontWeight: 400,
+              fontSize: "clamp(52px, 10vw, 130px)",
+              lineHeight: 0.9,
+              letterSpacing: "-0.025em",
+              color: "var(--cream)",
+              margin: 0,
             }}
           >
-            What We Do For Your Business.
-          </div>
-
-          <div
-            className="service-cards"
-            style={{ display: "flex", gap: 2, marginTop: 0 }}
-          >
-            <div
-              className="service-card"
-              style={{
-                flex: 1,
-                background: "white",
-                padding: "48px 36px",
-                display: "flex",
-                flexDirection: "column",
-                borderTop: "3px solid var(--color-gold)",
-                position: "relative",
-              }}
-            >
-              <div
-                className="service-number"
-                style={{
-                  position: "absolute",
-                  top: 32,
-                  right: 32,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--color-gold)",
-                  letterSpacing: "0.1em",
-                }}
-              >
-                01
-              </div>
-              <div
-                className="service-name"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 42,
-                  fontWeight: 600,
-                  color: "var(--color-ink)",
-                  lineHeight: 1.1,
-                  marginBottom: 24,
-                }}
-              >
-                Accounting
-              </div>
-              <div
-                className="service-desc"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 15,
-                  lineHeight: 1.75,
-                  color: "var(--color-ink-secondary)",
-                  flex: 1,
-                }}
-              >
-                Clean books. Accurate reporting. Tax strategy that keeps more
-                money in your business. From monthly bookkeeping to full CFO
-                advisory, we handle the numbers so you can run your company.
-              </div>
-              <a
-                href="#contact"
-                className="service-link"
-                style={{
-                  marginTop: 40,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.12em",
-                  color: "var(--color-gold)",
-                  textDecoration: "none",
-                  textTransform: "uppercase",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                }}
-              >
-                LEARN MORE →
-              </a>
-            </div>
-
-            <div
-              className="service-card"
-              style={{
-                flex: 1,
-                background: "white",
-                padding: "48px 36px",
-                display: "flex",
-                flexDirection: "column",
-                borderTop: "3px solid var(--color-gold)",
-                position: "relative",
-              }}
-            >
-              <div
-                className="service-number"
-                style={{
-                  position: "absolute",
-                  top: 32,
-                  right: 32,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--color-gold)",
-                  letterSpacing: "0.1em",
-                }}
-              >
-                02
-              </div>
-              <div
-                className="service-name"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 42,
-                  fontWeight: 600,
-                  color: "var(--color-ink)",
-                  lineHeight: 1.1,
-                  marginBottom: 24,
-                }}
-              >
-                Payroll
-              </div>
-              <div
-                className="service-desc"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 15,
-                  lineHeight: 1.75,
-                  color: "var(--color-ink-secondary)",
-                  flex: 1,
-                }}
-              >
-                Accurate, on-time payroll for every employee. Direct deposit,
-                tax filings, compliance, and reporting. We take the complexity
-                off your plate and keep your team paid correctly.
-              </div>
-              <a
-                href="#contact"
-                className="service-link"
-                style={{
-                  marginTop: 40,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.12em",
-                  color: "var(--color-gold)",
-                  textDecoration: "none",
-                  textTransform: "uppercase",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                }}
-              >
-                LEARN MORE →
-              </a>
-            </div>
-
-            <div
-              className="service-card"
-              style={{
-                flex: 1,
-                background: "white",
-                padding: "48px 36px",
-                display: "flex",
-                flexDirection: "column",
-                borderTop: "3px solid var(--color-gold)",
-                position: "relative",
-              }}
-            >
-              <div
-                className="service-number"
-                style={{
-                  position: "absolute",
-                  top: 32,
-                  right: 32,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--color-gold)",
-                  letterSpacing: "0.1em",
-                }}
-              >
-                03
-              </div>
-              <div
-                className="service-name"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 42,
-                  fontWeight: 600,
-                  color: "var(--color-ink)",
-                  lineHeight: 1.1,
-                  marginBottom: 24,
-                }}
-              >
-                Insurance
-              </div>
-              <div
-                className="service-desc"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 15,
-                  lineHeight: 1.75,
-                  color: "var(--color-ink-secondary)",
-                  flex: 1,
-                }}
-              >
-                Understanding what coverage your business actually needs. We
-                guide you through the options, explain the requirements, and
-                connect you with the right providers for your industry.
-              </div>
-              <a
-                href="#contact"
-                className="service-link"
-                style={{
-                  marginTop: 40,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.12em",
-                  color: "var(--color-gold)",
-                  textDecoration: "none",
-                  textTransform: "uppercase",
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: 8,
-                }}
-              >
-                LEARN MORE →
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="companies"
-        className="companies-section"
-        style={{
-          background: "var(--color-dark)",
-          padding: "96px 64px",
-        }}
-      >
-        <div style={{ maxWidth: 1400, margin: "0 auto" }}>
-          <div
+            Helping people build stronger{" "}
+            <em style={{ fontStyle: "italic", color: "var(--gold-soft)" }}>
+              communities.
+            </em>
+          </h1>
+          <p
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.14em",
-              color: "var(--color-gold)",
-              textTransform: "uppercase",
-              marginBottom: 24,
-            }}
-          >
-            THE PORTFOLIO
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(42px, 5vw, 64px)",
-              fontWeight: 600,
-              color: "var(--color-ink-light)",
-              lineHeight: 1.1,
-              marginBottom: 16,
-            }}
-          >
-            Built by Experience.
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(42px, 5vw, 64px)",
-              fontWeight: 600,
-              color: "var(--color-ink-light)",
-              lineHeight: 1.1,
-              marginBottom: 16,
-            }}
-          >
-            Proven by Results.
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 17,
-              lineHeight: 1.75,
-              color: "var(--color-ink-muted)",
-              maxWidth: 560,
+              fontFamily: "var(--serif)",
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: "clamp(18px, 2.5vw, 26px)",
+              color: "rgba(242,233,218,0.75)",
               marginTop: 24,
-              marginBottom: 64,
+              maxWidth: 560,
             }}
           >
-            Dr. Marla Sabater does not just advise on building businesses. She
-            has built five of them across accounting, construction, hospitality,
-            food and beverage, and international trade.
-          </div>
-
+            Thirty years. Eight companies. One vision.
+          </p>
           <div
-            className="company-grid"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: 2,
+              margin: "36px 0",
+              height: 2,
+              background: "var(--gold)",
+              width: "clamp(100px, 20vw, 240px)",
             }}
-          >
-            <div
-              className="company-tile"
-              style={{
-                background: "rgba(255, 255, 255, 0.04)",
-                border: "1px solid rgba(201, 168, 76, 0.15)",
-                padding: "40px 32px",
-                display: "flex",
-                flexDirection: "column",
-                cursor: "pointer",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  color: "var(--color-gold)",
-                  marginBottom: 24,
-                }}
-              >
-                01
-              </div>
-              <div
-                className="company-name"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 28,
-                  fontWeight: 600,
-                  color: "var(--color-ink-light)",
-                  lineHeight: 1.2,
-                  marginBottom: 8,
-                }}
-              >
-                Premium Services Corporation
-              </div>
-              <div
-                className="company-industry"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.14em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                  marginBottom: 16,
-                }}
-              >
-                ACCOUNTING. TAX. PAYROLL.
-              </div>
-              <div
-                className="company-desc"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  lineHeight: 1.7,
-                  color: "var(--color-ink-muted)",
-                  flex: 1,
-                }}
-              >
-                Full-service accounting, tax strategy, and payroll for small
-                businesses in Rhode Island, Massachusetts, and nationwide.
-              </div>
-              <div
-                style={{
-                  marginTop: 32,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.12em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                }}
-              >
-                LEARN MORE →
-              </div>
-            </div>
-
-            <div
-              className="company-tile"
-              style={{
-                background: "rgba(255, 255, 255, 0.04)",
-                border: "1px solid rgba(201, 168, 76, 0.15)",
-                padding: "40px 32px",
-                display: "flex",
-                flexDirection: "column",
-                cursor: "pointer",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  color: "var(--color-gold)",
-                  marginBottom: 24,
-                }}
-              >
-                02
-              </div>
-              <div
-                className="company-name"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 28,
-                  fontWeight: 600,
-                  color: "var(--color-ink-light)",
-                  lineHeight: 1.2,
-                  marginBottom: 8,
-                }}
-              >
-                Premium Services Group
-              </div>
-              <div
-                className="company-industry"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.14em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                  marginBottom: 16,
-                }}
-              >
-                CONSTRUCTION. CONTRACTING.
-              </div>
-              <div
-                className="company-desc"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  lineHeight: 1.7,
-                  color: "var(--color-ink-muted)",
-                  flex: 1,
-                }}
-              >
-                General contracting and home improvement services across Rhode
-                Island and Greater Boston.
-              </div>
-              <div
-                style={{
-                  marginTop: 32,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.12em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                }}
-              >
-                LEARN MORE →
-              </div>
-            </div>
-
-            <div
-              className="company-tile"
-              style={{
-                background: "rgba(255, 255, 255, 0.04)",
-                border: "1px solid rgba(201, 168, 76, 0.15)",
-                padding: "40px 32px",
-                display: "flex",
-                flexDirection: "column",
-                cursor: "pointer",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  color: "var(--color-gold)",
-                  marginBottom: 24,
-                }}
-              >
-                03
-              </div>
-              <div
-                className="company-name"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 28,
-                  fontWeight: 600,
-                  color: "var(--color-ink-light)",
-                  lineHeight: 1.2,
-                  marginBottom: 8,
-                }}
-              >
-                Marvic Hospitality Group
-              </div>
-              <div
-                className="company-industry"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.14em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                  marginBottom: 16,
-                }}
-              >
-                HOSPITALITY MANAGEMENT.
-              </div>
-              <div
-                className="company-desc"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  lineHeight: 1.7,
-                  color: "var(--color-ink-muted)",
-                  flex: 1,
-                }}
-              >
-                Hospitality operations and management services in Providence,
-                Rhode Island.
-              </div>
-              <div
-                style={{
-                  marginTop: 32,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.12em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                }}
-              >
-                LEARN MORE →
-              </div>
-            </div>
-          </div>
-
-          <div
-            className="company-grid-bottom"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: 2,
-              marginTop: 2,
-            }}
-          >
-            <div
-              className="company-tile"
-              style={{
-                background: "rgba(255, 255, 255, 0.04)",
-                border: "1px solid rgba(201, 168, 76, 0.15)",
-                padding: "40px 32px",
-                display: "flex",
-                flexDirection: "column",
-                cursor: "pointer",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  color: "var(--color-gold)",
-                  marginBottom: 24,
-                }}
-              >
-                04
-              </div>
-              <div
-                className="company-name"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 28,
-                  fontWeight: 600,
-                  color: "var(--color-ink-light)",
-                  lineHeight: 1.2,
-                  marginBottom: 8,
-                }}
-              >
-                Fire and Flavor Smokehouse
-              </div>
-              <div
-                className="company-industry"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.14em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                  marginBottom: 16,
-                }}
-              >
-                RESTAURANT. CATERING.
-              </div>
-              <div
-                className="company-desc"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  lineHeight: 1.7,
-                  color: "var(--color-ink-muted)",
-                  flex: 1,
-                }}
-              >
-                Award-winning BBQ and smokehouse cuisine in Providence, Rhode
-                Island. Online ordering and catering available.
-              </div>
-              <div
-                style={{
-                  marginTop: 32,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.12em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                }}
-              >
-                LEARN MORE →
-              </div>
-            </div>
-
-            <div
-              className="company-tile"
-              style={{
-                background: "rgba(255, 255, 255, 0.04)",
-                border: "1px solid rgba(201, 168, 76, 0.15)",
-                padding: "40px 32px",
-                display: "flex",
-                flexDirection: "column",
-                cursor: "pointer",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  color: "var(--color-gold)",
-                  marginBottom: 24,
-                }}
-              >
-                05
-              </div>
-              <div
-                className="company-name"
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 28,
-                  fontWeight: 600,
-                  color: "var(--color-ink-light)",
-                  lineHeight: 1.2,
-                  marginBottom: 8,
-                }}
-              >
-                Marla Imports and Associates
-              </div>
-              <div
-                className="company-industry"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.14em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                  marginBottom: 16,
-                }}
-              >
-                INTERNATIONAL TRADE.
-              </div>
-              <div
-                className="company-desc"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  lineHeight: 1.7,
-                  color: "var(--color-ink-muted)",
-                  flex: 1,
-                }}
-              >
-                Import and export business advisory serving U.S. based companies
-                with international operations.
-              </div>
-              <div
-                style={{
-                  marginTop: 32,
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.12em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                }}
-              >
-                LEARN MORE →
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="video"
-        className="video-section"
-        style={{
-          background: "var(--color-warm)",
-          padding: "96px 64px",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1400,
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "row",
-            gap: 80,
-            alignItems: "center",
-          }}
-        >
+          />
           <div
             style={{
-              width: "40%",
-              flexShrink: 0,
               display: "flex",
-              flexDirection: "column",
+              gap: 20,
+              flexWrap: "wrap",
+              alignItems: "center",
             }}
           >
-            <div
+            <a
+              href="#contact"
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                letterSpacing: "0.14em",
-                color: "var(--color-gold)",
-                textTransform: "uppercase",
-                marginBottom: 24,
-              }}
-            >
-              HEAR FROM DR. MARLA
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(36px, 4vw, 52px)",
+                background: "transparent",
+                border: "1px solid var(--gold)",
+                color: "var(--gold)",
+                padding: "14px 28px",
+                fontFamily: "var(--sans)",
                 fontWeight: 600,
-                color: "var(--color-ink)",
-                lineHeight: 1.15,
-                marginBottom: 24,
+                fontSize: 11,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                textDecoration: "none",
               }}
             >
-              Her Expertise. Her Words. Her Vision.
-            </div>
-            <div
+              Schedule a Consultation
+            </a>
+            <a
+              href="#ecosystem"
               style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 16,
-                lineHeight: 1.75,
-                color: "var(--color-ink-secondary)",
-                marginBottom: 40,
+                color: "rgba(242,233,218,0.65)",
+                fontFamily: "var(--sans)",
+                fontWeight: 600,
+                fontSize: 11,
+                letterSpacing: "0.2em",
+                textTransform: "uppercase",
+                textDecoration: "none",
               }}
             >
-              Dr. Marla shares her insights on accounting, business strategy,
-              and what it takes to build something that lasts. Available in
-              English and Spanish.
-            </div>
-            <div
-              style={{
-                display: "flex",
-                gap: 8,
-                alignItems: "center",
-              }}
-            >
-              <button
-                type="button"
-                className="lang-btn lang-btn-active"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  padding: "8px 20px",
-                  cursor: "pointer",
-                  borderRadius: 0,
-                  border: "none",
-                  background: "var(--color-dark)",
-                  color: "var(--color-ink-light)",
-                }}
-              >
-                EN
-              </button>
-              <button
-                type="button"
-                className="lang-btn"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.1em",
-                  padding: "8px 20px",
-                  cursor: "pointer",
-                  borderRadius: 0,
-                  border: "1px solid var(--color-border)",
-                  background: "transparent",
-                  color: "var(--color-ink-secondary)",
-                }}
-              >
-                ES
-              </button>
-              {/* TODO: Wire language toggle to swap video src when AI videos are ready */}
-            </div>
+              Explore the Ecosystem →
+            </a>
           </div>
+        </div>
 
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            padding: "28px var(--gut) 40px",
+            borderTop: "1px solid rgba(242,233,218,0.2)",
+            display: "flex",
+            gap: "clamp(24px, 5vw, 64px)",
+            zIndex: 1,
+          }}
+        >
+          {[
+            { num: "30", label: "Years Built" },
+            { num: "8", label: "Companies" },
+            { num: "1,000+", label: "Clients Served" },
+          ].map((stat) => (
+            <div key={stat.label}>
+              <div
+                style={{
+                  fontFamily: "var(--serif)",
+                  fontWeight: 400,
+                  fontSize: "clamp(32px, 5vw, 52px)",
+                  color: "var(--cream)",
+                  lineHeight: 1,
+                }}
+              >
+                {stat.num}
+              </div>
+              <div
+                style={{
+                  fontFamily: "var(--sans)",
+                  fontWeight: 600,
+                  fontSize: 10,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "var(--gold-soft)",
+                  marginTop: 8,
+                }}
+              >
+                {stat.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
+        id="about"
+        style={{
+          background: "var(--cream-2)",
+          padding: "clamp(64px, 10vh, 120px) var(--gut)",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--sans)",
+            fontWeight: 600,
+            fontSize: 11,
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            color: "var(--gold-deep)",
+            marginBottom: 20,
+          }}
+        >
+          Meet Dr. Marla
+        </div>
+        <h2
+          style={{
+            fontFamily: "var(--serif)",
+            fontWeight: 400,
+            fontSize: "clamp(34px, 5.5vw, 64px)",
+            lineHeight: 1,
+            letterSpacing: "-0.015em",
+            color: "var(--ink)",
+            margin: 0,
+          }}
+        >
+          The builder behind the ecosystem.
+        </h2>
+        <p
+          style={{
+            fontFamily: "var(--serif)",
+            fontStyle: "italic",
+            fontWeight: 400,
+            fontSize: "clamp(17px, 2.2vw, 22px)",
+            lineHeight: 1.45,
+            color: "var(--ink-70)",
+            maxWidth: 680,
+            marginTop: 28,
+          }}
+        >
+          Dr. Marla Yanice Sabater has spent three decades building businesses,
+          serving clients, and creating opportunities across Rhode Island and
+          nationwide. Across finance, construction, food, media, hospitality,
+          and automotive, the work is one: making businesses, communities, and
+          people stronger.
+        </p>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 10,
+            marginTop: 36,
+          }}
+        >
+          {["MBA", "Th.D", "Published Author", "30 Years"].map((chip) => (
+            <span
+              key={chip}
+              style={{
+                border: "1px solid var(--ink-15)",
+                padding: "10px 18px",
+                background: "var(--paper)",
+                fontFamily: "var(--sans)",
+                fontWeight: 600,
+                fontSize: 10,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                color: "var(--ink-70)",
+              }}
+            >
+              {chip}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <section
+        id="ecosystem"
+        style={{
+          position: "relative",
+          overflow: "hidden",
+          background: "var(--bordeaux)",
+          color: "var(--cream)",
+          padding: "clamp(64px, 10vh, 120px) var(--gut)",
+        }}
+      >
+        <Grain />
+        <div style={{ position: "relative", zIndex: 1 }}>
           <div
             style={{
-              flex: 1,
-              display: "flex",
-              flexDirection: "column",
+              fontFamily: "var(--sans)",
+              fontWeight: 600,
+              fontSize: 11,
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+              color: "var(--gold-soft)",
+              marginBottom: 20,
             }}
           >
-            <div
-              className="video-placeholder"
-              style={{
-                aspectRatio: "16 / 9",
-                background: "var(--color-dark)",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                position: "relative",
-                width: "100%",
-              }}
-            >
+            The Ecosystem
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--serif)",
+              fontWeight: 400,
+              fontSize: "clamp(36px, 6vw, 72px)",
+              lineHeight: 0.96,
+              margin: 0,
+            }}
+          >
+            Eight companies.{" "}
+            <em style={{ fontStyle: "italic", color: "var(--gold-soft)" }}>
+              One house.
+            </em>
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--serif)",
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: "clamp(16px, 2vw, 20px)",
+              color: "rgba(242,233,218,0.72)",
+              maxWidth: 560,
+              marginTop: 16,
+              marginBottom: 48,
+            }}
+          >
+            Each company is independent in focus, unified in standard.
+          </p>
+
+          <div style={{ borderTop: "1px solid rgba(242,233,218,0.2)" }}>
+            {COMPANIES.map((c) => (
               <div
+                key={c.no}
                 style={{
-                  width: 80,
-                  height: 80,
-                  borderRadius: "50%",
-                  border: "2px solid var(--color-gold)",
+                  borderBottom: "1px solid rgba(242,233,218,0.15)",
+                  padding: "20px 0",
                   display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginBottom: 24,
+                  alignItems: "baseline",
+                  gap: 16,
+                  flexWrap: "wrap",
                 }}
               >
-                <div
+                <span
                   style={{
-                    width: 0,
-                    height: 0,
-                    borderTop: "12px solid transparent",
-                    borderBottom: "12px solid transparent",
-                    borderLeft: "20px solid var(--color-gold)",
-                    marginLeft: 4,
+                    fontFamily: "var(--sans)",
+                    fontWeight: 600,
+                    fontSize: 11,
+                    letterSpacing: "0.18em",
+                    color: "var(--gold-soft)",
+                    minWidth: 36,
                   }}
-                />
+                >
+                  No. {c.no}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--serif)",
+                    fontWeight: 400,
+                    fontSize: "clamp(18px, 2.4vw, 26px)",
+                    color: "var(--cream)",
+                    flex: 1,
+                    display: "flex",
+                    alignItems: "baseline",
+                    gap: 12,
+                    flexWrap: "wrap",
+                  }}
+                >
+                  {c.flagship && (
+                    <span
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontWeight: 700,
+                        fontSize: 9,
+                        letterSpacing: "0.24em",
+                        background: "var(--gold-soft)",
+                        color: "var(--bordeaux)",
+                        padding: "3px 8px",
+                      }}
+                    >
+                      FLAGSHIP
+                    </span>
+                  )}
+                  {c.name}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 600,
+                    fontSize: 10,
+                    letterSpacing: "0.16em",
+                    textTransform: "uppercase",
+                    color: "rgba(242,233,218,0.55)",
+                  }}
+                >
+                  {c.role}
+                </span>
               </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.14em",
-                  color: "var(--color-gold)",
-                  textTransform: "uppercase",
-                }}
-              >
-                VIDEO COMING SOON
-              </div>
-              <div
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 13,
-                  color: "var(--color-ink-muted)",
-                  marginTop: 12,
-                  textAlign: "center",
-                  maxWidth: 280,
-                }}
-              >
-                AI-generated video content featuring Dr. Marla will appear here.
-              </div>
-            </div>
-            {/* TODO: Replace video-placeholder div with the following when ready:
-            <iframe
-              src="YOUR_VIDEO_URL"
-              title="Dr. Marla Sabater - Expert Insights"
-              style={{ width: '100%', aspectRatio: '16/9', border: 'none' }}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-            */}
+            ))}
           </div>
         </div>
       </section>
 
       <section
-        id="bilingual"
-        className="bilingual-section"
         style={{
-          display: "flex",
-          flexDirection: "row",
-          minHeight: 480,
+          position: "relative",
+          overflow: "hidden",
+          background:
+            "radial-gradient(100% 84% at 28% 28%, rgba(201,162,60,0.22), rgba(110,31,42,0) 56%), linear-gradient(160deg, #8A2738, #651E2A 58%, #531824)",
+          color: "var(--cream)",
+          padding: "clamp(64px, 10vh, 120px) var(--gut)",
+        }}
+      >
+        <Grain />
+        <div style={{ position: "relative", zIndex: 1 }}>
+          <div
+            style={{
+              fontFamily: "var(--sans)",
+              fontWeight: 700,
+              fontSize: 10,
+              letterSpacing: "0.32em",
+              textTransform: "uppercase",
+              color: "var(--gold-soft)",
+              marginBottom: 20,
+            }}
+          >
+            The Flagship
+          </div>
+          <h2
+            style={{
+              fontFamily: "var(--serif)",
+              fontWeight: 400,
+              fontSize: "clamp(42px, 8vw, 108px)",
+              lineHeight: 0.92,
+              margin: 0,
+            }}
+          >
+            Premium Services{" "}
+            <em style={{ fontStyle: "italic", color: "var(--gold-soft)" }}>
+              Enterprise.
+            </em>
+          </h2>
+          <div
+            style={{
+              height: 2,
+              background: "var(--gold)",
+              width: "clamp(120px, 26vw, 320px)",
+              margin: "32px 0",
+            }}
+          />
+          <p
+            style={{
+              fontFamily: "var(--serif)",
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: "clamp(18px, 2.5vw, 26px)",
+              color: "rgba(242,233,218,0.82)",
+              maxWidth: 520,
+              margin: 0,
+            }}
+          >
+            Property, holdings, and the long view. Building and acquiring for
+            the decades ahead.
+          </p>
+          <div
+            style={{
+              fontFamily: "var(--sans)",
+              fontWeight: 600,
+              fontSize: 10,
+              letterSpacing: "0.26em",
+              textTransform: "uppercase",
+              color: "rgba(242,233,218,0.55)",
+              marginTop: 40,
+            }}
+          >
+            A Dr. Marla Company · Established 1996
+          </div>
+        </div>
+      </section>
+
+      <section
+        style={{
+          background: "var(--cream)",
+          padding: "clamp(64px, 10vh, 120px) var(--gut)",
         }}
       >
         <div
-          className="bilingual-left"
           style={{
-            width: "50%",
-            background: "var(--color-dark)",
-            padding: "80px 64px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            fontFamily: "var(--sans)",
+            fontWeight: 600,
+            fontSize: 11,
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            color: "var(--gold-deep)",
+            marginBottom: 20,
           }}
         >
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.14em",
-              color: "var(--color-gold)",
-              textTransform: "uppercase",
-              marginBottom: 24,
-            }}
-          >
-            ENGLISH
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(32px, 4vw, 48px)",
-              fontWeight: 600,
-              color: "var(--color-ink-light)",
-              lineHeight: 1.2,
-              marginBottom: 24,
-            }}
-          >
-            Serving small businesses across Rhode Island and the East Coast.
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 16,
-              lineHeight: 1.75,
-              color: "var(--color-ink-muted)",
-              marginBottom: 40,
-            }}
-          >
-            30 years of trusted financial services for small business owners.
-            Whether you are just starting out or scaling up, we bring the
-            expertise your business deserves.
-          </div>
-          <Link
-            href="#contact"
-            className="bilingual-cta-dark"
-            style={{
-              display: "inline-block",
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.1em",
-              fontWeight: 500,
-              textDecoration: "none",
-              textTransform: "uppercase",
-              background: "var(--color-gold)",
-              color: "var(--color-dark)",
-              padding: "14px 32px",
-              alignSelf: "flex-start",
-            }}
-          >
-            BOOK A STRATEGY SESSION
-          </Link>
+          What We Do
         </div>
-
-        <div
-          className="bilingual-right"
+        <h2
           style={{
-            width: "50%",
-            background: "var(--color-gold)",
-            padding: "80px 64px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            fontFamily: "var(--serif)",
+            fontWeight: 400,
+            fontSize: "clamp(34px, 5vw, 60px)",
+            lineHeight: 1,
+            color: "var(--ink)",
+            margin: 0,
+            marginBottom: 48,
           }}
         >
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.14em",
-              color: "var(--color-dark)",
-              textTransform: "uppercase",
-              marginBottom: 24,
-              opacity: 0.7,
-            }}
-          >
-            ESPANOL
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(32px, 4vw, 48px)",
-              fontWeight: 600,
-              color: "var(--color-dark)",
-              lineHeight: 1.2,
-              marginBottom: 24,
-            }}
-          >
-            Sirviendo a pequenos negocios en Rhode Island y la Costa Este.
-          </div>
-          <div
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: 16,
-              lineHeight: 1.75,
-              color: "var(--color-dark)",
-              opacity: 0.75,
-              marginBottom: 40,
-            }}
-          >
-            30 anos de servicios financieros de confianza para duenos de
-            pequenos negocios. Ya sea que este comenzando o creciendo, traemos
-            la experiencia que su negocio merece.
-          </div>
-          <Link
-            href="#contact"
-            className="bilingual-cta-gold"
-            style={{
-              display: "inline-block",
-              fontFamily: "var(--font-mono)",
-              fontSize: 11,
-              letterSpacing: "0.1em",
-              fontWeight: 500,
-              textDecoration: "none",
-              textTransform: "uppercase",
-              background: "var(--color-dark)",
-              color: "var(--color-ink-light)",
-              padding: "14px 32px",
-              alignSelf: "flex-start",
-            }}
-          >
-            AGENDE SU CONSULTA
-          </Link>
+          Expert services for{" "}
+          <em style={{ fontStyle: "italic", color: "var(--crimson)" }}>
+            every stage
+          </em>{" "}
+          of your business.
+        </h2>
+        <div
+          className="services-grid"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            gap: 16,
+          }}
+        >
+          {SERVICES.map((s) => (
+            <div
+              key={s.no}
+              style={{
+                border: "1px solid var(--ink-15)",
+                padding: 28,
+                background: "var(--paper)",
+              }}
+            >
+              <div
+                style={{
+                  fontFamily: "var(--sans)",
+                  fontWeight: 600,
+                  fontSize: 11,
+                  letterSpacing: "0.2em",
+                  color: "var(--gold-deep)",
+                  marginBottom: 14,
+                }}
+              >
+                {s.no}
+              </div>
+              <h3
+                style={{
+                  fontFamily: "var(--serif)",
+                  fontWeight: 400,
+                  fontSize: 24,
+                  color: "var(--ink)",
+                  margin: 0,
+                  marginBottom: 12,
+                }}
+              >
+                {s.title}
+              </h3>
+              <p
+                style={{
+                  fontFamily: "var(--sans)",
+                  fontSize: 14,
+                  color: "var(--ink-70)",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                {s.body}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
       <section
         id="contact"
-        className="contact-section"
         style={{
-          background: "var(--color-base)",
-          padding: "96px 64px",
+          background: "var(--cream-2)",
+          padding: "clamp(64px, 10vh, 120px) var(--gut)",
         }}
       >
         <div
+          className="contact-grid"
           style={{
-            maxWidth: 1400,
-            margin: "0 auto",
-            display: "flex",
-            flexDirection: "row",
-            gap: 96,
+            display: "grid",
+            gridTemplateColumns: "1fr",
+            gap: 64,
           }}
         >
-          <div
-            style={{
-              width: "40%",
-              flexShrink: 0,
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
+          <div>
             <div
               style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 11,
-                letterSpacing: "0.14em",
-                color: "var(--color-gold)",
-                textTransform: "uppercase",
-                marginBottom: 24,
-              }}
-            >
-              GET IN TOUCH
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: "clamp(36px, 4vw, 52px)",
+                fontFamily: "var(--sans)",
                 fontWeight: 600,
-                color: "var(--color-ink)",
-                lineHeight: 1.15,
-                marginBottom: 40,
+                fontSize: 11,
+                letterSpacing: "0.3em",
+                textTransform: "uppercase",
+                color: "var(--gold-deep)",
+                marginBottom: 20,
               }}
             >
-              Let&apos;s talk about your business.
+              Get In Touch
             </div>
+            <h2
+              style={{
+                fontFamily: "var(--serif)",
+                fontWeight: 400,
+                fontSize: "clamp(30px, 4.5vw, 52px)",
+                lineHeight: 1,
+                color: "var(--ink)",
+                margin: 0,
+              }}
+            >
+              Let&apos;s talk about your{" "}
+              <em style={{ fontStyle: "italic", color: "var(--crimson)" }}>
+                business.
+              </em>
+            </h2>
             <div
               style={{
+                marginTop: 32,
                 display: "flex",
                 flexDirection: "column",
-                gap: 16,
+                gap: 14,
               }}
             >
-              {[
-                "356 Manton Avenue, Suite 1A",
-                "Providence, RI 02909",
-                "(401) 321-3781",
-                "Marla@msabater.com",
-                "@drmarlabizpro on Instagram",
-              ].map((text) => (
+              {CONTACT_ITEMS.map((item) => (
                 <div
-                  key={text}
+                  key={item}
                   style={{
+                    fontFamily: "var(--sans)",
+                    fontSize: 14,
+                    color: "var(--ink-70)",
                     display: "flex",
-                    alignItems: "flex-start",
                     gap: 12,
+                    alignItems: "flex-start",
                   }}
                 >
-                  <div
+                  <span
                     style={{
                       width: 6,
                       height: 6,
                       borderRadius: "50%",
-                      background: "var(--color-gold)",
-                      marginTop: 8,
+                      background: "var(--gold)",
                       flexShrink: 0,
+                      marginTop: 5,
                     }}
                   />
-                  <span
-                    style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: 15,
-                      color: "var(--color-ink-secondary)",
-                      lineHeight: 1.6,
-                    }}
-                  >
-                    {text}
-                  </span>
+                  <span>{item}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div style={{ flex: 1 }}>
-            <form
-              action="https://api.web3forms.com/submit"
-              method="POST"
-              className="contact-form"
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 24,
-              }}
-            >
-              {/* TODO: Replace YOUR_WEB3FORMS_KEY with real key from web3forms.com - free account, takes 2 minutes */}
-              <input
-                type="hidden"
-                name="access_key"
-                value="YOUR_WEB3FORMS_KEY"
-              />
-              <input
-                type="hidden"
-                name="subject"
-                value="New inquiry from marlasabater.com"
-              />
-              <input type="hidden" name="redirect" value="false" />
-              <input type="hidden" name="botcheck" value="" />
-
+          <div>
+            {sent ? (
               <div
+                style={{
+                  fontFamily: "var(--serif)",
+                  fontStyle: "italic",
+                  fontSize: "clamp(20px, 2.4vw, 28px)",
+                  color: "var(--ink)",
+                  background: "var(--paper)",
+                  border: "1px solid var(--ink-15)",
+                  padding: 32,
+                }}
+              >
+                Message sent. We will be in touch shortly.
+              </div>
+            ) : (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setSent(true);
+                }}
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  gap: 8,
+                  gap: 20,
                 }}
               >
-                <label
+                {[
+                  { name: "name", label: "Full Name", type: "text" },
+                  { name: "email", label: "Email Address", type: "email" },
+                  { name: "phone", label: "Phone Number", type: "tel" },
+                ].map((f) => (
+                  <div key={f.name}>
+                    <label
+                      htmlFor={f.name}
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontWeight: 600,
+                        fontSize: 10,
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        color: "var(--ink-45)",
+                        display: "block",
+                        marginBottom: 6,
+                      }}
+                    >
+                      {f.label}
+                    </label>
+                    <input
+                      id={f.name}
+                      name={f.name}
+                      type={f.type}
+                      className="form-field"
+                      style={{
+                        width: "100%",
+                        border: "1px solid var(--ink-15)",
+                        background: "var(--paper)",
+                        padding: 12,
+                        fontFamily: "var(--sans)",
+                        fontSize: 14,
+                        color: "var(--ink)",
+                        outline: "none",
+                      }}
+                    />
+                  </div>
+                ))}
+                <div>
+                  <label
+                    htmlFor="message"
+                    style={{
+                      fontFamily: "var(--sans)",
+                      fontWeight: 600,
+                      fontSize: 10,
+                      letterSpacing: "0.18em",
+                      textTransform: "uppercase",
+                      color: "var(--ink-45)",
+                      display: "block",
+                      marginBottom: 6,
+                    }}
+                  >
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    className="form-field"
+                    style={{
+                      width: "100%",
+                      border: "1px solid var(--ink-15)",
+                      background: "var(--paper)",
+                      padding: 12,
+                      fontFamily: "var(--sans)",
+                      fontSize: 14,
+                      color: "var(--ink)",
+                      outline: "none",
+                      resize: "vertical",
+                    }}
+                  />
+                </div>
+                <button
+                  type="submit"
                   style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 10,
-                    letterSpacing: "0.14em",
-                    color: "var(--color-ink-secondary)",
+                    background: "var(--bordeaux)",
+                    color: "var(--cream)",
+                    border: "none",
+                    padding: "14px 32px",
+                    fontFamily: "var(--sans)",
+                    fontWeight: 600,
+                    fontSize: 11,
+                    letterSpacing: "0.22em",
                     textTransform: "uppercase",
-                  }}
-                >
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your full name"
-                  required
-                  className="form-input"
-                  style={{
+                    cursor: "pointer",
                     width: "100%",
-                    fontFamily: "var(--font-body)",
-                    fontSize: 15,
-                    color: "var(--color-ink)",
-                    background: "white",
-                    border: "1px solid var(--color-border)",
-                    padding: 16,
-                    borderRadius: 0,
-                    outline: "none",
-                  }}
-                />
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                }}
-              >
-                <label
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 10,
-                    letterSpacing: "0.14em",
-                    color: "var(--color-ink-secondary)",
-                    textTransform: "uppercase",
                   }}
                 >
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="your@email.com"
-                  required
-                  className="form-input"
-                  style={{
-                    width: "100%",
-                    fontFamily: "var(--font-body)",
-                    fontSize: 15,
-                    color: "var(--color-ink)",
-                    background: "white",
-                    border: "1px solid var(--color-border)",
-                    padding: 16,
-                    borderRadius: 0,
-                    outline: "none",
-                  }}
-                />
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                }}
-              >
-                <label
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 10,
-                    letterSpacing: "0.14em",
-                    color: "var(--color-ink-secondary)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="(401) 000-0000"
-                  className="form-input"
-                  style={{
-                    width: "100%",
-                    fontFamily: "var(--font-body)",
-                    fontSize: 15,
-                    color: "var(--color-ink)",
-                    background: "white",
-                    border: "1px solid var(--color-border)",
-                    padding: 16,
-                    borderRadius: 0,
-                    outline: "none",
-                  }}
-                />
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                }}
-              >
-                <label
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 10,
-                    letterSpacing: "0.14em",
-                    color: "var(--color-ink-secondary)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Service Interest
-                </label>
-                <select
-                  name="service"
-                  className="form-input"
-                  defaultValue=""
-                  style={{
-                    width: "100%",
-                    fontFamily: "var(--font-body)",
-                    fontSize: 15,
-                    color: "var(--color-ink)",
-                    background: "white",
-                    border: "1px solid var(--color-border)",
-                    padding: 16,
-                    borderRadius: 0,
-                    outline: "none",
-                  }}
-                >
-                  <option value="" disabled>
-                    Select a service
-                  </option>
-                  <option value="accounting">Accounting Services</option>
-                  <option value="payroll">Payroll Services</option>
-                  <option value="insurance">Insurance Advisory</option>
-                  <option value="consulting">Business Consulting</option>
-                  <option value="multiple">Multiple Services</option>
-                </select>
-              </div>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                }}
-              >
-                <label
-                  style={{
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 10,
-                    letterSpacing: "0.14em",
-                    color: "var(--color-ink-secondary)",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Tell us about your business
-                </label>
-                <textarea
-                  name="message"
-                  rows={4}
-                  placeholder="Brief description of your business and what you need help with"
-                  className="form-input"
-                  style={{
-                    width: "100%",
-                    fontFamily: "var(--font-body)",
-                    fontSize: 15,
-                    color: "var(--color-ink)",
-                    background: "white",
-                    border: "1px solid var(--color-border)",
-                    padding: 16,
-                    borderRadius: 0,
-                    outline: "none",
-                    resize: "vertical",
-                    minHeight: 120,
-                  }}
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="form-submit"
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: "0.12em",
-                  fontWeight: 500,
-                  textTransform: "uppercase",
-                  background: "var(--color-dark)",
-                  color: "var(--color-ink-light)",
-                  padding: "20px 32px",
-                  border: "none",
-                  borderRadius: 0,
-                  cursor: "pointer",
-                  width: "100%",
-                  marginTop: 8,
-                }}
-              >
-                SEND MESSAGE
-              </button>
-            </form>
+                  Send Message
+                </button>
+              </form>
+            )}
           </div>
         </div>
       </section>
-    </main>
 
-    <footer
-      className="site-footer"
-      style={{
-        background: "var(--color-dark)",
-        padding: "80px 64px 40px",
-      }}
-    >
-      <div style={{ maxWidth: 1400, margin: "0 auto" }}>
+      <footer
+        style={{
+          background: "#48141E",
+          color: "rgba(242,233,218,0.7)",
+          padding: "clamp(48px, 8vh, 90px) var(--gut)",
+        }}
+      >
         <div
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 48,
-            paddingBottom: 64,
+            fontFamily: "var(--serif)",
+            fontWeight: 400,
+            fontSize: "clamp(28px, 4.5vw, 48px)",
+            color: "var(--cream)",
+            lineHeight: 0.95,
           }}
         >
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 13,
-                letterSpacing: "0.15em",
-                color: "var(--color-ink-light)",
-                fontWeight: 500,
-              }}
-            >
-              MARLA SABATER
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 10,
-                letterSpacing: "0.12em",
-                color: "var(--color-gold)",
-                marginTop: 6,
-              }}
-            >
-              MBA. TH.D. PUBLIC ACCOUNTANT
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 14,
-                lineHeight: 1.7,
-                color: "var(--color-ink-muted)",
-                marginTop: 20,
-              }}
-            >
-              Full-service accounting, payroll, and business advisory.
-              Providence, Rhode Island.
-            </div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 10,
-                letterSpacing: "0.1em",
-                color: "var(--color-ink-muted)",
-                marginTop: 16,
-              }}
-            >
-              @drmarlabizpro
-            </div>
-          </div>
-
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 10,
-                letterSpacing: "0.14em",
-                color: "var(--color-gold)",
-                textTransform: "uppercase",
-                marginBottom: 24,
-              }}
-            >
-              SERVICES
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 12,
-              }}
-            >
-              <a
-                href="#services"
-                className="footer-link"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  color: "var(--color-ink-muted)",
-                  textDecoration: "none",
-                }}
-              >
-                Accounting Services
-              </a>
-              <a
-                href="#services"
-                className="footer-link"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  color: "var(--color-ink-muted)",
-                  textDecoration: "none",
-                }}
-              >
-                Payroll Services
-              </a>
-              <a
-                href="#services"
-                className="footer-link"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  color: "var(--color-ink-muted)",
-                  textDecoration: "none",
-                }}
-              >
-                Insurance Advisory
-              </a>
-              <a
-                href="#contact"
-                className="footer-link"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  color: "var(--color-ink-muted)",
-                  textDecoration: "none",
-                }}
-              >
-                Business Consulting
-              </a>
-              <a
-                href="#contact"
-                className="footer-link"
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 14,
-                  color: "var(--color-ink-muted)",
-                  textDecoration: "none",
-                }}
-              >
-                Tax Strategy
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 10,
-                letterSpacing: "0.14em",
-                color: "var(--color-gold)",
-                textTransform: "uppercase",
-                marginBottom: 24,
-              }}
-            >
-              LOCATIONS
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 12,
-              }}
-            >
-              {[
-                "Providence, RI",
-                "Cranston, RI",
-                "Warwick, RI",
-                "Boston, MA",
-                "Worcester, MA",
-                "Nationwide Remote",
-              ].map((loc) => (
-                <div
-                  key={loc}
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 14,
-                    color: "var(--color-ink-muted)",
-                  }}
-                >
-                  {loc}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <div
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 10,
-                letterSpacing: "0.14em",
-                color: "var(--color-gold)",
-                textTransform: "uppercase",
-                marginBottom: 24,
-              }}
-            >
-              CONNECT
-            </div>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 12,
-              }}
-            >
-              {[
-                "(401) 321-3781",
-                "Marla@msabater.com",
-                "356 Manton Ave, Providence RI",
-              ].map((item) => (
-                <div
-                  key={item}
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: 14,
-                    color: "var(--color-ink-muted)",
-                  }}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-            <div style={{ marginTop: 24 }}>
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--color-ink-muted)",
-                }}
-              >
-                EN
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--color-ink-muted)",
-                }}
-              >
-                {" / "}
-              </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  color: "var(--color-ink-muted)",
-                }}
-              >
-                ES
-              </span>
-            </div>
-          </div>
+          Dr. Marla
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--sans)",
+            fontWeight: 600,
+            fontSize: 10,
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
+            color: "var(--gold-soft)",
+            marginTop: 10,
+          }}
+        >
+          MBA · Th.D · Published Author
         </div>
 
-        <div
-          style={{
-            borderTop: "1px solid rgba(255, 255, 255, 0.08)",
-            paddingTop: 32,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+        <div style={{ marginTop: 40 }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
+            {["Ecosystem", "About", "Contact", "Privacy", "Terms"].map(
+              (label) => (
+                <a
+                  key={label}
+                  href={`#${label.toLowerCase()}`}
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 600,
+                    fontSize: 10,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: "rgba(242,233,218,0.55)",
+                    textDecoration: "none",
+                  }}
+                >
+                  {label}
+                </a>
+              )
+            )}
+          </div>
           <div
             style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 10,
-              letterSpacing: "0.1em",
-              color: "var(--color-ink-muted)",
+              fontFamily: "var(--sans)",
+              fontSize: 11,
+              color: "rgba(242,233,218,0.45)",
+              marginTop: 14,
             }}
           >
-            2025 MARLA SABATER. ALL RIGHTS RESERVED.
-          </div>
-          <div style={{ display: "flex", gap: 24 }}>
-            <Link
-              href="/privacy"
-              className="footer-link"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 10,
-                letterSpacing: "0.1em",
-                color: "var(--color-ink-muted)",
-                textDecoration: "none",
-              }}
-            >
-              PRIVACY POLICY
-            </Link>
-            <Link
-              href="/terms"
-              className="footer-link"
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: 10,
-                letterSpacing: "0.1em",
-                color: "var(--color-ink-muted)",
-                textDecoration: "none",
-              }}
-            >
-              TERMS
-            </Link>
+            © 2026 Dr. Marla Sabater. All rights reserved.
           </div>
         </div>
-      </div>
-    </footer>
+
+        <div
+          style={{
+            borderTop: "1px solid rgba(242,233,218,0.12)",
+            marginTop: 40,
+            paddingTop: 24,
+            textAlign: "center",
+            fontFamily: "var(--serif)",
+            fontStyle: "italic",
+            fontSize: 14,
+            color: "rgba(242,233,218,0.35)",
+          }}
+        >
+          A house of eight companies.
+        </div>
+      </footer>
     </>
   );
 }
