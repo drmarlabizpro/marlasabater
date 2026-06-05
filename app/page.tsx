@@ -1,6 +1,5 @@
-"use client";
-
-import { useState } from "react";
+import type { Metadata } from "next";
+import ContactForm from "@/components/ContactForm";
 
 const GRAIN_URL =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
@@ -74,9 +73,28 @@ const CONTACT_ITEMS = [
   "@drmarlabizpro",
 ];
 
-export default function Home() {
-  const [sent, setSent] = useState(false);
+export const metadata: Metadata = {
+  title: 'Dr. Marla Sabater | Business Strategist & Ecosystem Founder | Providence, RI',
+  description: 'Dr. Marla Sabater is a business strategist, published author, and founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Based in Providence, RI. Serving nationwide since 1996.',
+  keywords: ['Dr Marla Sabater', 'business strategist Providence RI', 'accounting payroll Rhode Island', 'bilingual business advisor', 'ecosystem founder', 'Premium Services Corporation'],
+  openGraph: {
+    title: 'Dr. Marla Sabater | Business Strategist & Ecosystem Founder',
+    description: 'Eight companies. One vision. Thirty years building businesses in Providence, RI and nationwide.',
+    url: 'https://marlasabater.com',
+    siteName: 'Dr. Marla Sabater',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Dr. Marla Sabater | Business Strategist & Ecosystem Founder',
+    description: 'Eight companies. One vision. Thirty years building businesses in Providence, RI and nationwide.',
+  },
+  alternates: {
+    canonical: 'https://marlasabater.com',
+  },
+};
 
+export default function Home() {
   return (
     <>
       <style>{`
@@ -87,7 +105,6 @@ export default function Home() {
           .services-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .contact-grid { grid-template-columns: 1fr 1fr !important; }
         }
-        .form-field:focus { border-color: var(--gold) !important; }
       `}</style>
 
       <header
@@ -769,127 +786,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div>
-            {sent ? (
-              <div
-                style={{
-                  fontFamily: "var(--serif)",
-                  fontStyle: "italic",
-                  fontSize: "clamp(20px, 2.4vw, 28px)",
-                  color: "var(--ink)",
-                  background: "var(--paper)",
-                  border: "1px solid var(--ink-15)",
-                  padding: 32,
-                }}
-              >
-                Message sent. We will be in touch shortly.
-              </div>
-            ) : (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSent(true);
-                }}
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 20,
-                }}
-              >
-                {[
-                  { name: "name", label: "Full Name", type: "text" },
-                  { name: "email", label: "Email Address", type: "email" },
-                  { name: "phone", label: "Phone Number", type: "tel" },
-                ].map((f) => (
-                  <div key={f.name}>
-                    <label
-                      htmlFor={f.name}
-                      style={{
-                        fontFamily: "var(--sans)",
-                        fontWeight: 600,
-                        fontSize: 10,
-                        letterSpacing: "0.18em",
-                        textTransform: "uppercase",
-                        color: "var(--ink-45)",
-                        display: "block",
-                        marginBottom: 6,
-                      }}
-                    >
-                      {f.label}
-                    </label>
-                    <input
-                      id={f.name}
-                      name={f.name}
-                      type={f.type}
-                      className="form-field"
-                      style={{
-                        width: "100%",
-                        border: "1px solid var(--ink-15)",
-                        background: "var(--paper)",
-                        padding: 12,
-                        fontFamily: "var(--sans)",
-                        fontSize: 14,
-                        color: "var(--ink)",
-                        outline: "none",
-                      }}
-                    />
-                  </div>
-                ))}
-                <div>
-                  <label
-                    htmlFor="message"
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 600,
-                      fontSize: 10,
-                      letterSpacing: "0.18em",
-                      textTransform: "uppercase",
-                      color: "var(--ink-45)",
-                      display: "block",
-                      marginBottom: 6,
-                    }}
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    className="form-field"
-                    style={{
-                      width: "100%",
-                      border: "1px solid var(--ink-15)",
-                      background: "var(--paper)",
-                      padding: 12,
-                      fontFamily: "var(--sans)",
-                      fontSize: 14,
-                      color: "var(--ink)",
-                      outline: "none",
-                      resize: "vertical",
-                    }}
-                  />
-                </div>
-                <button
-                  type="submit"
-                  style={{
-                    background: "var(--bordeaux)",
-                    color: "var(--cream)",
-                    border: "none",
-                    padding: "14px 32px",
-                    fontFamily: "var(--sans)",
-                    fontWeight: 600,
-                    fontSize: 11,
-                    letterSpacing: "0.22em",
-                    textTransform: "uppercase",
-                    cursor: "pointer",
-                    width: "100%",
-                  }}
-                >
-                  Send Message
-                </button>
-              </form>
-            )}
-          </div>
+          <ContactForm />
         </div>
       </section>
 
