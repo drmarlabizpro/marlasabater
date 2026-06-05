@@ -1,4 +1,26 @@
+import type { Metadata } from 'next'
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: 'About Dr. Marla Sabater | MBA · Th.D | Business Strategist & Author',
+  description: 'Dr. Marla Yanice Sabater — MBA, Th.D, published author, and founder of eight companies. Thirty years building businesses across Rhode Island and nationwide. Read her story.',
+  keywords: ['Dr Marla Sabater biography', 'business strategist author Providence RI', 'MBA ThD founder', 'Structural Integrity book', 'Marla Sabater eight companies'],
+  openGraph: {
+    title: 'About Dr. Marla Sabater | MBA · Th.D | Business Strategist',
+    description: 'Thirty years building businesses. Eight companies. One founder. Read her story.',
+    url: 'https://marlasabater.com/about',
+    siteName: 'Dr. Marla Sabater',
+    type: 'profile',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Dr. Marla Sabater',
+    description: 'Thirty years building businesses. Eight companies. One founder.',
+  },
+  alternates: {
+    canonical: 'https://marlasabater.com/about',
+  },
+}
 
 const GRAIN_URL =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
@@ -79,7 +101,7 @@ export default function About() {
               marginBottom: 32,
             }}
           >
-            Dr. Marla Ecosystem → About
+            Dr. Marla Ecosystem / About
           </div>
           <h1
             style={{
@@ -205,7 +227,7 @@ export default function About() {
               }}
             >
               Her career began in Providence, Rhode Island, where Premium
-              Services Corporation became the cornerstone of a growing
+              Services Corporation became the foundation of a growing
               ecosystem. Each company that followed was built because she saw
               a need her community did not have a strong answer to. Not a
               portfolio. A vision, built one company at a time.
@@ -506,7 +528,7 @@ export default function About() {
         </div>
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           <Link
-            href="/#contact"
+            href="/contact"
             style={{
               background: "var(--bordeaux)",
               color: "var(--cream)",
