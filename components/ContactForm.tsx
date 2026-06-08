@@ -80,6 +80,30 @@ export default function ContactForm() {
           </div>
         ))}
         <div>
+          <label htmlFor="service" style={labelStyle}>
+            Service Interest
+          </label>
+          <select
+            id="service"
+            name="service"
+            defaultValue=""
+            className="form-field"
+            style={inputStyle}
+          >
+            <option value="" disabled>Select a service</option>
+            <option value="accounting-tax">Accounting &amp; Tax</option>
+            <option value="payroll">Payroll Services</option>
+            <option value="business-advisory">Business Advisory</option>
+            <option value="investments-acquisitions">Investments &amp; Acquisitions</option>
+            <option value="construction-development">Construction &amp; Development</option>
+            <option value="food-hospitality">Food &amp; Hospitality</option>
+            <option value="media-talent">Media &amp; Talent</option>
+            <option value="hospitality-entertainment">Hospitality &amp; Entertainment</option>
+            <option value="automotive">Automotive</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div>
           <label htmlFor="message" style={labelStyle}>
             Message
           </label>

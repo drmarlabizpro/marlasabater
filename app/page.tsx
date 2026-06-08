@@ -123,9 +123,6 @@ export default function Home() {
   return (
     <>
       <style>{`
-        @media (max-width: 767px) {
-          .nav-links, .nav-cta { display: none !important; }
-        }
         @media (min-width: 768px) {
           .services-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .contact-grid { grid-template-columns: 1fr 1fr !important; }
@@ -135,71 +132,6 @@ export default function Home() {
         .home-eco-row .home-eco-arrow { opacity: 0; transition: opacity 200ms ease; }
         .home-eco-row:hover .home-eco-arrow { opacity: 1; }
       `}</style>
-
-      <header
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-          background: "var(--bordeaux)",
-          padding: "20px var(--gut)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <a
-          href="#top"
-          style={{
-            fontFamily: "var(--serif)",
-            fontWeight: 400,
-            fontSize: 22,
-            color: "var(--cream)",
-            textDecoration: "none",
-          }}
-        >
-          Dr. Marla
-        </a>
-        <nav
-          className="nav-links"
-          style={{ display: "flex", alignItems: "center", gap: 28 }}
-        >
-          {["Ecosystem", "About", "Contact"].map((label) => (
-            <Link
-              key={label}
-              href={`/${label.toLowerCase()}`}
-              style={{
-                fontFamily: "var(--sans)",
-                fontWeight: 600,
-                fontSize: 11,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "rgba(242,233,218,0.7)",
-                textDecoration: "none",
-              }}
-            >
-              {label}
-            </Link>
-          ))}
-        </nav>
-        <Link
-          href="/contact"
-          className="nav-cta"
-          style={{
-            border: "1px solid var(--gold)",
-            color: "var(--gold)",
-            padding: "10px 18px",
-            fontFamily: "var(--sans)",
-            fontWeight: 600,
-            fontSize: 10,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            textDecoration: "none",
-          }}
-        >
-          Schedule a Consultation
-        </Link>
-      </header>
 
       <section
         id="top"
@@ -872,8 +804,8 @@ export default function Home() {
               { label: "Ecosystem", href: "/ecosystem" },
               { label: "About", href: "/about" },
               { label: "Contact", href: "/contact" },
-              { label: "Privacy", href: "#privacy" },
-              { label: "Terms", href: "#terms" },
+              { label: "Privacy", href: "/privacy" },
+              { label: "Terms", href: "/terms" },
             ].map((item) => (
               <Link
                 key={item.label}

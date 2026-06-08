@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Newsreader, Archivo } from "next/font/google";
+import Header from "@/components/Header";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -73,7 +74,10 @@ export default function RootLayout({
       className={`${newsreader.variable} ${archivo.variable}`}
       style={{ colorScheme: "light" }}
     >
-      <body>{children}</body>
+      <body style={{ paddingTop: "72px" }}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
