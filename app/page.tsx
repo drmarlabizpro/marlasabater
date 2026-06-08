@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import ContactForm from "@/components/ContactForm";
 
 const GRAIN_URL =
@@ -21,31 +22,55 @@ function Grain() {
 }
 
 const COMPANIES = [
-  { no: "01", name: "Dr. Marla Biz Pro Corp", role: "LEADERSHIP & STRATEGY" },
+  {
+    no: "01",
+    name: "Dr. Marla Biz Pro Corp",
+    href: "/ecosystem",
+    role: "LEADERSHIP & STRATEGY",
+  },
   {
     no: "02",
     name: "Premium Services Enterprise",
+    href: "/ecosystem/enterprise",
     role: "INVESTMENTS & ACQUISITIONS",
     flagship: true,
   },
   {
     no: "03",
     name: "Premium Services Corporation",
+    href: "/ecosystem/corporation",
     role: "FINANCIAL & WEALTH MANAGEMENT",
   },
   {
     no: "04",
     name: "Premium Services Group",
+    href: "/ecosystem/group",
     role: "CONSTRUCTION & DEVELOPMENT",
   },
-  { no: "05", name: "Flavor Movement", role: "FOOD & HOSPITALITY" },
-  { no: "06", name: "Legacy Production House", role: "MEDIA & TALENT" },
+  {
+    no: "05",
+    name: "Flavor Movement",
+    href: "/ecosystem/flavor",
+    role: "FOOD & HOSPITALITY",
+  },
+  {
+    no: "06",
+    name: "Legacy Production House",
+    href: "/ecosystem/legacy",
+    role: "MEDIA & TALENT",
+  },
   {
     no: "07",
     name: "Marvic Hospitality Group",
+    href: "/ecosystem/marvic",
     role: "HOSPITALITY & ENTERTAINMENT",
   },
-  { no: "08", name: "PSG Motor Group", role: "AUTOMOTIVE SALES & SERVICES" },
+  {
+    no: "08",
+    name: "PSG Motor Group",
+    href: "/ecosystem/psg",
+    role: "AUTOMOTIVE SALES & SERVICES",
+  },
 ];
 
 const SERVICES = [
@@ -105,6 +130,10 @@ export default function Home() {
           .services-grid { grid-template-columns: repeat(3, 1fr) !important; }
           .contact-grid { grid-template-columns: 1fr 1fr !important; }
         }
+        .home-eco-row { transition: background 200ms ease; }
+        .home-eco-row:hover { background: rgba(242,233,218,0.05); }
+        .home-eco-row .home-eco-arrow { opacity: 0; transition: opacity 200ms ease; }
+        .home-eco-row:hover .home-eco-arrow { opacity: 1; }
       `}</style>
 
       <header
@@ -136,9 +165,9 @@ export default function Home() {
           style={{ display: "flex", alignItems: "center", gap: 28 }}
         >
           {["Ecosystem", "About", "Contact"].map((label) => (
-            <a
+            <Link
               key={label}
-              href={`#${label.toLowerCase()}`}
+              href={`/${label.toLowerCase()}`}
               style={{
                 fontFamily: "var(--sans)",
                 fontWeight: 600,
@@ -150,11 +179,11 @@ export default function Home() {
               }}
             >
               {label}
-            </a>
+            </Link>
           ))}
         </nav>
-        <a
-          href="#contact"
+        <Link
+          href="/contact"
           className="nav-cta"
           style={{
             border: "1px solid var(--gold)",
@@ -169,7 +198,7 @@ export default function Home() {
           }}
         >
           Schedule a Consultation
-        </a>
+        </Link>
       </header>
 
       <section
@@ -246,8 +275,8 @@ export default function Home() {
               alignItems: "center",
             }}
           >
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               style={{
                 background: "transparent",
                 border: "1px solid var(--gold)",
@@ -263,9 +292,9 @@ export default function Home() {
               }}
             >
               Schedule a Consultation
-            </a>
-            <a
-              href="#ecosystem"
+            </Link>
+            <Link
+              href="/ecosystem"
               style={{
                 color: "rgba(242,233,218,0.65)",
                 fontFamily: "var(--sans)",
@@ -277,7 +306,7 @@ export default function Home() {
               }}
             >
               Explore the Ecosystem →
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -465,8 +494,10 @@ export default function Home() {
 
           <div style={{ borderTop: "1px solid rgba(242,233,218,0.2)" }}>
             {COMPANIES.map((c) => (
-              <div
+              <Link
                 key={c.no}
+                href={c.href}
+                className="home-eco-row"
                 style={{
                   borderBottom: "1px solid rgba(242,233,218,0.15)",
                   padding: "20px 0",
@@ -474,6 +505,8 @@ export default function Home() {
                   alignItems: "baseline",
                   gap: 16,
                   flexWrap: "wrap",
+                  textDecoration: "none",
+                  color: "inherit",
                 }}
               >
                 <span
@@ -530,7 +563,18 @@ export default function Home() {
                 >
                   {c.role}
                 </span>
-              </div>
+                <span
+                  className="home-eco-arrow"
+                  aria-hidden
+                  style={{
+                    fontFamily: "var(--sans)",
+                    fontWeight: 600,
+                    color: "var(--gold-soft)",
+                  }}
+                >
+                  →
+                </span>
+              </Link>
             ))}
           </div>
         </div>
@@ -824,25 +868,29 @@ export default function Home() {
 
         <div style={{ marginTop: 40 }}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-            {["Ecosystem", "About", "Contact", "Privacy", "Terms"].map(
-              (label) => (
-                <a
-                  key={label}
-                  href={`#${label.toLowerCase()}`}
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontWeight: 600,
-                    fontSize: 10,
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    color: "rgba(242,233,218,0.55)",
-                    textDecoration: "none",
-                  }}
-                >
-                  {label}
-                </a>
-              )
-            )}
+            {[
+              { label: "Ecosystem", href: "/ecosystem" },
+              { label: "About", href: "/about" },
+              { label: "Contact", href: "/contact" },
+              { label: "Privacy", href: "#privacy" },
+              { label: "Terms", href: "#terms" },
+            ].map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                style={{
+                  fontFamily: "var(--sans)",
+                  fontWeight: 600,
+                  fontSize: 10,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "rgba(242,233,218,0.55)",
+                  textDecoration: "none",
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
           <div
             style={{
