@@ -24,7 +24,7 @@ export default function Header() {
     return () => { document.body.style.overflow = '' }
   }, [open])
 
-  const solid = scrolled || open
+  const solid = true
 
   return (
     <>

@@ -30,14 +30,14 @@ const HOURS = [
 ]
 
 const SERVICES = [
-  "Financial & Wealth Management",
-  "Investments & Acquisitions",
-  "Construction & Development",
-  "Food & Hospitality",
-  "Media & Talent",
-  "Hospitality & Entertainment",
-  "Automotive Sales & Services",
-  "Leadership & Strategy",
+  { name: "Financial & Wealth Management", href: "/ecosystem/corporation" },
+  { name: "Investments & Acquisitions", href: "/ecosystem/enterprise" },
+  { name: "Construction & Development", href: "/ecosystem/group" },
+  { name: "Food & Hospitality", href: "/ecosystem/flavor" },
+  { name: "Media & Talent", href: "/ecosystem/legacy" },
+  { name: "Hospitality & Entertainment", href: "/ecosystem/marvic" },
+  { name: "Automotive Sales & Services", href: "/ecosystem/psg" },
+  { name: "Leadership & Strategy", href: "/ecosystem" },
 ]
 
 const detailRowStyle = {
@@ -79,6 +79,10 @@ export default function Contact() {
         @media (min-width: 768px) {
           .contact-body { grid-template-columns: 1fr 1fr !important; gap: 80px !important; }
         }
+        .service-link { color: var(--ink-70); transition: color 0.2s; text-decoration: none; display: block; }
+        .service-link:hover { color: var(--crimson); }
+        .service-arrow { opacity: 0; transition: opacity 0.2s; }
+        .service-link:hover .service-arrow { opacity: 1; }
       `}</style>
 
       <section
@@ -226,18 +230,21 @@ export default function Contact() {
                 }}
               >
                 {SERVICES.map((item) => (
-                  <li
-                    key={item}
-                    style={{
-                      fontFamily: "var(--sans)",
-                      fontWeight: 500,
-                      fontSize: 13,
-                      color: "var(--ink-70)",
-                      lineHeight: 2,
-                      letterSpacing: "0.04em",
-                    }}
-                  >
-                    {item}
+                  <li key={item.name}>
+                    <a
+                      href={item.href}
+                      className="service-link"
+                      style={{
+                        fontFamily: "var(--sans)",
+                        fontWeight: 500,
+                        fontSize: 13,
+                        lineHeight: 2,
+                        letterSpacing: "0.04em",
+                      }}
+                    >
+                      {item.name}
+                      <span className="service-arrow" aria-hidden>{" "}→</span>
+                    </a>
                   </li>
                 ))}
               </ul>
