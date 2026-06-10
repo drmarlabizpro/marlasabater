@@ -1,86 +1,83 @@
-"use client";
+'use client'
 
-import { useState } from "react";
+import { useState } from 'react'
 
 const FIELDS = [
-  { name: "name", label: "Full Name", type: "text" },
-  { name: "email", label: "Email Address", type: "email" },
-  { name: "phone", label: "Phone Number", type: "tel" },
-];
+  { name: 'name', label: 'Full Name', type: 'text', placeholder: 'Your full name' },
+  { name: 'email', label: 'Email Address', type: 'email', placeholder: 'your@email.com' },
+  { name: 'phone', label: 'Phone Number', type: 'tel', placeholder: '(401) 000-0000' },
+]
 
-const labelStyle = {
-  fontFamily: "var(--sans)",
+const labelStyle: React.CSSProperties = {
+  fontFamily: 'var(--sans)',
   fontWeight: 600,
   fontSize: 10,
-  letterSpacing: "0.18em",
-  textTransform: "uppercase" as const,
-  color: "var(--ink-45)",
-  display: "block",
+  letterSpacing: '0.18em',
+  textTransform: 'uppercase',
+  color: 'var(--ink-45)',
+  display: 'block',
   marginBottom: 6,
-};
+}
 
-const inputStyle = {
-  width: "100%",
-  border: "1px solid var(--ink-15)",
-  background: "var(--paper)",
-  padding: 12,
-  fontFamily: "var(--sans)",
+const inputStyle: React.CSSProperties = {
+  width: '100%',
+  border: '1px solid var(--ink-15)',
+  background: 'var(--paper)',
+  padding: '12px 14px',
+  fontFamily: 'var(--sans)',
   fontSize: 14,
-  color: "var(--ink)",
-  outline: "none",
-};
+  color: 'var(--ink)',
+  outline: 'none',
+  borderRadius: 0,
+  appearance: 'none' as const,
+  WebkitAppearance: 'none' as const,
+  boxSizing: 'border-box' as const,
+}
 
-export default function ContactForm() {
-  const [sent, setSent] = useState(false);
+export default function ContactForm({ dark = false }: { dark?: boolean }) {
+  const [sent, setSent] = useState(false)
 
   if (sent) {
     return (
-      <div
-        style={{
-          fontFamily: "var(--serif)",
-          fontStyle: "italic",
-          fontSize: "clamp(20px, 2.4vw, 28px)",
-          color: "var(--ink)",
-          background: "var(--paper)",
-          border: "1px solid var(--ink-15)",
-          padding: 32,
-        }}
-      >
+      <div style={{
+        fontFamily: 'var(--serif)',
+        fontStyle: 'italic',
+        fontSize: 'clamp(18px, 2.4vw, 24px)',
+        color: dark ? 'var(--cream)' : 'var(--ink)',
+        background: dark ? 'rgba(242,233,218,0.08)' : 'var(--paper)',
+        border: dark ? '1px solid rgba(242,233,218,0.2)' : '1px solid var(--ink-15)',
+        padding: 32,
+      }}>
         Message sent. We will be in touch shortly.
       </div>
-    );
+    )
   }
 
   return (
-    <div>
-      <style>{`.form-field:focus { border-color: var(--gold) !important; }`}</style>
+    <div className={dark ? 'contact-form-dark' : ''}>
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          setSent(true);
-        }}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 20,
-        }}
+        onSubmit={(e) => { e.preventDefault(); setSent(true) }}
+        style={{ display: 'flex', flexDirection: 'column', gap: 20 }}
       >
         {FIELDS.map((f) => (
           <div key={f.name}>
-            <label htmlFor={f.name} style={labelStyle}>
+            <label htmlFor={f.name} style={labelStyle} className="form-label">
               {f.label}
             </label>
             <input
               id={f.name}
               name={f.name}
               type={f.type}
+              placeholder={f.placeholder}
               className="form-field"
               style={inputStyle}
+              required={f.name === 'name' || f.name === 'email'}
             />
           </div>
         ))}
+
         <div>
-          <label htmlFor="service" style={labelStyle}>
+          <label htmlFor="service" style={labelStyle} className="form-label">
             Service Interest
           </label>
           <select
@@ -103,37 +100,42 @@ export default function ContactForm() {
             <option value="other">Other</option>
           </select>
         </div>
+
         <div>
-          <label htmlFor="message" style={labelStyle}>
+          <label htmlFor="message" style={labelStyle} className="form-label">
             Message
           </label>
           <textarea
             id="message"
             name="message"
             rows={4}
+            placeholder="Tell us about your business and what you need..."
             className="form-field"
-            style={{ ...inputStyle, resize: "vertical" }}
+            style={{ ...inputStyle, resize: 'vertical', minHeight: '120px' }}
           />
         </div>
+
         <button
           type="submit"
+          className="form-submit"
           style={{
-            background: "var(--bordeaux)",
-            color: "var(--cream)",
-            border: "none",
-            padding: "14px 32px",
-            fontFamily: "var(--sans)",
+            background: 'var(--bordeaux)',
+            color: 'var(--cream)',
+            border: 'none',
+            padding: '15px 32px',
+            fontFamily: 'var(--sans)',
             fontWeight: 600,
             fontSize: 11,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            cursor: "pointer",
-            width: "100%",
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            transition: 'background 0.2s',
+            width: '100%',
           }}
         >
           Send Message
         </button>
       </form>
     </div>
-  );
+  )
 }

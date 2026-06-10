@@ -1097,7 +1097,7 @@ export default function Home() {
           </div>
 
           <div>
-            <ContactForm />
+            <ContactForm dark={true} />
           </div>
         </div>
       </section>

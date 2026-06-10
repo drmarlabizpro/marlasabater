@@ -10,185 +10,75 @@ const NAV = [
 ]
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
     return () => { document.body.style.overflow = '' }
   }, [open])
 
-  const solid = true
+  // Close menu on route change / resize above breakpoint
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth > 768) setOpen(false) }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
 
   return (
     <>
-      <header style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        padding: '0 var(--gut)',
-        height: '72px',
-        display: 'flex', alignItems: 'center',
-        justifyContent: 'space-between',
-        background: solid ? 'var(--bordeaux)' : 'transparent',
-        borderBottom: solid ? '1px solid var(--gold)' : '1px solid transparent',
-        transition: 'background 0.4s ease, border-color 0.4s ease',
-      }}>
+      <header className="site-header">
 
         {/* Wordmark */}
-        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'baseline', gap: '10px', flexShrink: 0 }}>
-          <span style={{
-            fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(18px, 2.4vw, 24px)',
-            letterSpacing: '-0.015em', lineHeight: 1,
-            color: 'var(--cream)',
-            whiteSpace: 'nowrap',
-          }}>
-            Dr. <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Marla</em>
+        <Link href="/" className="site-wordmark">
+          <span className="site-wordmark-name">
+            Dr. <em>Marla</em>
           </span>
-          <span style={{
-            fontFamily: 'var(--sans)', fontWeight: 600,
-            fontSize: '9px', letterSpacing: '0.28em',
-            textTransform: 'uppercase',
-            color: 'var(--gold-soft)',
-            whiteSpace: 'nowrap',
-          }}>
-            EST. 1996
-          </span>
+          <span className="site-wordmark-est">EST. 1996</span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav style={{
-          display: 'flex', alignItems: 'center', gap: '32px',
-        }} className="desktop-nav">
+        {/* Desktop nav — hidden on mobile via CSS */}
+        <nav className="site-nav-desktop">
           {NAV.map(({ label, href }) => (
-            <Link key={href} href={href} style={{
-              fontFamily: 'var(--sans)', fontWeight: 600,
-              fontSize: '11px', letterSpacing: '0.22em',
-              textTransform: 'uppercase', textDecoration: 'none',
-              color: 'rgba(242,233,218,0.72)',
-              paddingBottom: '2px',
-              borderBottom: '1px solid transparent',
-              transition: 'color 0.2s, border-color 0.2s',
-            }}
-            onMouseEnter={e => {
-              (e.target as HTMLElement).style.color = 'var(--gold-soft)'
-              ;(e.target as HTMLElement).style.borderBottomColor = 'var(--gold)'
-            }}
-            onMouseLeave={e => {
-              (e.target as HTMLElement).style.color = 'rgba(242,233,218,0.72)'
-              ;(e.target as HTMLElement).style.borderBottomColor = 'transparent'
-            }}>
+            <Link key={href} href={href} className="site-nav-link">
               {label}
             </Link>
           ))}
-          <Link href="/contact" style={{
-            fontFamily: 'var(--sans)', fontWeight: 600,
-            fontSize: '10px', letterSpacing: '0.22em',
-            textTransform: 'uppercase', textDecoration: 'none',
-            color: 'var(--gold)',
-            border: '1px solid var(--gold)',
-            padding: '10px 20px',
-            transition: 'background 0.2s, color 0.2s',
-          }}
-          onMouseEnter={e => {
-            const el = e.currentTarget as HTMLElement
-            el.style.background = 'var(--gold)'
-            el.style.color = 'var(--bordeaux)'
-          }}
-          onMouseLeave={e => {
-            const el = e.currentTarget as HTMLElement
-            el.style.background = 'transparent'
-            el.style.color = 'var(--gold)'
-          }}>
+          <Link href="/contact" className="site-nav-cta">
             Schedule a Consultation
           </Link>
         </nav>
 
-        {/* Mobile hamburger */}
+        {/* Hamburger — visible on mobile only via CSS */}
         <button
+          className="site-hamburger"
           onClick={() => setOpen(!open)}
-          className="mobile-menu-btn"
           aria-label={open ? 'Close menu' : 'Open menu'}
-          style={{
-            background: 'none', border: 'none', cursor: 'pointer',
-            display: 'flex', flexDirection: 'column',
-            justifyContent: 'center', alignItems: 'center',
-            gap: '5px', padding: '8px', flexShrink: 0,
-            width: '40px', height: '40px',
-          }}>
-          <span style={{
-            display: 'block', height: '1px', width: '22px',
-            background: 'var(--cream)',
-            transition: 'transform 0.25s ease, opacity 0.25s ease',
-            transform: open ? 'translateY(6px) rotate(45deg)' : 'none',
-          }} />
-          <span style={{
-            display: 'block', height: '1px', width: '22px',
-            background: 'var(--cream)',
-            transition: 'opacity 0.25s ease',
-            opacity: open ? 0 : 1,
-          }} />
-          <span style={{
-            display: 'block', height: '1px', width: '22px',
-            background: 'var(--cream)',
-            transition: 'transform 0.25s ease, opacity 0.25s ease',
-            transform: open ? 'translateY(-6px) rotate(-45deg)' : 'none',
-          }} />
+          aria-expanded={open}
+        >
+          <span className={`site-hamburger-line ${open ? 'line-top-open' : ''}`} />
+          <span className={`site-hamburger-line ${open ? 'line-mid-open' : ''}`} />
+          <span className={`site-hamburger-line ${open ? 'line-bot-open' : ''}`} />
         </button>
       </header>
 
-      {/* Mobile overlay menu */}
-      <div style={{
-        position: 'fixed', inset: 0, zIndex: 100,
-        background: 'var(--bordeaux)',
-        display: 'flex', flexDirection: 'column',
-        justifyContent: 'flex-start',
-        padding: 'var(--gut)',
-        paddingTop: 'calc(72px + clamp(40px, 8vh, 80px))',
-        opacity: open ? 1 : 0,
-        transform: open ? 'translateY(0)' : 'translateY(-12px)',
-        pointerEvents: open ? 'all' : 'none',
-        transition: 'opacity 0.35s ease, transform 0.35s ease',
-      }}>
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      {/* Mobile overlay */}
+      <div className={`site-mobile-overlay ${open ? 'overlay-open' : ''}`}>
+        <nav className="site-mobile-nav">
           {[...NAV, { label: 'Schedule a Consultation', href: '/contact' }].map(({ label, href }) => (
-            <Link key={href} href={href}
+            <Link
+              key={href}
+              href={href}
+              className="site-mobile-nav-link"
               onClick={() => setOpen(false)}
-              style={{
-                fontFamily: 'var(--serif)', fontWeight: 400,
-                fontSize: 'clamp(32px, 8vw, 64px)',
-                letterSpacing: '-0.02em', lineHeight: 1.1,
-                color: 'var(--cream)', textDecoration: 'none',
-                borderBottom: '1px solid rgba(242,233,218,0.15)',
-                paddingBottom: '16px',
-              }}>
+            >
               {label}
             </Link>
           ))}
         </nav>
-        <div style={{
-          marginTop: '48px',
-          fontFamily: 'var(--sans)', fontWeight: 600,
-          fontSize: '10px', letterSpacing: '0.28em',
-          textTransform: 'uppercase', color: 'var(--gold-soft)',
-        }}>
+        <div className="site-mobile-endorse">
           Dr. Marla Ecosystem · Est. 1996
         </div>
       </div>
-
-      <style>{`
-        .desktop-nav { display: flex; }
-        .mobile-menu-btn { display: none; }
-        @media (max-width: 768px) {
-          .desktop-nav { display: none; }
-          .mobile-menu-btn { display: flex; }
-        }
-      `}</style>
     </>
   )
 }
