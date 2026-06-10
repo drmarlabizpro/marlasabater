@@ -40,12 +40,13 @@ export default function Header() {
       }}>
 
         {/* Wordmark */}
-        <Link href="/" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: '2px' }}>
+        <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'baseline', gap: '10px', flexShrink: 0 }}>
           <span style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
             fontSize: 'clamp(18px, 2.4vw, 24px)',
             letterSpacing: '-0.015em', lineHeight: 1,
             color: 'var(--cream)',
+            whiteSpace: 'nowrap',
           }}>
             Dr. <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Marla</em>
           </span>
@@ -53,8 +54,8 @@ export default function Header() {
             fontFamily: 'var(--sans)', fontWeight: 600,
             fontSize: '9px', letterSpacing: '0.28em',
             textTransform: 'uppercase',
-            color: solid ? 'var(--gold-soft)' : 'rgba(242,233,218,0.5)',
-            transition: 'color 0.4s ease',
+            color: 'var(--gold-soft)',
+            whiteSpace: 'nowrap',
           }}>
             EST. 1996
           </span>
@@ -116,29 +117,43 @@ export default function Header() {
           style={{
             background: 'none', border: 'none', cursor: 'pointer',
             display: 'flex', flexDirection: 'column',
-            justifyContent: 'center', gap: '5px',
-            padding: '8px',
+            justifyContent: 'center', alignItems: 'center',
+            gap: '5px', padding: '8px', flexShrink: 0,
+            width: '40px', height: '40px',
           }}>
-          {[0,1,2].map(i => (
-            <span key={i} style={{
-              display: 'block', height: '1px', background: 'var(--cream)',
-              transition: 'width 0.2s',
-              width: i === 1 ? (open ? '16px' : '24px') : '24px',
-            }} />
-          ))}
+          <span style={{
+            display: 'block', height: '1px', width: '22px',
+            background: 'var(--cream)',
+            transition: 'transform 0.25s ease, opacity 0.25s ease',
+            transform: open ? 'translateY(6px) rotate(45deg)' : 'none',
+          }} />
+          <span style={{
+            display: 'block', height: '1px', width: '22px',
+            background: 'var(--cream)',
+            transition: 'opacity 0.25s ease',
+            opacity: open ? 0 : 1,
+          }} />
+          <span style={{
+            display: 'block', height: '1px', width: '22px',
+            background: 'var(--cream)',
+            transition: 'transform 0.25s ease, opacity 0.25s ease',
+            transform: open ? 'translateY(-6px) rotate(-45deg)' : 'none',
+          }} />
         </button>
       </header>
 
       {/* Mobile overlay menu */}
       <div style={{
-        position: 'fixed', inset: 0, zIndex: 99,
+        position: 'fixed', inset: 0, zIndex: 100,
         background: 'var(--bordeaux)',
         display: 'flex', flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         padding: 'var(--gut)',
+        paddingTop: 'calc(72px + clamp(40px, 8vh, 80px))',
         opacity: open ? 1 : 0,
+        transform: open ? 'translateY(0)' : 'translateY(-12px)',
         pointerEvents: open ? 'all' : 'none',
-        transition: 'opacity 0.35s ease',
+        transition: 'opacity 0.35s ease, transform 0.35s ease',
       }}>
         <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           {[...NAV, { label: 'Schedule a Consultation', href: '/contact' }].map(({ label, href }) => (
