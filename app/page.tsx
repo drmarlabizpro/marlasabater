@@ -251,7 +251,7 @@ export default function Home() {
       `}</style>
 
       {/* SECTION 1: HERO */}
-      <section style={{
+      <section data-hero="true" style={{
         position: 'relative',
         overflow: 'hidden',
         minHeight: '92vh',
@@ -375,7 +375,7 @@ export default function Home() {
       }}>
         <div ref={statsRef}>
           <div ref={heroReveal.ref} style={revealStyle(heroReveal.visible)}>
-            <div className="home-stats-row" style={{
+            <div className="home-stats-row" data-stats="true" style={{
               display: 'flex', flexWrap: 'wrap', gap: 'clamp(32px,6vw,96px)',
             }}>
               {[
@@ -383,7 +383,7 @@ export default function Home() {
                 { num: count8, suffix: '', label: 'COMPANIES BUILT', ctx: 'Finance, construction, food, media, hospitality, automotive' },
                 { num: count1000, suffix: '+', label: 'BUSINESSES AND FAMILIES SERVED', ctx: 'Across Rhode Island, Puerto Rico, and nationwide' },
               ].map((s, i) => (
-                <div key={i} className="home-stats-block">
+                <div key={i} className="home-stats-block" data-stat-item="true">
                   <div style={{
                     fontFamily: 'var(--serif)', fontWeight: 400,
                     fontSize: 'clamp(56px,9vw,96px)', lineHeight: 1,
@@ -453,7 +453,7 @@ export default function Home() {
             LEADERSHIP PHILOSOPHY
           </div>
 
-          <div style={{
+          <div data-pullquote="true" style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
             fontSize: 'clamp(28px,4.5vw,58px)', lineHeight: 1.08,
             letterSpacing: '-0.015em', color: 'var(--cream)', maxWidth: 820,
@@ -518,7 +518,7 @@ export default function Home() {
       }}>
         <div>
           <div ref={ecosystemRef} style={revealStyle(ecosystemVisible)}>
-            <div className="home-eco-intro" style={{ display: 'block' }}>
+            <div className="home-eco-intro" data-cols="2" style={{ display: 'block' }}>
               <div>
                 <div style={{
                   fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
@@ -576,6 +576,7 @@ export default function Home() {
                   key={c.no}
                   href={c.href}
                   className="home-eco-row"
+                  data-eco-row="true"
                   onMouseEnter={() => setHoveredRow(c.no)}
                   onMouseLeave={() => setHoveredRow(null)}
                   style={{
@@ -639,7 +640,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'baseline', whiteSpace: 'nowrap' }}>
+                  <div data-eco-row-right="true" style={{ display: 'flex', alignItems: 'baseline', whiteSpace: 'nowrap' }}>
                     <span style={{
                       fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
                       letterSpacing: '0.22em', textTransform: 'uppercase',
@@ -699,7 +700,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="home-impact-grid" style={{
+          <div className="home-impact-grid" data-cols="3" style={{
             display: 'grid', gridTemplateColumns: '1fr', gap: 2,
           }}>
             {[
@@ -745,7 +746,7 @@ export default function Home() {
         padding: 'clamp(72px,11vh,120px) var(--gut)',
       }}>
         <Grain opacity={0.06} />
-        <div ref={aboutReveal.ref} className="home-about-grid" style={{
+        <div ref={aboutReveal.ref} className="home-about-grid" data-cols="2" style={{
           position: 'relative', zIndex: 2,
           display: 'grid', gridTemplateColumns: '1fr', gap: 80,
           ...revealStyle(aboutReveal.visible),
@@ -853,7 +854,7 @@ export default function Home() {
             }}
           />
 
-          <div ref={cardsRef} className="home-featured-grid" style={{
+          <div ref={cardsRef} className="home-featured-grid" data-cards="true" data-cols="3" style={{
             display: 'grid', gridTemplateColumns: '1fr', gap: 16,
           }}>
             {/* Card 1: PSE */}
@@ -1043,7 +1044,7 @@ export default function Home() {
         padding: 'clamp(72px,11vh,120px) var(--gut)',
       }}>
         <Grain opacity={0.06} />
-        <div className="home-contact-grid" style={{
+        <div className="home-contact-grid" data-contact-cols="true" style={{
           position: 'relative', zIndex: 2,
           display: 'grid', gridTemplateColumns: '1fr', gap: 80,
         }}>
@@ -1103,14 +1104,14 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{
+      <footer data-footer="true" style={{
         position: 'relative', overflow: 'hidden',
         background: '#48141E', color: 'var(--cream)',
         padding: 'clamp(48px,8vh,80px) var(--gut) clamp(32px,5vh,56px)',
       }}>
         <Grain opacity={0.05} />
         <div style={{ position: 'relative', zIndex: 2 }}>
-          <div style={{
+          <div data-footer-row="true" style={{
             display: 'flex', justifyContent: 'space-between',
             alignItems: 'flex-start', flexWrap: 'wrap', gap: 40,
             paddingBottom: 32,
@@ -1151,7 +1152,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div style={{
+          <div data-footer-row="true" style={{
             display: 'flex', justifyContent: 'space-between',
             alignItems: 'center', flexWrap: 'wrap', gap: 20,
             paddingTop: 28,
