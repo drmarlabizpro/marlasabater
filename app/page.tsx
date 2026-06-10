@@ -1,856 +1,999 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import ContactForm from "@/components/ContactForm";
+'use client'
 
-const GRAIN_URL =
-  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
+import { useState, useEffect, useRef } from 'react'
+import Link from 'next/link'
+import Header from '@/components/Header'
+import ContactForm from '@/components/ContactForm'
 
-function Grain() {
+const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
+
+function Grain({ opacity = 0.06 }: { opacity?: number }) {
   return (
-    <div
-      aria-hidden
-      style={{
-        position: "absolute",
-        inset: 0,
-        pointerEvents: "none",
-        opacity: 0.06,
-        mixBlendMode: "multiply",
-        backgroundImage: GRAIN_URL,
-      }}
-    />
-  );
+    <div aria-hidden style={{
+      position: 'absolute', inset: 0, pointerEvents: 'none',
+      opacity, mixBlendMode: 'multiply' as const, backgroundImage: GRAIN,
+      zIndex: 1
+    }} />
+  )
 }
 
-const COMPANIES = [
+function useReveal(threshold = 0.12) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect() } },
+      { threshold }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [threshold])
+  return { ref, visible }
+}
+
+function revealStyle(visible: boolean, delay = 0): React.CSSProperties {
+  return {
+    opacity: visible ? 1 : 0,
+    transform: visible ? 'none' : 'translateY(22px)',
+    transition: `opacity 0.55s ease ${delay}ms, transform 0.55s ease ${delay}ms`,
+  }
+}
+
+function useCountUp(target: number, duration = 1800, start = false) {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    if (!start) return
+    let startTime: number | null = null
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp
+      const progress = Math.min((timestamp - startTime) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.floor(eased * target))
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [start, target, duration])
+  return count
+}
+
+const COMPANY_COLORS: Record<string, string> = {
+  '01': '#5A1A24',
+  '02': '#651E2A',
+  '03': '#214E40',
+  '04': 'rgba(216,204,178,0.45)',
+  '05': '#8A2330',
+  '06': '#3A2140',
+  '07': '#193F3C',
+  '08': 'rgba(230,218,192,0.45)',
+}
+
+type EcoRow = {
+  no: string
+  name: string
+  href: string
+  purpose: string
+  tag: string
+  flagship?: boolean
+}
+
+const ECOSYSTEM: EcoRow[] = [
   {
-    no: "01",
-    name: "Dr. Marla Biz Pro Corp",
-    href: "/ecosystem",
-    role: "LEADERSHIP & STRATEGY",
+    no: '01',
+    name: 'Dr. Marla Biz Pro Corp',
+    href: '/ecosystem',
+    purpose: 'The leadership and strategy behind all eight. The vision that holds the house together.',
+    tag: 'LEADERSHIP & STRATEGY',
   },
   {
-    no: "02",
-    name: "Premium Services Enterprise",
-    href: "/ecosystem/enterprise",
-    role: "INVESTMENTS & ACQUISITIONS",
+    no: '02',
+    name: 'Premium Services Enterprise',
+    href: '/ecosystem/enterprise',
+    purpose: 'Long-term investment strategy. Property, holdings, and the decades ahead.',
+    tag: 'INVESTMENTS & ACQUISITIONS',
     flagship: true,
   },
   {
-    no: "03",
-    name: "Premium Services Corporation",
-    href: "/ecosystem/corporation",
-    role: "FINANCIAL & WEALTH MANAGEMENT",
+    no: '03',
+    name: 'Premium Services Corporation',
+    href: '/ecosystem/corporation',
+    purpose: 'Financial stability and long-term growth for individuals and businesses.',
+    tag: 'FINANCIAL & WEALTH MANAGEMENT',
   },
   {
-    no: "04",
-    name: "Premium Services Group",
-    href: "/ecosystem/group",
-    role: "CONSTRUCTION & DEVELOPMENT",
+    no: '04',
+    name: 'Premium Services Group',
+    href: '/ecosystem/group',
+    purpose: 'Projects that strengthen businesses and communities across the region.',
+    tag: 'CONSTRUCTION & DEVELOPMENT',
   },
   {
-    no: "05",
-    name: "Flavor Movement",
-    href: "/ecosystem/flavor",
-    role: "FOOD & HOSPITALITY",
+    no: '05',
+    name: 'Flavor Movement',
+    href: '/ecosystem/flavor',
+    purpose: 'Memorable food experiences that bring people together.',
+    tag: 'FOOD & HOSPITALITY',
   },
   {
-    no: "06",
-    name: "Legacy Production House",
-    href: "/ecosystem/legacy",
-    role: "MEDIA & TALENT",
+    no: '06',
+    name: 'Legacy Production House',
+    href: '/ecosystem/legacy',
+    purpose: 'Helping creatives develop sustainable platforms and professional visibility.',
+    tag: 'MEDIA & TALENT',
   },
   {
-    no: "07",
-    name: "Marvic Hospitality Group",
-    href: "/ecosystem/marvic",
-    role: "HOSPITALITY & ENTERTAINMENT",
+    no: '07',
+    name: 'Marvic Hospitality Group',
+    href: '/ecosystem/marvic',
+    purpose: 'Experiences that connect people and communities.',
+    tag: 'HOSPITALITY & ENTERTAINMENT',
   },
   {
-    no: "08",
-    name: "PSG Motor Group",
-    href: "/ecosystem/psg",
-    role: "AUTOMOTIVE SALES & SERVICES",
+    no: '08',
+    name: 'PSG Motor Group',
+    href: '/ecosystem/psg',
+    purpose: 'Reliable automotive solutions for business and individuals.',
+    tag: 'AUTOMOTIVE SALES & SERVICES',
   },
-];
-
-const SERVICES = [
-  {
-    no: "01",
-    title: "Accounting",
-    body: "Clean books, accurate reporting, and tax strategy. From monthly bookkeeping to full CFO advisory.",
-  },
-  {
-    no: "02",
-    title: "Payroll",
-    body: "Accurate on-time payroll, direct deposit, tax filings, and compliance. Your team gets paid correctly, every time.",
-  },
-  {
-    no: "03",
-    title: "Business Advisory",
-    body: "Strategic guidance for business owners at every stage. Financial planning, business structuring, and growth strategy.",
-  },
-];
-
-const CONTACT_ITEMS = [
-  "356 Manton Avenue, Suite 1A, Providence, RI 02909",
-  "(401) 321-3781",
-  "Marla@msabater.com",
-  "@drmarlabizpro",
-];
-
-export const metadata: Metadata = {
-  title: 'Dr. Marla Sabater | Business Strategist & Ecosystem Founder | Providence, RI',
-  description: 'Dr. Marla Sabater is a business strategist, published author, and founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Based in Providence, RI. Serving nationwide since 1996.',
-  keywords: ['Dr Marla Sabater', 'business strategist Providence RI', 'accounting payroll Rhode Island', 'bilingual business advisor', 'ecosystem founder', 'Premium Services Corporation'],
-  openGraph: {
-    title: 'Dr. Marla Sabater | Business Strategist & Ecosystem Founder',
-    description: 'Eight companies. One vision. Thirty years building businesses in Providence, RI and nationwide.',
-    url: 'https://marlasabater.com',
-    siteName: 'Dr. Marla Sabater',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Dr. Marla Sabater | Business Strategist & Ecosystem Founder',
-    description: 'Eight companies. One vision. Thirty years building businesses in Providence, RI and nationwide.',
-  },
-  alternates: {
-    canonical: 'https://marlasabater.com',
-  },
-};
+]
 
 export default function Home() {
+  const [hoveredCompany, setHoveredCompany] = useState<string | null>(null)
+
+  const statsRef = useRef<HTMLDivElement>(null)
+  const [statsVisible, setStatsVisible] = useState(false)
+  useEffect(() => {
+    const el = statsRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setStatsVisible(true); obs.disconnect() } },
+      { threshold: 0.3 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
+  const count30 = useCountUp(30, 1600, statsVisible)
+  const count8 = useCountUp(8, 1200, statsVisible)
+  const count1000 = useCountUp(1000, 2000, statsVisible)
+
+  const heroReveal = useReveal()
+  const quoteReveal = useReveal()
+  const ecosystemReveal = useReveal()
+  const communityReveal = useReveal()
+  const aboutReveal = useReveal()
+  const featuredReveal = useReveal()
+
   return (
     <>
       <style>{`
         @media (min-width: 768px) {
-          .services-grid { grid-template-columns: repeat(3, 1fr) !important; }
-          .contact-grid { grid-template-columns: 1fr 1fr !important; }
+          .home-stats-row { flex-wrap: nowrap !important; }
+          .home-stats-block { padding-right: clamp(32px, 6vw, 96px); }
+          .home-stats-block:not(:last-child) { border-right: 1px solid var(--ink-15); }
+          .home-eco-intro { display: grid !important; grid-template-columns: 1fr 1fr; gap: 64px; }
+          .home-eco-right { display: block !important; }
+          .home-impact-grid { grid-template-columns: repeat(3, 1fr) !important; }
+          .home-about-grid { grid-template-columns: 0.9fr 1.1fr !important; }
+          .home-featured-grid { grid-template-columns: repeat(3, 1fr) !important; }
+          .home-contact-grid { grid-template-columns: 1fr 1fr !important; }
         }
-        .home-eco-row { transition: background 200ms ease; }
-        .home-eco-row:hover { background: rgba(242,233,218,0.05); }
-        .home-eco-row .home-eco-arrow { opacity: 0; transition: opacity 200ms ease; }
-        .home-eco-row:hover .home-eco-arrow { opacity: 1; }
+        @media (max-width: 767px) {
+          .home-stats-block { border-right: none !important; }
+          .home-eco-right { display: none; }
+        }
       `}</style>
 
-      <section
-        id="top"
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          height: "100vh",
-          background:
-            "radial-gradient(100% 80% at 28% 26%, rgba(201,162,60,0.18), rgba(90,26,36,0) 56%), linear-gradient(165deg, #7C2230, #5A1A24 58%, #4A1620)",
-          padding: "0 var(--gut)",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <Grain />
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <div
-            style={{
-              fontFamily: "var(--sans)",
-              fontWeight: 600,
-              fontSize: 11,
-              letterSpacing: "0.3em",
-              textTransform: "uppercase",
-              color: "var(--gold-soft)",
-              marginBottom: 24,
-            }}
-          >
-            Dr. Marla Ecosystem
+      {/* SECTION 1: HERO */}
+      <section style={{
+        position: 'relative',
+        overflow: 'hidden',
+        minHeight: '92vh',
+        background: 'radial-gradient(100% 80% at 28% 26%, rgba(201,162,60,0.18), rgba(90,26,36,0) 56%), linear-gradient(165deg, #7C2230, #5A1A24 58%, #4A1620)',
+        color: 'var(--cream)',
+        padding: 'clamp(120px,16vh,180px) var(--gut) clamp(64px,10vh,120px)',
+      }}>
+        <Grain opacity={0.06} />
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{
+            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+            letterSpacing: '0.3em', textTransform: 'uppercase',
+            color: 'rgba(242,233,218,0.55)', marginBottom: 28,
+          }}>
+            DR. MARLA ECOSYSTEM · EST. 1996
           </div>
-          <h1
-            style={{
-              fontFamily: "var(--serif)",
-              fontWeight: 400,
-              fontSize: "clamp(52px, 10vw, 130px)",
-              lineHeight: 0.9,
-              letterSpacing: "-0.025em",
-              color: "var(--cream)",
-              margin: 0,
-            }}
-          >
-            Helping people build stronger{" "}
-            <em style={{ fontStyle: "italic", color: "var(--gold-soft)" }}>
-              communities.
-            </em>
+
+          <h1 style={{
+            fontFamily: 'var(--serif)', fontWeight: 400,
+            fontSize: 'clamp(52px,9.5vw,128px)', lineHeight: 0.93,
+            letterSpacing: '-0.022em', color: 'var(--cream)', maxWidth: 900,
+          }}>
+            Thirty years building.<br />
+            Eight companies. <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>One vision.</em>
           </h1>
-          <p
-            style={{
-              fontFamily: "var(--serif)",
-              fontStyle: "italic",
-              fontWeight: 400,
-              fontSize: "clamp(18px, 2.5vw, 26px)",
-              color: "rgba(242,233,218,0.75)",
-              marginTop: 24,
-              maxWidth: 560,
-            }}
-          >
-            Thirty years. Eight companies. One vision.
+
+          <div style={{
+            margin: '32px 0',
+            borderTop: '2px solid var(--gold)',
+            borderBottom: '1px solid var(--gold)',
+            paddingTop: 5,
+            width: 'clamp(120px,28vw,380px)',
+          }} />
+
+          <p style={{
+            fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
+            fontSize: 'clamp(18px,2.4vw,26px)', lineHeight: 1.45,
+            color: 'rgba(242,233,218,0.82)', maxWidth: 580, marginBottom: 40,
+          }}>
+            Helping people build stronger businesses, stronger communities, and stronger futures.
           </p>
-          <div
-            style={{
-              margin: "36px 0",
-              height: 2,
-              background: "var(--gold)",
-              width: "clamp(100px, 20vw, 240px)",
-            }}
-          />
-          <div
-            style={{
-              display: "flex",
-              gap: 20,
-              flexWrap: "wrap",
-              alignItems: "center",
-            }}
-          >
-            <Link
-              href="/contact"
-              style={{
-                background: "transparent",
-                border: "1px solid var(--gold)",
-                color: "var(--gold)",
-                padding: "14px 28px",
-                fontFamily: "var(--sans)",
-                fontWeight: 600,
-                fontSize: 11,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                cursor: "pointer",
-                textDecoration: "none",
-              }}
-            >
-              Schedule a Consultation
+
+          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+            <Link href="/contact" style={{
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+              letterSpacing: '0.22em', textTransform: 'uppercase',
+              background: 'var(--gold)', color: '#261014',
+              padding: '15px 32px', textDecoration: 'none', display: 'inline-block',
+            }}>
+              SCHEDULE A CONSULTATION
             </Link>
-            <Link
-              href="/ecosystem"
-              style={{
-                color: "rgba(242,233,218,0.65)",
-                fontFamily: "var(--sans)",
-                fontWeight: 600,
-                fontSize: 11,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                textDecoration: "none",
-              }}
-            >
-              Explore the Ecosystem →
+            <Link href="/ecosystem" style={{
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+              letterSpacing: '0.22em', textTransform: 'uppercase',
+              border: '1px solid rgba(242,233,218,0.45)', color: 'var(--cream)',
+              padding: '15px 32px', textDecoration: 'none', display: 'inline-block',
+            }}>
+              EXPLORE THE ECOSYSTEM →
             </Link>
           </div>
         </div>
 
-        <div
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            padding: "28px var(--gut) 40px",
-            borderTop: "1px solid rgba(242,233,218,0.2)",
-            display: "flex",
-            gap: "clamp(24px, 5vw, 64px)",
-            zIndex: 1,
-          }}
-        >
-          {[
-            { num: "30", label: "Years Built" },
-            { num: "8", label: "Companies" },
-            { num: "1,000+", label: "Clients Served" },
-          ].map((stat) => (
-            <div key={stat.label}>
-              <div
-                style={{
-                  fontFamily: "var(--serif)",
-                  fontWeight: 400,
-                  fontSize: "clamp(32px, 5vw, 52px)",
-                  color: "var(--cream)",
-                  lineHeight: 1,
-                }}
-              >
-                {stat.num}
+        <div style={{
+          position: 'absolute', bottom: 36, left: 'var(--gut)',
+          fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+          letterSpacing: '0.28em', textTransform: 'uppercase',
+          color: 'rgba(242,233,218,0.38)', zIndex: 2,
+        }}>
+          MBA · TH.D · PUBLISHED AUTHOR · 30 YEARS BUILDING BUSINESSES
+        </div>
+      </section>
+
+      {/* SECTION 2: STATS */}
+      <section style={{
+        background: 'var(--cream-2)',
+        padding: 'clamp(56px,9vh,96px) var(--gut)',
+      }}>
+        <div ref={statsRef}>
+          <div ref={heroReveal.ref} style={revealStyle(heroReveal.visible)}>
+            <div className="home-stats-row" style={{
+              display: 'flex', flexWrap: 'wrap', gap: 'clamp(32px,6vw,96px)',
+            }}>
+              {[
+                { num: count30, suffix: '', label: 'YEARS OF LEADERSHIP', ctx: 'Building since 1996 from Providence, RI' },
+                { num: count8, suffix: '', label: 'COMPANIES BUILT', ctx: 'Finance, construction, food, media, hospitality, automotive' },
+                { num: count1000, suffix: '+', label: 'BUSINESSES AND FAMILIES SERVED', ctx: 'Across Rhode Island, Puerto Rico, and nationwide' },
+              ].map((s, i) => (
+                <div key={i} className="home-stats-block">
+                  <div style={{
+                    fontFamily: 'var(--serif)', fontWeight: 400,
+                    fontSize: 'clamp(56px,9vw,96px)', lineHeight: 1,
+                    letterSpacing: '-0.02em', color: 'var(--ink)',
+                  }}>
+                    {s.num}{s.suffix}
+                  </div>
+                  <div style={{
+                    fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+                    letterSpacing: '0.22em', textTransform: 'uppercase',
+                    color: 'var(--gold-deep)', marginTop: 10,
+                  }}>
+                    {s.label}
+                  </div>
+                  <div style={{
+                    fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 13,
+                    lineHeight: 1.5, color: 'var(--ink-45)',
+                    marginTop: 6, maxWidth: 180,
+                  }}>
+                    {s.ctx}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{
+              marginTop: 'clamp(40px,6vh,64px)',
+              borderTop: '1px solid var(--ink-15)',
+              paddingTop: 28,
+              fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 14,
+              lineHeight: 1.6, color: 'var(--ink-70)', maxWidth: 680,
+            }}>
+              From a single practice at 356 Manton Avenue in Providence to a network of eight companies serving clients across nine industries. The ecosystem did not begin as a plan. It began as a response to what her community needed.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 3: LEADERSHIP PHILOSOPHY (PULL QUOTE) */}
+      <section style={{
+        position: 'relative', overflow: 'hidden',
+        background: 'linear-gradient(170deg, #7C2230, #5A1A24)',
+        color: 'var(--cream)',
+        padding: 'clamp(72px,12vh,130px) var(--gut)',
+      }}>
+        <Grain opacity={0.06} />
+        <div aria-hidden style={{
+          position: 'absolute', left: 0, top: 0, bottom: 0, width: 3,
+          background: 'linear-gradient(to bottom, var(--gold), transparent)',
+          zIndex: 2,
+        }} />
+        <div ref={quoteReveal.ref} style={{ position: 'relative', zIndex: 2, ...revealStyle(quoteReveal.visible) }}>
+          <div style={{
+            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+            letterSpacing: '0.3em', textTransform: 'uppercase',
+            color: 'var(--gold-soft)', marginBottom: 32,
+          }}>
+            LEADERSHIP PHILOSOPHY
+          </div>
+
+          <div style={{
+            fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
+            fontSize: 'clamp(28px,4.5vw,58px)', lineHeight: 1.08,
+            letterSpacing: '-0.015em', color: 'var(--cream)', maxWidth: 820,
+          }}>
+            “The foundation you choose determines <em style={{ color: 'var(--gold-soft)' }}>everything</em> that gets built on top of it.”
+          </div>
+
+          <div style={{
+            margin: '28px 0',
+            height: 2, background: 'var(--gold)',
+            width: 'clamp(80px,16vw,160px)',
+          }} />
+
+          <div style={{
+            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+            letterSpacing: '0.26em', textTransform: 'uppercase',
+            color: 'rgba(242,233,218,0.55)',
+          }}>
+            STRUCTURAL INTEGRITY — DR. MARLA SABATER
+          </div>
+
+          <div style={{
+            fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 16,
+            color: 'rgba(242,233,218,0.68)', marginTop: 8,
+          }}>
+            A practical guide to choosing the right foundation for your business. Published by Dr. Marla Sabater.
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 4: THE ECOSYSTEM */}
+      <section style={{ position: 'relative', overflow: 'hidden' }}>
+        <div aria-hidden style={{
+          position: 'absolute', inset: 0, zIndex: 0,
+          background: hoveredCompany ? COMPANY_COLORS[hoveredCompany] : 'var(--cream-2)',
+          transition: 'background 0.45s ease',
+        }} />
+        <div style={{
+          position: 'relative', zIndex: 1,
+          padding: 'clamp(72px,11vh,120px) var(--gut)',
+        }}>
+          <div ref={ecosystemReveal.ref} style={revealStyle(ecosystemReveal.visible)}>
+            <div className="home-eco-intro" style={{ display: 'block' }}>
+              <div>
+                <div style={{
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                  letterSpacing: '0.3em', textTransform: 'uppercase',
+                  color: 'var(--gold-deep)', marginBottom: 20,
+                }}>
+                  THE ECOSYSTEM · EIGHT DIVISIONS
+                </div>
+                <h2 style={{
+                  fontFamily: 'var(--serif)', fontWeight: 400,
+                  fontSize: 'clamp(34px,5.5vw,68px)', lineHeight: 1,
+                  letterSpacing: '-0.018em', color: 'var(--ink)',
+                }}>
+                  Eight companies. <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>One house.</em>
+                </h2>
+                <p style={{
+                  fontFamily: 'var(--serif)', fontWeight: 400,
+                  fontSize: 'clamp(16px,1.9vw,19px)', lineHeight: 1.62,
+                  color: 'var(--ink-70)', marginTop: 20, maxWidth: 480,
+                }}>
+                  Each division was built because a real need existed in a community Dr. Marla knew personally. Finance came first. Construction followed. Then food, media, hospitality, automotive. Not a portfolio assembled for appearance. Eight answers to eight specific problems.
+                </p>
               </div>
-              <div
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontWeight: 600,
-                  fontSize: 10,
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: "var(--gold-soft)",
-                  marginTop: 8,
-                }}
-              >
-                {stat.label}
+              <div className="home-eco-right">
+                <div style={{
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
+                  fontSize: 15, lineHeight: 1.7, color: 'var(--ink-45)', paddingTop: 8,
+                }}>
+                  The goal is for visitors to understand that all divisions work together to help individuals, businesses, and communities grow stronger — financially, professionally, and personally.
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section
-        id="about"
-        style={{
-          background: "var(--cream-2)",
-          padding: "clamp(64px, 10vh, 120px) var(--gut)",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--sans)",
-            fontWeight: 600,
-            fontSize: 11,
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: "var(--gold-deep)",
-            marginBottom: 20,
-          }}
-        >
-          Meet Dr. Marla
-        </div>
-        <h2
-          style={{
-            fontFamily: "var(--serif)",
-            fontWeight: 400,
-            fontSize: "clamp(34px, 5.5vw, 64px)",
-            lineHeight: 1,
-            letterSpacing: "-0.015em",
-            color: "var(--ink)",
-            margin: 0,
-          }}
-        >
-          The builder behind the ecosystem.
-        </h2>
-        <p
-          style={{
-            fontFamily: "var(--serif)",
-            fontStyle: "italic",
-            fontWeight: 400,
-            fontSize: "clamp(17px, 2.2vw, 22px)",
-            lineHeight: 1.45,
-            color: "var(--ink-70)",
-            maxWidth: 680,
-            marginTop: 28,
-          }}
-        >
-          Dr. Marla Yanice Sabater has spent three decades building businesses,
-          serving clients, and creating opportunities across Rhode Island and
-          nationwide. Across finance, construction, food, media, hospitality,
-          and automotive, the work is one: making businesses, communities, and
-          people stronger.
-        </p>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: 10,
-            marginTop: 36,
-          }}
-        >
-          {["MBA", "Th.D", "Published Author", "30 Years"].map((chip) => (
-            <span
-              key={chip}
-              style={{
-                border: "1px solid var(--ink-15)",
-                padding: "10px 18px",
-                background: "var(--paper)",
-                fontFamily: "var(--sans)",
-                fontWeight: 600,
-                fontSize: 10,
-                letterSpacing: "0.22em",
-                textTransform: "uppercase",
-                color: "var(--ink-70)",
-              }}
-            >
-              {chip}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      <section
-        id="ecosystem"
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          background: "var(--bordeaux)",
-          color: "var(--cream)",
-          padding: "clamp(64px, 10vh, 120px) var(--gut)",
-        }}
-      >
-        <Grain />
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <div
-            style={{
-              fontFamily: "var(--sans)",
-              fontWeight: 600,
-              fontSize: 11,
-              letterSpacing: "0.3em",
-              textTransform: "uppercase",
-              color: "var(--gold-soft)",
-              marginBottom: 20,
-            }}
-          >
-            The Ecosystem
           </div>
-          <h2
-            style={{
-              fontFamily: "var(--serif)",
-              fontWeight: 400,
-              fontSize: "clamp(36px, 6vw, 72px)",
-              lineHeight: 0.96,
-              margin: 0,
-            }}
-          >
-            Eight companies.{" "}
-            <em style={{ fontStyle: "italic", color: "var(--gold-soft)" }}>
-              One house.
-            </em>
-          </h2>
-          <p
-            style={{
-              fontFamily: "var(--serif)",
-              fontStyle: "italic",
-              fontWeight: 400,
-              fontSize: "clamp(16px, 2vw, 20px)",
-              color: "rgba(242,233,218,0.72)",
-              maxWidth: 560,
-              marginTop: 16,
-              marginBottom: 48,
-            }}
-          >
-            Each company is independent in focus, unified in standard.
-          </p>
 
-          <div style={{ borderTop: "1px solid rgba(242,233,218,0.2)" }}>
-            {COMPANIES.map((c) => (
-              <Link
-                key={c.no}
-                href={c.href}
-                className="home-eco-row"
-                style={{
-                  borderBottom: "1px solid rgba(242,233,218,0.15)",
-                  padding: "20px 0",
-                  display: "flex",
-                  alignItems: "baseline",
-                  gap: 16,
-                  flexWrap: "wrap",
-                  textDecoration: "none",
-                  color: "inherit",
-                }}
-              >
-                <span
+          <div style={{
+            margin: '40px 0',
+            height: 1, background: 'var(--ink-15)', width: '100%',
+          }} />
+
+          <div>
+            {ECOSYSTEM.map((c, idx) => {
+              const isHover = hoveredCompany === c.no
+              const isLast = idx === ECOSYSTEM.length - 1
+              return (
+                <Link
+                  key={c.no}
+                  href={c.href}
+                  onMouseEnter={() => setHoveredCompany(c.no)}
+                  onMouseLeave={() => setHoveredCompany(null)}
                   style={{
-                    fontFamily: "var(--sans)",
-                    fontWeight: 600,
-                    fontSize: 11,
-                    letterSpacing: "0.18em",
-                    color: "var(--gold-soft)",
-                    minWidth: 36,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
+                    padding: '22px 0',
+                    borderBottom: isLast ? 'none' : '1px solid var(--ink-15)',
+                    cursor: 'pointer',
+                    textDecoration: 'none',
+                    gap: 24,
                   }}
                 >
-                  No. {c.no}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--serif)",
-                    fontWeight: 400,
-                    fontSize: "clamp(18px, 2.4vw, 26px)",
-                    color: "var(--cream)",
-                    flex: 1,
-                    display: "flex",
-                    alignItems: "baseline",
-                    gap: 12,
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {c.flagship && (
-                    <span
-                      style={{
-                        fontFamily: "var(--sans)",
-                        fontWeight: 700,
-                        fontSize: 9,
-                        letterSpacing: "0.24em",
-                        background: "var(--gold-soft)",
-                        color: "var(--bordeaux)",
-                        padding: "3px 8px",
-                      }}
-                    >
-                      FLAGSHIP
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap' }}>
+                      <span style={{
+                        fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                        letterSpacing: '0.18em', textTransform: 'uppercase',
+                        color: 'var(--gold-deep)',
+                      }}>
+                        No. {c.no}
+                      </span>
+                      {c.flagship && (
+                        <span style={{
+                          fontFamily: 'var(--sans)', fontWeight: 700, fontSize: 9,
+                          letterSpacing: '0.3em', textTransform: 'uppercase',
+                          color: 'var(--gold-soft)',
+                        }}>
+                          THE FLAGSHIP
+                        </span>
+                      )}
+                      <span style={{
+                        fontFamily: 'var(--serif)', fontWeight: 400,
+                        fontSize: 'clamp(18px,2.8vw,28px)', letterSpacing: '-0.01em',
+                        color: isHover ? 'var(--cream)' : 'var(--ink)',
+                        transition: 'color 0.3s ease',
+                      }}>
+                        {c.name}
+                      </span>
+                    </div>
+                    <div style={{
+                      fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 13,
+                      lineHeight: 1.5, marginTop: 4,
+                      color: isHover ? 'rgba(242,233,218,0.72)' : 'var(--ink-45)',
+                      transition: 'color 0.3s ease',
+                    }}>
+                      {c.purpose}
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'baseline', whiteSpace: 'nowrap' }}>
+                    <span style={{
+                      fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                      letterSpacing: '0.22em', textTransform: 'uppercase',
+                      color: isHover ? 'var(--gold-soft)' : 'var(--gold-deep)',
+                      transition: 'color 0.3s ease',
+                    }}>
+                      {c.tag}
                     </span>
-                  )}
-                  {c.name}
-                </span>
-                <span
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontWeight: 600,
-                    fontSize: 10,
-                    letterSpacing: "0.16em",
-                    textTransform: "uppercase",
-                    color: "rgba(242,233,218,0.55)",
-                  }}
-                >
-                  {c.role}
-                </span>
-                <span
-                  className="home-eco-arrow"
-                  aria-hidden
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontWeight: 600,
-                    color: "var(--gold-soft)",
-                  }}
-                >
-                  →
-                </span>
-              </Link>
+                    <span style={{
+                      fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 16,
+                      marginLeft: 10,
+                      color: isHover ? 'var(--gold-soft)' : 'var(--gold-deep)',
+                      transition: 'color 0.3s ease',
+                    }}>
+                      →
+                    </span>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+
+          <div style={{ marginTop: 40 }}>
+            <Link href="/ecosystem" style={{
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+              letterSpacing: '0.22em', textTransform: 'uppercase',
+              border: '1px solid var(--ink-15)', color: 'var(--ink-70)',
+              padding: '13px 28px', textDecoration: 'none', display: 'inline-block',
+            }}>
+              VIEW ALL DIVISIONS →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 5: COMMUNITY IMPACT */}
+      <section style={{
+        background: 'var(--cream)',
+        padding: 'clamp(72px,11vh,120px) var(--gut)',
+      }}>
+        <div ref={communityReveal.ref} style={revealStyle(communityReveal.visible)}>
+          <div style={{ marginBottom: 48 }}>
+            <div style={{
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+              letterSpacing: '0.3em', textTransform: 'uppercase',
+              color: 'var(--gold-deep)', marginBottom: 16,
+            }}>
+              COMMUNITY IMPACT
+            </div>
+            <h2 style={{
+              fontFamily: 'var(--serif)', fontWeight: 400,
+              fontSize: 'clamp(30px,4.5vw,52px)', lineHeight: 1.05,
+              letterSpacing: '-0.015em', color: 'var(--ink)',
+            }}>
+              Built for the community. <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>Rooted in it.</em>
+            </h2>
+          </div>
+
+          <div className="home-impact-grid" style={{
+            display: 'grid', gridTemplateColumns: '1fr', gap: 2,
+          }}>
+            {[
+              { num: '30', label: 'YEARS SERVING PROVIDENCE', body: 'Serving clients across Rhode Island, Puerto Rico, and nationwide since 1996. A practice built on the belief that real communities deserve real financial expertise.' },
+              { num: '9', label: 'INDUSTRIES SERVED', body: 'Finance, construction, food, media, hospitality, automotive, real estate, payroll, and business advisory. The ecosystem covers what a growing business actually needs.' },
+              { num: '8', label: 'COMPANIES BUILT WITH PURPOSE', body: 'Each company exists because Dr. Marla saw a gap in her community and built the answer. Not a portfolio. A life\u2019s work in eight chapters.' },
+            ].map((b, i) => (
+              <div key={i} style={{
+                background: 'var(--cream-2)', padding: '36px 32px',
+                borderTop: '2px solid var(--gold)',
+              }}>
+                <div style={{
+                  fontFamily: 'var(--serif)', fontWeight: 400,
+                  fontSize: 'clamp(40px,6vw,72px)', lineHeight: 1, color: 'var(--ink)',
+                }}>
+                  {b.num}
+                </div>
+                <div style={{
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                  letterSpacing: '0.22em', textTransform: 'uppercase',
+                  color: 'var(--gold-deep)', marginTop: 10,
+                }}>
+                  {b.label}
+                </div>
+                <div style={{
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
+                  fontSize: 16, lineHeight: 1.6,
+                  color: 'var(--ink-70)', marginTop: 14,
+                }}>
+                  {b.body}
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          background:
-            "radial-gradient(100% 84% at 28% 28%, rgba(201,162,60,0.22), rgba(110,31,42,0) 56%), linear-gradient(160deg, #8A2738, #651E2A 58%, #531824)",
-          color: "var(--cream)",
-          padding: "clamp(64px, 10vh, 120px) var(--gut)",
-        }}
-      >
-        <Grain />
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <div
-            style={{
-              fontFamily: "var(--sans)",
-              fontWeight: 700,
-              fontSize: 10,
-              letterSpacing: "0.32em",
-              textTransform: "uppercase",
-              color: "var(--gold-soft)",
-              marginBottom: 20,
-            }}
-          >
-            The Flagship
-          </div>
-          <h2
-            style={{
-              fontFamily: "var(--serif)",
-              fontWeight: 400,
-              fontSize: "clamp(42px, 8vw, 108px)",
-              lineHeight: 0.92,
-              margin: 0,
-            }}
-          >
-            Premium Services{" "}
-            <em style={{ fontStyle: "italic", color: "var(--gold-soft)" }}>
-              Enterprise.
-            </em>
-          </h2>
-          <div
-            style={{
-              height: 2,
-              background: "var(--gold)",
-              width: "clamp(120px, 26vw, 320px)",
-              margin: "32px 0",
-            }}
-          />
-          <p
-            style={{
-              fontFamily: "var(--serif)",
-              fontStyle: "italic",
-              fontWeight: 400,
-              fontSize: "clamp(18px, 2.5vw, 26px)",
-              color: "rgba(242,233,218,0.82)",
-              maxWidth: 520,
-              margin: 0,
-            }}
-          >
-            Property, holdings, and the long view. Building and acquiring for
-            the decades ahead.
-          </p>
-          <div
-            style={{
-              fontFamily: "var(--sans)",
-              fontWeight: 600,
-              fontSize: 10,
-              letterSpacing: "0.26em",
-              textTransform: "uppercase",
-              color: "rgba(242,233,218,0.55)",
-              marginTop: 40,
-            }}
-          >
-            A Dr. Marla Company · Established 1996
-          </div>
-        </div>
-      </section>
-
-      <section
-        style={{
-          background: "var(--cream)",
-          padding: "clamp(64px, 10vh, 120px) var(--gut)",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--sans)",
-            fontWeight: 600,
-            fontSize: 11,
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: "var(--gold-deep)",
-            marginBottom: 20,
-          }}
-        >
-          What We Do
-        </div>
-        <h2
-          style={{
-            fontFamily: "var(--serif)",
-            fontWeight: 400,
-            fontSize: "clamp(34px, 5vw, 60px)",
-            lineHeight: 1,
-            color: "var(--ink)",
-            margin: 0,
-            marginBottom: 48,
-          }}
-        >
-          Expert services for{" "}
-          <em style={{ fontStyle: "italic", color: "var(--crimson)" }}>
-            every stage
-          </em>{" "}
-          of your business.
-        </h2>
-        <div
-          className="services-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            gap: 16,
-          }}
-        >
-          {SERVICES.map((s) => (
-            <div
-              key={s.no}
-              style={{
-                border: "1px solid var(--ink-15)",
-                padding: 28,
-                background: "var(--paper)",
-              }}
-            >
-              <div
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontWeight: 600,
-                  fontSize: 11,
-                  letterSpacing: "0.2em",
-                  color: "var(--gold-deep)",
-                  marginBottom: 14,
-                }}
-              >
-                {s.no}
-              </div>
-              <h3
-                style={{
-                  fontFamily: "var(--serif)",
-                  fontWeight: 400,
-                  fontSize: 24,
-                  color: "var(--ink)",
-                  margin: 0,
-                  marginBottom: 12,
-                }}
-              >
-                {s.title}
-              </h3>
-              <p
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontSize: 14,
-                  color: "var(--ink-70)",
-                  lineHeight: 1.6,
-                  margin: 0,
-                }}
-              >
-                {s.body}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section
-        id="contact"
-        style={{
-          background: "var(--cream-2)",
-          padding: "clamp(64px, 10vh, 120px) var(--gut)",
-        }}
-      >
-        <div
-          className="contact-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            gap: 64,
-          }}
-        >
+      {/* SECTION 6: ABOUT BRIDGE */}
+      <section style={{
+        position: 'relative', overflow: 'hidden',
+        background: 'radial-gradient(100% 80% at 72% 26%, rgba(201,162,60,0.14), rgba(90,26,36,0) 54%), linear-gradient(165deg, #7C2230, #5A1A24 58%, #4A1620)',
+        color: 'var(--cream)',
+        padding: 'clamp(72px,11vh,120px) var(--gut)',
+      }}>
+        <Grain opacity={0.06} />
+        <div ref={aboutReveal.ref} className="home-about-grid" style={{
+          position: 'relative', zIndex: 2,
+          display: 'grid', gridTemplateColumns: '1fr', gap: 80,
+          ...revealStyle(aboutReveal.visible),
+        }}>
           <div>
-            <div
-              style={{
-                fontFamily: "var(--sans)",
-                fontWeight: 600,
-                fontSize: 11,
-                letterSpacing: "0.3em",
-                textTransform: "uppercase",
-                color: "var(--gold-deep)",
-                marginBottom: 20,
-              }}
-            >
-              Get In Touch
+            <div style={{
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+              letterSpacing: '0.3em', textTransform: 'uppercase',
+              color: 'var(--gold-soft)', marginBottom: 20,
+            }}>
+              THE FOUNDER
             </div>
-            <h2
-              style={{
-                fontFamily: "var(--serif)",
-                fontWeight: 400,
-                fontSize: "clamp(30px, 4.5vw, 52px)",
-                lineHeight: 1,
-                color: "var(--ink)",
-                margin: 0,
-              }}
-            >
-              Let&apos;s talk about your{" "}
-              <em style={{ fontStyle: "italic", color: "var(--crimson)" }}>
-                business.
-              </em>
+            <h2 style={{
+              fontFamily: 'var(--serif)', fontWeight: 400,
+              fontSize: 'clamp(32px,5vw,60px)', lineHeight: 1.02,
+              letterSpacing: '-0.018em', color: 'var(--cream)',
+            }}>
+              Dr. Marla <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Yanice Sabater.</em>
             </h2>
-            <div
-              style={{
-                marginTop: 32,
-                display: "flex",
-                flexDirection: "column",
-                gap: 14,
-              }}
-            >
-              {CONTACT_ITEMS.map((item) => (
-                <div
-                  key={item}
-                  style={{
-                    fontFamily: "var(--sans)",
-                    fontSize: 14,
-                    color: "var(--ink-70)",
-                    display: "flex",
-                    gap: 12,
-                    alignItems: "flex-start",
-                  }}
-                >
-                  <span
-                    style={{
-                      width: 6,
-                      height: 6,
-                      borderRadius: "50%",
-                      background: "var(--gold)",
-                      flexShrink: 0,
-                      marginTop: 5,
-                    }}
-                  />
-                  <span>{item}</span>
+
+            <div style={{
+              margin: '24px 0',
+              height: 2, background: 'var(--gold)',
+              width: 'clamp(80px,18vw,200px)',
+            }} />
+
+            <div style={{
+              display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 24,
+            }}>
+              {['MBA', 'TH.D', 'PUBLISHED AUTHOR', 'EST. 1996'].map(tag => (
+                <span key={tag} style={{
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 9,
+                  letterSpacing: '0.22em', textTransform: 'uppercase',
+                  border: '1px solid rgba(242,233,218,0.3)',
+                  color: 'rgba(242,233,218,0.7)',
+                  padding: '6px 14px',
+                }}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <Link href="/about" style={{
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+              letterSpacing: '0.22em', textTransform: 'uppercase',
+              border: '1px solid var(--gold)', color: 'var(--gold)',
+              padding: '13px 28px', textDecoration: 'none', display: 'inline-block',
+              marginTop: 8,
+            }}>
+              READ THE FULL STORY →
+            </Link>
+          </div>
+
+          <div>
+            <p style={{
+              fontFamily: 'var(--serif)', fontWeight: 400,
+              fontSize: 'clamp(16px,2vw,19px)', lineHeight: 1.65,
+              color: 'rgba(242,233,218,0.82)', maxWidth: 520,
+            }}>
+              Dr. Marla Yanice Sabater started Premium Services Corporation in Providence, Rhode Island in 1996. The work began because the families and small businesses around her had no one who could explain the numbers clearly, in their language, with their future in mind.
+            </p>
+
+            <p style={{
+              fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
+              fontSize: 'clamp(16px,1.9vw,18px)', lineHeight: 1.6,
+              color: 'rgba(242,233,218,0.68)', marginTop: 20,
+            }}>
+              What followed was not a strategic plan. Each new company was built because a need showed up that the community did not have a strong answer to. Thirty years later, the answer is eight companies, two published books, and over a thousand clients served.
+            </p>
+
+            <div style={{
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+              letterSpacing: '0.26em', textTransform: 'uppercase',
+              color: 'rgba(242,233,218,0.38)', marginTop: 24,
+            }}>
+              MBA · TH.D · PUBLISHED AUTHOR · PROVIDENCE, RI
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 7: FEATURED COMPANIES */}
+      <section style={{
+        background: 'var(--cream-2)',
+        padding: 'clamp(72px,11vh,120px) var(--gut)',
+      }}>
+        <div ref={featuredReveal.ref} style={revealStyle(featuredReveal.visible)}>
+          <div style={{
+            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+            letterSpacing: '0.3em', textTransform: 'uppercase',
+            color: 'var(--gold-deep)', marginBottom: 16,
+          }}>
+            FEATURED DIVISIONS
+          </div>
+          <h2 style={{
+            fontFamily: 'var(--serif)', fontWeight: 400,
+            fontSize: 'clamp(28px,4vw,48px)', lineHeight: 1.05,
+            color: 'var(--ink)', marginBottom: 48,
+          }}>
+            Where to <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>start.</em>
+          </h2>
+
+          <div className="home-featured-grid" style={{
+            display: 'grid', gridTemplateColumns: '1fr', gap: 16,
+          }}>
+            {/* Card 1: PSE */}
+            <div style={{
+              position: 'relative', overflow: 'hidden',
+              background: 'linear-gradient(160deg, #8A2738, #651E2A 58%, #531824)',
+              color: 'var(--cream)', padding: '40px 32px',
+              minHeight: 340, display: 'flex', flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+              <Grain opacity={0.06} />
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <div style={{
+                  fontFamily: 'var(--sans)', fontWeight: 700, fontSize: 9,
+                  letterSpacing: '0.32em', textTransform: 'uppercase',
+                  color: 'var(--gold-soft)', marginBottom: 12,
+                }}>
+                  THE FLAGSHIP
                 </div>
+                <div style={{
+                  fontFamily: 'var(--serif)', fontWeight: 400,
+                  fontSize: 'clamp(22px,3vw,32px)', letterSpacing: '-0.015em',
+                  color: 'var(--cream)',
+                }}>
+                  Premium Services <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Enterprise.</em>
+                </div>
+                <div style={{
+                  borderTop: '2px solid var(--gold)',
+                  borderBottom: '1px solid var(--gold)',
+                  paddingTop: 4, margin: '20px 0', width: 100,
+                }} />
+                <div style={{
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15,
+                  color: 'rgba(242,233,218,0.78)',
+                }}>
+                  Property, holdings, and the long view.
+                </div>
+              </div>
+              <Link href="/ecosystem/enterprise" style={{
+                position: 'relative', zIndex: 2,
+                fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                letterSpacing: '0.22em', textTransform: 'uppercase',
+                color: 'var(--gold-soft)', textDecoration: 'none',
+                marginTop: 'auto', paddingTop: 24, display: 'block',
+              }}>
+                INVESTMENTS & ACQUISITIONS →
+              </Link>
+            </div>
+
+            {/* Card 2: Corporation */}
+            <div style={{
+              position: 'relative', overflow: 'hidden',
+              background: 'linear-gradient(168deg, #2A6452, #214E40)',
+              color: 'var(--cream)', padding: '40px 32px',
+              minHeight: 340, display: 'flex', flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}>
+              <Grain opacity={0.06} />
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <div style={{
+                  fontFamily: 'var(--sans)', fontWeight: 700, fontSize: 9,
+                  letterSpacing: '0.32em', textTransform: 'uppercase',
+                  color: 'var(--gold-soft)', marginBottom: 12,
+                }}>
+                  FINANCIAL & WEALTH
+                </div>
+                <div style={{
+                  fontFamily: 'var(--serif)', fontWeight: 400,
+                  fontSize: 'clamp(22px,3vw,32px)', letterSpacing: '-0.015em',
+                  color: 'var(--cream)',
+                }}>
+                  Premium Services <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Corporation.</em>
+                </div>
+                <div style={{
+                  borderTop: '2px solid var(--gold)',
+                  borderBottom: '1px solid var(--gold)',
+                  paddingTop: 4, margin: '20px 0', width: 100,
+                }} />
+                <div style={{
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15,
+                  color: 'rgba(242,233,218,0.78)',
+                }}>
+                  Tax, accounting, and financial strategy. Built on the right foundation.
+                </div>
+              </div>
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <div style={{ display: 'flex', gap: 24, marginBottom: 16, flexWrap: 'wrap' }}>
+                  {[
+                    { num: '30', label: 'YEARS' },
+                    { num: '1,000+', label: 'CLIENTS' },
+                    { num: '9', label: 'INDUSTRIES' },
+                  ].map(f => (
+                    <div key={f.label} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                      <div style={{
+                        fontFamily: 'var(--serif)', fontWeight: 400,
+                        fontSize: 'clamp(20px,2.5vw,28px)', color: 'var(--gold-soft)',
+                      }}>
+                        {f.num}
+                      </div>
+                      <div style={{
+                        fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 9,
+                        letterSpacing: '0.16em', textTransform: 'uppercase',
+                        color: 'rgba(242,233,218,0.55)',
+                      }}>
+                        {f.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <Link href="/ecosystem/corporation" style={{
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                  letterSpacing: '0.22em', textTransform: 'uppercase',
+                  color: 'var(--gold-soft)', textDecoration: 'none',
+                  paddingTop: 8, display: 'block',
+                }}>
+                  FINANCIAL & WEALTH MANAGEMENT →
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 3: Legacy */}
+            <div style={{
+              position: 'relative', overflow: 'hidden',
+              background: 'radial-gradient(120% 92% at 50% 0%, #5A2F5E, #3A2140 48%, #281530)',
+              color: 'var(--cream)', padding: '40px 32px',
+              minHeight: 340, display: 'flex', flexDirection: 'column',
+              justifyContent: 'space-between', alignItems: 'center',
+              textAlign: 'center',
+            }}>
+              <Grain opacity={0.06} />
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <div style={{
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                  letterSpacing: '0.24em', textTransform: 'uppercase',
+                  color: 'var(--gold-soft)', marginBottom: 12,
+                }}>
+                  ARTIST DEVELOPMENT · MUSIC · PRODUCTION
+                </div>
+                <div style={{
+                  fontFamily: 'var(--serif)', fontWeight: 400,
+                  fontSize: 'clamp(22px,3vw,32px)', letterSpacing: '-0.015em',
+                  color: 'var(--cream)', textAlign: 'center',
+                }}>
+                  Legacy <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Production House.</em>
+                </div>
+                <div style={{
+                  borderTop: '2px solid var(--gold)',
+                  borderBottom: '1px solid var(--gold)',
+                  paddingTop: 4, margin: '20px auto', width: 100,
+                }} />
+                <div style={{
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15,
+                  color: 'rgba(242,233,218,0.78)', textAlign: 'center',
+                }}>
+                  A way up for talent without access.
+                </div>
+              </div>
+              <Link href="/ecosystem/legacy" style={{
+                position: 'relative', zIndex: 2,
+                fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                letterSpacing: '0.22em', textTransform: 'uppercase',
+                color: 'var(--gold-soft)', textDecoration: 'none',
+                marginTop: 'auto', paddingTop: 24, display: 'block',
+                textAlign: 'center',
+              }}>
+                MEDIA & TALENT →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 8: CONTACT */}
+      <section style={{
+        position: 'relative', overflow: 'hidden',
+        background: 'radial-gradient(100% 80% at 28% 26%, rgba(201,162,60,0.14), rgba(90,26,36,0) 55%), linear-gradient(165deg, #7C2230, #5A1A24)',
+        color: 'var(--cream)',
+        padding: 'clamp(72px,11vh,120px) var(--gut)',
+      }}>
+        <Grain opacity={0.06} />
+        <div className="home-contact-grid" style={{
+          position: 'relative', zIndex: 2,
+          display: 'grid', gridTemplateColumns: '1fr', gap: 80,
+        }}>
+          <div>
+            <div style={{
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+              letterSpacing: '0.3em', textTransform: 'uppercase',
+              color: 'var(--gold-soft)', marginBottom: 20,
+            }}>
+              GET IN TOUCH
+            </div>
+            <h2 style={{
+              fontFamily: 'var(--serif)', fontWeight: 400,
+              fontSize: 'clamp(30px,4.5vw,56px)', lineHeight: 1.04,
+              letterSpacing: '-0.018em', color: 'var(--cream)',
+            }}>
+              Let&apos;s talk about your <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>business.</em>
+            </h2>
+            <p style={{
+              fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
+              fontSize: 'clamp(16px,2vw,19px)', lineHeight: 1.55,
+              color: 'rgba(242,233,218,0.75)', marginTop: 20, maxWidth: 440,
+            }}>
+              Schedule a consultation. Dr. Marla works with business owners at every stage, from structuring a new company to managing a growing ecosystem.
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 32 }}>
+              {[
+                '356 Manton Avenue, Suite 1A',
+                'Providence, RI 02909',
+                '(401) 321-3781',
+                'Marla@msabater.com',
+                '@drmarlabizpro',
+              ].map(item => (
+                <div key={item} style={{
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 13,
+                  letterSpacing: '0.01em', color: 'var(--cream)',
+                }}>
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <div style={{
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+              letterSpacing: '0.26em', textTransform: 'uppercase',
+              color: 'rgba(242,233,218,0.38)', marginTop: 32,
+            }}>
+              DR. MARLA SABATER · A HOUSE OF EIGHT COMPANIES · EST. 1996
+            </div>
+          </div>
+
+          <div>
+            <ContactForm />
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer style={{
+        position: 'relative', overflow: 'hidden',
+        background: '#48141E', color: 'var(--cream)',
+        padding: 'clamp(48px,8vh,80px) var(--gut) clamp(32px,5vh,56px)',
+      }}>
+        <Grain opacity={0.05} />
+        <div style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{
+            display: 'flex', justifyContent: 'space-between',
+            alignItems: 'flex-start', flexWrap: 'wrap', gap: 40,
+            paddingBottom: 32,
+            borderBottom: '1px solid rgba(242,233,218,0.12)',
+          }}>
+            <div>
+              <div style={{
+                fontFamily: 'var(--serif)', fontWeight: 400, fontStyle: 'italic',
+                fontSize: 'clamp(22px,3vw,32px)', letterSpacing: '-0.015em',
+                color: 'var(--cream)',
+              }}>
+                Dr. Marla
+              </div>
+              <div style={{
+                fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 12,
+                color: 'rgba(242,233,218,0.45)', marginTop: 4,
+              }}>
+                MBA · Th.D · Published Author
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px 32px' }}>
+              {[
+                { label: 'Ecosystem', href: '/ecosystem' },
+                { label: 'About', href: '/about' },
+                { label: 'Contact', href: '/contact' },
+                { label: 'Privacy', href: '/privacy' },
+                { label: 'Terms', href: '/terms' },
+              ].map(item => (
+                <Link key={item.label} href={item.href} style={{
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                  letterSpacing: '0.22em', textTransform: 'uppercase',
+                  color: 'rgba(242,233,218,0.65)', textDecoration: 'none',
+                }}>
+                  {item.label}
+                </Link>
               ))}
             </div>
           </div>
 
-          <ContactForm />
-        </div>
-      </section>
-
-      <footer
-        style={{
-          background: "#48141E",
-          color: "rgba(242,233,218,0.7)",
-          padding: "clamp(48px, 8vh, 90px) var(--gut)",
-        }}
-      >
-        <div
-          style={{
-            fontFamily: "var(--serif)",
-            fontWeight: 400,
-            fontSize: "clamp(28px, 4.5vw, 48px)",
-            color: "var(--cream)",
-            lineHeight: 0.95,
-          }}
-        >
-          Dr. Marla
-        </div>
-        <div
-          style={{
-            fontFamily: "var(--sans)",
-            fontWeight: 600,
-            fontSize: 10,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: "var(--gold-soft)",
-            marginTop: 10,
-          }}
-        >
-          MBA · Th.D · Published Author
-        </div>
-
-        <div style={{ marginTop: 40 }}>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-            {[
-              { label: "Ecosystem", href: "/ecosystem" },
-              { label: "About", href: "/about" },
-              { label: "Contact", href: "/contact" },
-              { label: "Privacy", href: "/privacy" },
-              { label: "Terms", href: "/terms" },
-            ].map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                style={{
-                  fontFamily: "var(--sans)",
-                  fontWeight: 600,
-                  fontSize: 10,
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: "rgba(242,233,218,0.55)",
-                  textDecoration: "none",
-                }}
-              >
-                {item.label}
-              </Link>
-            ))}
+          <div style={{
+            display: 'flex', justifyContent: 'space-between',
+            alignItems: 'center', flexWrap: 'wrap', gap: 20,
+            paddingTop: 28,
+          }}>
+            <div style={{
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+              letterSpacing: '0.26em', textTransform: 'uppercase',
+              color: 'rgba(242,233,218,0.35)',
+            }}>
+              THE HOUSE · EST. 1996 · 356 MANTON AVE, PROVIDENCE RI
+            </div>
+            <div style={{
+              fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 11,
+              color: 'rgba(242,233,218,0.35)',
+            }}>
+              © 2026 Dr. Marla Sabater. All rights reserved.
+            </div>
           </div>
-          <div
-            style={{
-              fontFamily: "var(--sans)",
-              fontSize: 11,
-              color: "rgba(242,233,218,0.45)",
-              marginTop: 14,
-            }}
-          >
-            © 2026 Dr. Marla Sabater. All rights reserved.
-          </div>
-        </div>
-
-        <div
-          style={{
-            borderTop: "1px solid rgba(242,233,218,0.12)",
-            marginTop: 40,
-            paddingTop: 24,
-            textAlign: "center",
-            fontFamily: "var(--serif)",
-            fontStyle: "italic",
-            fontSize: 14,
-            color: "rgba(242,233,218,0.35)",
-          }}
-        >
-          A house of eight companies.
         </div>
       </footer>
     </>
-  );
+  )
 }
