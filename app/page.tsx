@@ -58,15 +58,56 @@ function useCountUp(target: number, duration = 1800, start = false) {
   return count
 }
 
-const COMPANY_COLORS: Record<string, string> = {
-  '01': '#5A1A24',
-  '02': '#651E2A',
-  '03': '#214E40',
-  '04': 'rgba(216,204,178,0.45)',
+const ROW_ACCENT: Record<string, string> = {
+  '01': '#7C2230',
+  '02': '#8A2738',
+  '03': '#2A6452',
+  '04': '#9A7A2C',
   '05': '#8A2330',
-  '06': '#3A2140',
-  '07': '#193F3C',
-  '08': 'rgba(230,218,192,0.45)',
+  '06': '#5A2F5E',
+  '07': '#236460',
+  '08': '#9A7A2C',
+}
+
+function WordReveal({ text, emText, style, emStyle }: {
+  text: string
+  emText?: string
+  style?: React.CSSProperties
+  emStyle?: React.CSSProperties
+}) {
+  const { ref, visible } = useReveal(0.15)
+  const words = text.split(' ')
+  const emWords = emText ? emText.split(' ') : []
+  return (
+    <div ref={ref} style={style}>
+      {words.map((word, i) => (
+        <span key={i} style={{
+          display: 'inline-block',
+          marginRight: '0.22em',
+          opacity: visible ? 1 : 0,
+          transform: visible ? 'none' : 'translateY(16px)',
+          transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms`,
+        }}>
+          {word}
+        </span>
+      ))}
+      {emWords.length > 0 && (
+        <em style={{ fontStyle: 'italic', color: 'var(--crimson)', ...emStyle }}>
+          {emWords.map((word, i) => (
+            <span key={i} style={{
+              display: 'inline-block',
+              marginRight: i < emWords.length - 1 ? '0.22em' : '0',
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'none' : 'translateY(16px)',
+              transition: `opacity 0.5s ease ${(words.length + i) * 80}ms, transform 0.5s ease ${(words.length + i) * 80}ms`,
+            }}>
+              {word}
+            </span>
+          ))}
+        </em>
+      )}
+    </div>
+  )
 }
 
 type EcoRow = {
@@ -139,7 +180,7 @@ const ECOSYSTEM: EcoRow[] = [
 ]
 
 export default function Home() {
-  const [hoveredCompany, setHoveredCompany] = useState<string | null>(null)
+  const [hoveredRow, setHoveredRow] = useState<string | null>(null)
 
   const statsRef = useRef<HTMLDivElement>(null)
   const [statsVisible, setStatsVisible] = useState(false)
@@ -154,13 +195,26 @@ export default function Home() {
     return () => obs.disconnect()
   }, [])
 
+  const cardsRef = useRef<HTMLDivElement>(null)
+  const [cardsVisible, setCardsVisible] = useState(false)
+  useEffect(() => {
+    const el = cardsRef.current
+    if (!el) return
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setCardsVisible(true); obs.disconnect() } },
+      { threshold: 0.15 }
+    )
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [])
+
   const count30 = useCountUp(30, 1600, statsVisible)
   const count8 = useCountUp(8, 1200, statsVisible)
   const count1000 = useCountUp(1000, 2000, statsVisible)
 
   const heroReveal = useReveal()
   const quoteReveal = useReveal()
-  const ecosystemReveal = useReveal()
+  const { ref: ecosystemRef, visible: ecosystemVisible } = useReveal()
   const communityReveal = useReveal()
   const aboutReveal = useReveal()
   const featuredReveal = useReveal()
@@ -182,6 +236,17 @@ export default function Home() {
         @media (max-width: 767px) {
           .home-stats-block { border-right: none !important; }
           .home-eco-right { display: none; }
+          .home-eco-row { padding-left: 0 !important; }
+        }
+        @keyframes wordIn {
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(16px); }
+          to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
 
@@ -200,17 +265,47 @@ export default function Home() {
             fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
             letterSpacing: '0.3em', textTransform: 'uppercase',
             color: 'rgba(242,233,218,0.55)', marginBottom: 28,
+            opacity: 0,
+            animation: 'fadeUp 0.5s ease forwards',
+            animationDelay: '0ms',
           }}>
             DR. MARLA ECOSYSTEM · EST. 1996
           </div>
 
           <h1 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(52px,9.5vw,128px)', lineHeight: 0.93,
-            letterSpacing: '-0.022em', color: 'var(--cream)', maxWidth: 900,
+            fontSize: 'clamp(52px,9.5vw,128px)',
+            lineHeight: 0.93, letterSpacing: '-0.022em',
+            color: 'var(--cream)', maxWidth: '900px',
+            margin: '0 0 0 0',
           }}>
-            Thirty years building.<br />
-            Eight companies. <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>One vision.</em>
+            {['Thirty', 'years', 'building.', 'Eight', 'companies.'].map((word, i) => (
+              <span key={i} style={{
+                display: 'inline-block',
+                marginRight: '0.22em',
+                opacity: 0,
+                transform: 'translateY(20px)',
+                animation: `wordIn 0.55s ease forwards`,
+                animationDelay: `${i * 80}ms`,
+              }}>
+                {word}
+              </span>
+            ))}
+            {' '}
+            <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>
+              {['One', 'vision.'].map((word, i) => (
+                <span key={i} style={{
+                  display: 'inline-block',
+                  marginRight: i < 1 ? '0.22em' : '0',
+                  opacity: 0,
+                  transform: 'translateY(20px)',
+                  animation: `wordIn 0.55s ease forwards`,
+                  animationDelay: `${(5 + i) * 80}ms`,
+                }}>
+                  {word}
+                </span>
+              ))}
+            </em>
           </h1>
 
           <div style={{
@@ -219,17 +314,28 @@ export default function Home() {
             borderBottom: '1px solid var(--gold)',
             paddingTop: 5,
             width: 'clamp(120px,28vw,380px)',
+            opacity: 0,
+            animation: 'fadeUp 0.5s ease forwards',
+            animationDelay: '520ms',
           }} />
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
             fontSize: 'clamp(18px,2.4vw,26px)', lineHeight: 1.45,
             color: 'rgba(242,233,218,0.82)', maxWidth: 580, marginBottom: 40,
+            opacity: 0,
+            animation: 'fadeUp 0.5s ease forwards',
+            animationDelay: '620ms',
           }}>
             Helping people build stronger businesses, stronger communities, and stronger futures.
           </p>
 
-          <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+          <div style={{
+            display: 'flex', gap: 16, flexWrap: 'wrap',
+            opacity: 0,
+            animation: 'fadeUp 0.5s ease forwards',
+            animationDelay: '740ms',
+          }}>
             <Link href="/contact" style={{
               fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
               letterSpacing: '0.22em', textTransform: 'uppercase',
@@ -254,6 +360,9 @@ export default function Home() {
           fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
           letterSpacing: '0.28em', textTransform: 'uppercase',
           color: 'rgba(242,233,218,0.38)', zIndex: 2,
+          opacity: 0,
+          animation: 'fadeUp 0.5s ease forwards',
+          animationDelay: '860ms',
         }}>
           MBA · TH.D · PUBLISHED AUTHOR · 30 YEARS BUILDING BUSINESSES
         </div>
@@ -282,6 +391,15 @@ export default function Home() {
                   }}>
                     {s.num}{s.suffix}
                   </div>
+                  <div style={{
+                    height: '2px',
+                    background: 'var(--gold)',
+                    width: statsVisible ? '60px' : '0px',
+                    transition: 'width 0.6s ease',
+                    transitionDelay: `${i * 200}ms`,
+                    marginTop: '10px',
+                    marginBottom: '4px',
+                  }} />
                   <div style={{
                     fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
                     letterSpacing: '0.22em', textTransform: 'uppercase',
@@ -340,7 +458,34 @@ export default function Home() {
             fontSize: 'clamp(28px,4.5vw,58px)', lineHeight: 1.08,
             letterSpacing: '-0.015em', color: 'var(--cream)', maxWidth: 820,
           }}>
-            “The foundation you choose determines <em style={{ color: 'var(--gold-soft)' }}>everything</em> that gets built on top of it.”
+            {(() => {
+              const before = ['“The', 'foundation', 'you', 'choose', 'determines']
+              const emWord = 'everything'
+              const after = ['that', 'gets', 'built', 'on', 'top', 'of', 'it.”']
+              let idx = 0
+              const span = (word: string, key: string, isEm: boolean) => {
+                const i = idx++
+                return (
+                  <span key={key} style={{
+                    display: 'inline-block',
+                    marginRight: '0.22em',
+                    opacity: quoteReveal.visible ? 1 : 0,
+                    transform: quoteReveal.visible ? 'none' : 'translateY(20px)',
+                    transition: `opacity 0.55s ease ${i * 80}ms, transform 0.55s ease ${i * 80}ms`,
+                    color: isEm ? 'var(--gold-soft)' : undefined,
+                  }}>
+                    {word}
+                  </span>
+                )
+              }
+              return (
+                <>
+                  {before.map((w, i) => span(w, `b${i}`, false))}
+                  {span(emWord, 'em', true)}
+                  {after.map((w, i) => span(w, `a${i}`, false))}
+                </>
+              )
+            })()}
           </div>
 
           <div style={{
@@ -367,17 +512,12 @@ export default function Home() {
       </section>
 
       {/* SECTION 4: THE ECOSYSTEM */}
-      <section style={{ position: 'relative', overflow: 'hidden' }}>
-        <div aria-hidden style={{
-          position: 'absolute', inset: 0, zIndex: 0,
-          background: hoveredCompany ? COMPANY_COLORS[hoveredCompany] : 'var(--cream-2)',
-          transition: 'background 0.45s ease',
-        }} />
-        <div style={{
-          position: 'relative', zIndex: 1,
-          padding: 'clamp(72px,11vh,120px) var(--gut)',
-        }}>
-          <div ref={ecosystemReveal.ref} style={revealStyle(ecosystemReveal.visible)}>
+      <section style={{
+        background: 'var(--cream-2)',
+        padding: 'clamp(72px,11vh,120px) var(--gut)',
+      }}>
+        <div>
+          <div ref={ecosystemRef} style={revealStyle(ecosystemVisible)}>
             <div className="home-eco-intro" style={{ display: 'block' }}>
               <div>
                 <div style={{
@@ -387,13 +527,15 @@ export default function Home() {
                 }}>
                   THE ECOSYSTEM · EIGHT DIVISIONS
                 </div>
-                <h2 style={{
-                  fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(34px,5.5vw,68px)', lineHeight: 1,
-                  letterSpacing: '-0.018em', color: 'var(--ink)',
-                }}>
-                  Eight companies. <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>One house.</em>
-                </h2>
+                <WordReveal
+                  text="Eight companies."
+                  emText="One house."
+                  style={{
+                    fontFamily: 'var(--serif)', fontWeight: 400,
+                    fontSize: 'clamp(34px,5.5vw,68px)', lineHeight: 1,
+                    letterSpacing: '-0.018em', color: 'var(--ink)',
+                  }}
+                />
                 <p style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
                   fontSize: 'clamp(16px,1.9vw,19px)', lineHeight: 1.62,
@@ -401,6 +543,13 @@ export default function Home() {
                 }}>
                   Each division was built because a real need existed in a community Dr. Marla knew personally. Finance came first. Construction followed. Then food, media, hospitality, automotive. Not a portfolio assembled for appearance. Eight answers to eight specific problems.
                 </p>
+                <div style={{
+                  height: '1px',
+                  background: 'var(--gold)',
+                  width: ecosystemVisible ? '80px' : '0px',
+                  transition: 'width 0.7s ease 0.3s',
+                  marginTop: '28px',
+                }} />
               </div>
               <div className="home-eco-right">
                 <div style={{
@@ -420,25 +569,40 @@ export default function Home() {
 
           <div>
             {ECOSYSTEM.map((c, idx) => {
-              const isHover = hoveredCompany === c.no
+              const isHover = hoveredRow === c.no
               const isLast = idx === ECOSYSTEM.length - 1
               return (
                 <Link
                   key={c.no}
                   href={c.href}
-                  onMouseEnter={() => setHoveredCompany(c.no)}
-                  onMouseLeave={() => setHoveredCompany(null)}
+                  className="home-eco-row"
+                  onMouseEnter={() => setHoveredRow(c.no)}
+                  onMouseLeave={() => setHoveredRow(null)}
                   style={{
+                    position: 'relative',
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'flex-start',
                     padding: '22px 0',
+                    paddingLeft: '16px',
                     borderBottom: isLast ? 'none' : '1px solid var(--ink-15)',
                     cursor: 'pointer',
                     textDecoration: 'none',
                     gap: 24,
+                    transition: 'padding-left 0.2s ease',
                   }}
                 >
+                  <span aria-hidden style={{
+                    position: 'absolute',
+                    left: 0,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '3px',
+                    height: isHover ? '100%' : '0%',
+                    background: ROW_ACCENT[c.no],
+                    transition: 'height 0.22s ease',
+                    borderRadius: '0 2px 2px 0',
+                  }} />
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 1 }}>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap' }}>
                       <span style={{
@@ -460,8 +624,8 @@ export default function Home() {
                       <span style={{
                         fontFamily: 'var(--serif)', fontWeight: 400,
                         fontSize: 'clamp(18px,2.8vw,28px)', letterSpacing: '-0.01em',
-                        color: isHover ? 'var(--cream)' : 'var(--ink)',
-                        transition: 'color 0.3s ease',
+                        color: isHover ? ROW_ACCENT[c.no] : 'var(--ink)',
+                        transition: 'color 0.2s ease',
                       }}>
                         {c.name}
                       </span>
@@ -469,8 +633,7 @@ export default function Home() {
                     <div style={{
                       fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 13,
                       lineHeight: 1.5, marginTop: 4,
-                      color: isHover ? 'rgba(242,233,218,0.72)' : 'var(--ink-45)',
-                      transition: 'color 0.3s ease',
+                      color: 'var(--ink-45)',
                     }}>
                       {c.purpose}
                     </div>
@@ -480,16 +643,15 @@ export default function Home() {
                     <span style={{
                       fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
                       letterSpacing: '0.22em', textTransform: 'uppercase',
-                      color: isHover ? 'var(--gold-soft)' : 'var(--gold-deep)',
-                      transition: 'color 0.3s ease',
+                      color: 'var(--gold-deep)',
                     }}>
                       {c.tag}
                     </span>
                     <span style={{
                       fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 16,
                       marginLeft: 10,
-                      color: isHover ? 'var(--gold-soft)' : 'var(--gold-deep)',
-                      transition: 'color 0.3s ease',
+                      color: isHover ? 'var(--gold-deep)' : 'var(--ink-45)',
+                      transition: 'color 0.2s ease',
                     }}>
                       →
                     </span>
@@ -526,13 +688,15 @@ export default function Home() {
             }}>
               COMMUNITY IMPACT
             </div>
-            <h2 style={{
-              fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(30px,4.5vw,52px)', lineHeight: 1.05,
-              letterSpacing: '-0.015em', color: 'var(--ink)',
-            }}>
-              Built for the community. <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>Rooted in it.</em>
-            </h2>
+            <WordReveal
+              text="Built for the community."
+              emText="Rooted in it."
+              style={{
+                fontFamily: 'var(--serif)', fontWeight: 400,
+                fontSize: 'clamp(30px,4.5vw,52px)', lineHeight: 1.05,
+                letterSpacing: '-0.015em', color: 'var(--ink)',
+              }}
+            />
           </div>
 
           <div className="home-impact-grid" style={{
@@ -594,13 +758,16 @@ export default function Home() {
             }}>
               THE FOUNDER
             </div>
-            <h2 style={{
-              fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(32px,5vw,60px)', lineHeight: 1.02,
-              letterSpacing: '-0.018em', color: 'var(--cream)',
-            }}>
-              Dr. Marla <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Yanice Sabater.</em>
-            </h2>
+            <WordReveal
+              text="Dr. Marla"
+              emText="Yanice Sabater."
+              style={{
+                fontFamily: 'var(--serif)', fontWeight: 400,
+                fontSize: 'clamp(32px,5vw,60px)', lineHeight: 1.02,
+                letterSpacing: '-0.018em', color: 'var(--cream)',
+              }}
+              emStyle={{ color: 'var(--gold-soft)' }}
+            />
 
             <div style={{
               margin: '24px 0',
@@ -676,15 +843,17 @@ export default function Home() {
           }}>
             FEATURED DIVISIONS
           </div>
-          <h2 style={{
-            fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(28px,4vw,48px)', lineHeight: 1.05,
-            color: 'var(--ink)', marginBottom: 48,
-          }}>
-            Where to <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>start.</em>
-          </h2>
+          <WordReveal
+            text="Where to"
+            emText="start."
+            style={{
+              fontFamily: 'var(--serif)', fontWeight: 400,
+              fontSize: 'clamp(28px,4vw,48px)', lineHeight: 1.05,
+              color: 'var(--ink)', marginBottom: 48,
+            }}
+          />
 
-          <div className="home-featured-grid" style={{
+          <div ref={cardsRef} className="home-featured-grid" style={{
             display: 'grid', gridTemplateColumns: '1fr', gap: 16,
           }}>
             {/* Card 1: PSE */}
@@ -694,6 +863,9 @@ export default function Home() {
               color: 'var(--cream)', padding: '40px 32px',
               minHeight: 340, display: 'flex', flexDirection: 'column',
               justifyContent: 'space-between',
+              opacity: cardsVisible ? 1 : 0,
+              transform: cardsVisible ? 'none' : 'translateY(28px)',
+              transition: `opacity 0.55s ease 0ms, transform 0.55s ease 0ms`,
             }}>
               <Grain opacity={0.06} />
               <div style={{ position: 'relative', zIndex: 2 }}>
@@ -741,6 +913,9 @@ export default function Home() {
               color: 'var(--cream)', padding: '40px 32px',
               minHeight: 340, display: 'flex', flexDirection: 'column',
               justifyContent: 'space-between',
+              opacity: cardsVisible ? 1 : 0,
+              transform: cardsVisible ? 'none' : 'translateY(28px)',
+              transition: `opacity 0.55s ease 150ms, transform 0.55s ease 150ms`,
             }}>
               <Grain opacity={0.06} />
               <div style={{ position: 'relative', zIndex: 2 }}>
@@ -813,6 +988,9 @@ export default function Home() {
               minHeight: 340, display: 'flex', flexDirection: 'column',
               justifyContent: 'space-between', alignItems: 'center',
               textAlign: 'center',
+              opacity: cardsVisible ? 1 : 0,
+              transform: cardsVisible ? 'none' : 'translateY(28px)',
+              transition: `opacity 0.55s ease 300ms, transform 0.55s ease 300ms`,
             }}>
               <Grain opacity={0.06} />
               <div style={{ position: 'relative', zIndex: 2 }}>
