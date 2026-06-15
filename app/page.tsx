@@ -262,9 +262,9 @@ export default function Home() {
         <Grain opacity={0.06} />
         <div style={{ position: 'relative', zIndex: 2 }}>
           <div style={{
-            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-            letterSpacing: '0.3em', textTransform: 'uppercase',
-            color: 'rgba(242,233,218,0.55)', marginBottom: 28,
+            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+            letterSpacing: '0.34em', textTransform: 'uppercase',
+            color: 'rgba(242,233,218,0.55)', marginBottom: 36,
             opacity: 0,
             animation: 'fadeUp 0.5s ease forwards',
             animationDelay: '0ms',
@@ -274,15 +274,15 @@ export default function Home() {
 
           <h1 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(52px,9.5vw,128px)',
-            lineHeight: 0.93, letterSpacing: '-0.022em',
+            fontSize: 'clamp(48px,9vw,120px)',
+            lineHeight: 0.92, letterSpacing: '-0.025em',
             color: 'var(--cream)', maxWidth: '900px',
             margin: '0 0 0 0',
           }}>
             {['Thirty', 'years', 'building.', 'Eight', 'companies.'].map((word, i) => (
               <span key={i} style={{
                 display: 'inline-block',
-                marginRight: '0.22em',
+                marginRight: '0.2em',
                 opacity: 0,
                 transform: 'translateY(20px)',
                 animation: `wordIn 0.55s ease forwards`,
@@ -296,7 +296,7 @@ export default function Home() {
               {['One', 'vision.'].map((word, i) => (
                 <span key={i} style={{
                   display: 'inline-block',
-                  marginRight: i < 1 ? '0.22em' : '0',
+                  marginRight: i < 1 ? '0.2em' : '0',
                   opacity: 0,
                   transform: 'translateY(20px)',
                   animation: `wordIn 0.55s ease forwards`,
@@ -321,8 +321,8 @@ export default function Home() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(18px,2.4vw,26px)', lineHeight: 1.45,
-            color: 'rgba(242,233,218,0.82)', maxWidth: 580, marginBottom: 40,
+            fontSize: 'clamp(19px,2.6vw,28px)', lineHeight: 1.42,
+            color: 'rgba(242,233,218,0.82)', maxWidth: 580, marginBottom: 44,
             opacity: 0,
             animation: 'fadeUp 0.5s ease forwards',
             animationDelay: '620ms',
@@ -386,7 +386,7 @@ export default function Home() {
                 <div key={i} className="home-stats-block" data-stat-item="true">
                   <div style={{
                     fontFamily: 'var(--serif)', fontWeight: 400,
-                    fontSize: 'clamp(56px,9vw,96px)', lineHeight: 1,
+                    fontSize: 'clamp(48px,7.5vw,80px)', lineHeight: 0.98,
                     letterSpacing: '-0.02em', color: 'var(--ink)',
                   }}>
                     {s.num}{s.suffix}
@@ -401,16 +401,16 @@ export default function Home() {
                     marginBottom: '4px',
                   }} />
                   <div style={{
-                    fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
-                    letterSpacing: '0.22em', textTransform: 'uppercase',
-                    color: 'var(--gold-deep)', marginTop: 10,
+                    fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                    letterSpacing: '0.26em', textTransform: 'uppercase',
+                    color: 'var(--gold-deep)', marginTop: 8,
                   }}>
                     {s.label}
                   </div>
                   <div style={{
-                    fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 13,
+                    fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 12,
                     lineHeight: 1.5, color: 'var(--ink-45)',
-                    marginTop: 6, maxWidth: 180,
+                    marginTop: 8, maxWidth: 200,
                   }}>
                     {s.ctx}
                   </div>
@@ -422,8 +422,8 @@ export default function Home() {
               marginTop: 'clamp(40px,6vh,64px)',
               borderTop: '1px solid var(--ink-15)',
               paddingTop: 28,
-              fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 14,
-              lineHeight: 1.6, color: 'var(--ink-70)', maxWidth: 680,
+              fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 15,
+              lineHeight: 1.65, color: 'var(--ink-70)', maxWidth: 640,
             }}>
               From a single practice at 356 Manton Avenue in Providence to a network of eight companies serving clients across nine industries. The ecosystem did not begin as a plan. It began as a response to what her community needed.
             </div>
@@ -455,8 +455,8 @@ export default function Home() {
 
           <div data-pullquote="true" style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(28px,4.5vw,58px)', lineHeight: 1.08,
-            letterSpacing: '-0.015em', color: 'var(--cream)', maxWidth: 820,
+            fontSize: 'clamp(32px,5.5vw,68px)', lineHeight: 1.04,
+            letterSpacing: '-0.018em', color: 'var(--cream)', maxWidth: 860,
           }}>
             {(() => {
               const before = ['“The', 'foundation', 'you', 'choose', 'determines']
@@ -495,15 +495,15 @@ export default function Home() {
           }} />
 
           <div style={{
-            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
-            letterSpacing: '0.26em', textTransform: 'uppercase',
+            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+            letterSpacing: '0.3em', textTransform: 'uppercase',
             color: 'rgba(242,233,218,0.55)',
           }}>
             STRUCTURAL INTEGRITY — DR. MARLA SABATER
           </div>
 
           <div style={{
-            fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 16,
+            fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15,
             color: 'rgba(242,233,218,0.68)', marginTop: 8,
           }}>
             A practical guide to choosing the right foundation for your business. Published by Dr. Marla Sabater.
@@ -521,9 +521,9 @@ export default function Home() {
             <div className="home-eco-intro" data-cols="2" style={{ display: 'block' }}>
               <div>
                 <div style={{
-                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-                  letterSpacing: '0.3em', textTransform: 'uppercase',
-                  color: 'var(--gold-deep)', marginBottom: 20,
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+                  letterSpacing: '0.32em', textTransform: 'uppercase',
+                  color: 'var(--gold-deep)', marginBottom: 24,
                 }}>
                   THE ECOSYSTEM · EIGHT DIVISIONS
                 </div>
@@ -532,13 +532,13 @@ export default function Home() {
                   emText="One house."
                   style={{
                     fontFamily: 'var(--serif)', fontWeight: 400,
-                    fontSize: 'clamp(34px,5.5vw,68px)', lineHeight: 1,
-                    letterSpacing: '-0.018em', color: 'var(--ink)',
+                    fontSize: 'clamp(36px,6vw,76px)', lineHeight: 0.98,
+                    letterSpacing: '-0.02em', color: 'var(--ink)',
                   }}
                 />
                 <p style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(16px,1.9vw,19px)', lineHeight: 1.62,
+                  fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
                   color: 'var(--ink-70)', marginTop: 20, maxWidth: 480,
                 }}>
                   Each division was built because a real need existed in a community Dr. Marla knew personally. Finance came first. Construction followed. Then food, media, hospitality, automotive. Not a portfolio assembled for appearance. Eight answers to eight specific problems.
@@ -554,7 +554,7 @@ export default function Home() {
               <div className="home-eco-right">
                 <div style={{
                   fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-                  fontSize: 15, lineHeight: 1.7, color: 'var(--ink-45)', paddingTop: 8,
+                  fontSize: 15, lineHeight: 1.68, color: 'var(--ink-45)', paddingTop: 8,
                 }}>
                   The goal is for visitors to understand that all divisions work together to help individuals, businesses, and communities grow stronger — financially, professionally, and personally.
                 </div>
@@ -608,7 +608,7 @@ export default function Home() {
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: 14, flexWrap: 'wrap' }}>
                       <span style={{
                         fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-                        letterSpacing: '0.18em', textTransform: 'uppercase',
+                        letterSpacing: '0.2em', textTransform: 'uppercase',
                         color: 'var(--gold-deep)',
                       }}>
                         No. {c.no}
@@ -624,7 +624,7 @@ export default function Home() {
                       )}
                       <span style={{
                         fontFamily: 'var(--serif)', fontWeight: 400,
-                        fontSize: 'clamp(18px,2.8vw,28px)', letterSpacing: '-0.01em',
+                        fontSize: 'clamp(20px,3.2vw,34px)', letterSpacing: '-0.012em',
                         color: isHover ? ROW_ACCENT[c.no] : 'var(--ink)',
                         transition: 'color 0.2s ease',
                       }}>
@@ -633,7 +633,7 @@ export default function Home() {
                     </div>
                     <div style={{
                       fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 13,
-                      lineHeight: 1.5, marginTop: 4,
+                      lineHeight: 1.5, marginTop: 6,
                       color: 'var(--ink-45)',
                     }}>
                       {c.purpose}
@@ -643,14 +643,14 @@ export default function Home() {
                   <div data-eco-row-right="true" style={{ display: 'flex', alignItems: 'baseline', whiteSpace: 'nowrap' }}>
                     <span style={{
                       fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-                      letterSpacing: '0.22em', textTransform: 'uppercase',
+                      letterSpacing: '0.24em', textTransform: 'uppercase',
                       color: 'var(--gold-deep)',
                     }}>
                       {c.tag}
                     </span>
                     <span style={{
-                      fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 16,
-                      marginLeft: 10,
+                      fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 14,
+                      marginLeft: 8,
                       color: isHover ? 'var(--gold-deep)' : 'var(--ink-45)',
                       transition: 'color 0.2s ease',
                     }}>
@@ -683,9 +683,9 @@ export default function Home() {
         <div ref={communityReveal.ref} style={revealStyle(communityReveal.visible)}>
           <div style={{ marginBottom: 48 }}>
             <div style={{
-              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-              letterSpacing: '0.3em', textTransform: 'uppercase',
-              color: 'var(--gold-deep)', marginBottom: 16,
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+              letterSpacing: '0.32em', textTransform: 'uppercase',
+              color: 'var(--gold-deep)', marginBottom: 20,
             }}>
               COMMUNITY IMPACT
             </div>
@@ -694,8 +694,8 @@ export default function Home() {
               emText="Rooted in it."
               style={{
                 fontFamily: 'var(--serif)', fontWeight: 400,
-                fontSize: 'clamp(30px,4.5vw,52px)', lineHeight: 1.05,
-                letterSpacing: '-0.015em', color: 'var(--ink)',
+                fontSize: 'clamp(32px,5vw,60px)', lineHeight: 1.0,
+                letterSpacing: '-0.018em', color: 'var(--ink)',
               }}
             />
           </div>
@@ -714,21 +714,21 @@ export default function Home() {
               }}>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(40px,6vw,72px)', lineHeight: 1, color: 'var(--ink)',
+                  fontSize: 'clamp(40px,6vw,68px)', lineHeight: 1, color: 'var(--ink)',
                 }}>
                   {b.num}
                 </div>
                 <div style={{
                   fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-                  letterSpacing: '0.22em', textTransform: 'uppercase',
-                  color: 'var(--gold-deep)', marginTop: 10,
+                  letterSpacing: '0.26em', textTransform: 'uppercase',
+                  color: 'var(--gold-deep)', marginTop: 12,
                 }}>
                   {b.label}
                 </div>
                 <div style={{
                   fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-                  fontSize: 16, lineHeight: 1.6,
-                  color: 'var(--ink-70)', marginTop: 14,
+                  fontSize: 15, lineHeight: 1.62,
+                  color: 'var(--ink-70)', marginTop: 16,
                 }}>
                   {b.body}
                 </div>
@@ -753,9 +753,9 @@ export default function Home() {
         }}>
           <div>
             <div style={{
-              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-              letterSpacing: '0.3em', textTransform: 'uppercase',
-              color: 'var(--gold-soft)', marginBottom: 20,
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+              letterSpacing: '0.32em', textTransform: 'uppercase',
+              color: 'var(--gold-soft)', marginBottom: 24,
             }}>
               THE FOUNDER
             </div>
@@ -764,8 +764,8 @@ export default function Home() {
               emText="Yanice Sabater."
               style={{
                 fontFamily: 'var(--serif)', fontWeight: 400,
-                fontSize: 'clamp(32px,5vw,60px)', lineHeight: 1.02,
-                letterSpacing: '-0.018em', color: 'var(--cream)',
+                fontSize: 'clamp(34px,5.5vw,64px)', lineHeight: 1.0,
+                letterSpacing: '-0.02em', color: 'var(--cream)',
               }}
               emStyle={{ color: 'var(--gold-soft)' }}
             />
@@ -782,10 +782,10 @@ export default function Home() {
               {['MBA', 'TH.D', 'PUBLISHED AUTHOR', 'EST. 1996'].map(tag => (
                 <span key={tag} style={{
                   fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 9,
-                  letterSpacing: '0.22em', textTransform: 'uppercase',
+                  letterSpacing: '0.24em', textTransform: 'uppercase',
                   border: '1px solid rgba(242,233,218,0.3)',
                   color: 'rgba(242,233,218,0.7)',
-                  padding: '6px 14px',
+                  padding: '6px 12px',
                 }}>
                   {tag}
                 </span>
@@ -806,7 +806,7 @@ export default function Home() {
           <div>
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,19px)', lineHeight: 1.65,
+              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.68,
               color: 'rgba(242,233,218,0.82)', maxWidth: 520,
             }}>
               Dr. Marla Yanice Sabater started Premium Services Corporation in Providence, Rhode Island in 1996. The work began because the families and small businesses around her had no one who could explain the numbers clearly, in their language, with their future in mind.
@@ -814,16 +814,16 @@ export default function Home() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-              fontSize: 'clamp(16px,1.9vw,18px)', lineHeight: 1.6,
-              color: 'rgba(242,233,218,0.68)', marginTop: 20,
+              fontSize: 'clamp(16px,1.9vw,19px)', lineHeight: 1.62,
+              color: 'rgba(242,233,218,0.68)', marginTop: 24,
             }}>
               What followed was not a strategic plan. Each new company was built because a need showed up that the community did not have a strong answer to. Thirty years later, the answer is eight companies, two published books, and over a thousand clients served.
             </p>
 
             <div style={{
               fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-              letterSpacing: '0.26em', textTransform: 'uppercase',
-              color: 'rgba(242,233,218,0.38)', marginTop: 24,
+              letterSpacing: '0.28em', textTransform: 'uppercase',
+              color: 'rgba(242,233,218,0.38)', marginTop: 28,
             }}>
               MBA · TH.D · PUBLISHED AUTHOR · PROVIDENCE, RI
             </div>
@@ -838,9 +838,9 @@ export default function Home() {
       }}>
         <div ref={featuredReveal.ref} style={revealStyle(featuredReveal.visible)}>
           <div style={{
-            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-            letterSpacing: '0.3em', textTransform: 'uppercase',
-            color: 'var(--gold-deep)', marginBottom: 16,
+            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+            letterSpacing: '0.32em', textTransform: 'uppercase',
+            color: 'var(--gold-deep)', marginBottom: 20,
           }}>
             FEATURED DIVISIONS
           </div>
@@ -849,8 +849,8 @@ export default function Home() {
             emText="start."
             style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(28px,4vw,48px)', lineHeight: 1.05,
-              color: 'var(--ink)', marginBottom: 48,
+              fontSize: 'clamp(30px,4.5vw,54px)', lineHeight: 1.0,
+              color: 'var(--ink)', marginBottom: 52,
             }}
           />
 
@@ -879,7 +879,7 @@ export default function Home() {
                 </div>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(22px,3vw,32px)', letterSpacing: '-0.015em',
+                  fontSize: 'clamp(24px,3.5vw,40px)', letterSpacing: '-0.018em',
                   color: 'var(--cream)',
                 }}>
                   Premium Services <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Enterprise.</em>
@@ -890,7 +890,7 @@ export default function Home() {
                   paddingTop: 4, margin: '20px 0', width: 100,
                 }} />
                 <div style={{
-                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15,
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15, lineHeight: 1.45,
                   color: 'rgba(242,233,218,0.78)',
                 }}>
                   Property, holdings, and the long view.
@@ -899,7 +899,7 @@ export default function Home() {
               <Link href="/ecosystem/enterprise" style={{
                 position: 'relative', zIndex: 2,
                 fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-                letterSpacing: '0.22em', textTransform: 'uppercase',
+                letterSpacing: '0.24em', textTransform: 'uppercase',
                 color: 'var(--gold-soft)', textDecoration: 'none',
                 marginTop: 'auto', paddingTop: 24, display: 'block',
               }}>
@@ -929,7 +929,7 @@ export default function Home() {
                 </div>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(22px,3vw,32px)', letterSpacing: '-0.015em',
+                  fontSize: 'clamp(24px,3.5vw,40px)', letterSpacing: '-0.018em',
                   color: 'var(--cream)',
                 }}>
                   Premium Services <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Corporation.</em>
@@ -940,7 +940,7 @@ export default function Home() {
                   paddingTop: 4, margin: '20px 0', width: 100,
                 }} />
                 <div style={{
-                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15,
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15, lineHeight: 1.45,
                   color: 'rgba(242,233,218,0.78)',
                 }}>
                   Tax, accounting, and financial strategy. Built on the right foundation.
@@ -956,13 +956,13 @@ export default function Home() {
                     <div key={f.label} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                       <div style={{
                         fontFamily: 'var(--serif)', fontWeight: 400,
-                        fontSize: 'clamp(20px,2.5vw,28px)', color: 'var(--gold-soft)',
+                        fontSize: 'clamp(18px,2.2vw,26px)', color: 'var(--gold-soft)',
                       }}>
                         {f.num}
                       </div>
                       <div style={{
                         fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 9,
-                        letterSpacing: '0.16em', textTransform: 'uppercase',
+                        letterSpacing: '0.18em', textTransform: 'uppercase',
                         color: 'rgba(242,233,218,0.55)',
                       }}>
                         {f.label}
@@ -972,7 +972,7 @@ export default function Home() {
                 </div>
                 <Link href="/ecosystem/corporation" style={{
                   fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-                  letterSpacing: '0.22em', textTransform: 'uppercase',
+                  letterSpacing: '0.24em', textTransform: 'uppercase',
                   color: 'var(--gold-soft)', textDecoration: 'none',
                   paddingTop: 8, display: 'block',
                 }}>
@@ -1004,7 +1004,7 @@ export default function Home() {
                 </div>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(22px,3vw,32px)', letterSpacing: '-0.015em',
+                  fontSize: 'clamp(24px,3.5vw,40px)', letterSpacing: '-0.018em',
                   color: 'var(--cream)', textAlign: 'center',
                 }}>
                   Legacy <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Production House.</em>
@@ -1015,7 +1015,7 @@ export default function Home() {
                   paddingTop: 4, margin: '20px auto', width: 100,
                 }} />
                 <div style={{
-                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15,
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15, lineHeight: 1.45,
                   color: 'rgba(242,233,218,0.78)', textAlign: 'center',
                 }}>
                   A way up for talent without access.
@@ -1024,7 +1024,7 @@ export default function Home() {
               <Link href="/ecosystem/legacy" style={{
                 position: 'relative', zIndex: 2,
                 fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-                letterSpacing: '0.22em', textTransform: 'uppercase',
+                letterSpacing: '0.24em', textTransform: 'uppercase',
                 color: 'var(--gold-soft)', textDecoration: 'none',
                 marginTop: 'auto', paddingTop: 24, display: 'block',
                 textAlign: 'center',
@@ -1050,28 +1050,28 @@ export default function Home() {
         }}>
           <div>
             <div style={{
-              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-              letterSpacing: '0.3em', textTransform: 'uppercase',
-              color: 'var(--gold-soft)', marginBottom: 20,
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
+              letterSpacing: '0.32em', textTransform: 'uppercase',
+              color: 'var(--gold-soft)', marginBottom: 24,
             }}>
               GET IN TOUCH
             </div>
             <h2 style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(30px,4.5vw,56px)', lineHeight: 1.04,
-              letterSpacing: '-0.018em', color: 'var(--cream)',
+              fontSize: 'clamp(32px,5vw,60px)', lineHeight: 1.0,
+              letterSpacing: '-0.02em', color: 'var(--cream)',
             }}>
               Let&apos;s talk about your <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>business.</em>
             </h2>
             <p style={{
               fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,19px)', lineHeight: 1.55,
-              color: 'rgba(242,233,218,0.75)', marginTop: 20, maxWidth: 440,
+              fontSize: 'clamp(17px,2.2vw,22px)', lineHeight: 1.52,
+              color: 'rgba(242,233,218,0.75)', marginTop: 24, maxWidth: 440,
             }}>
               Schedule a consultation. Dr. Marla works with business owners at every stage, from structuring a new company to managing a growing ecosystem.
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 14, marginTop: 32 }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 32 }}>
               {[
                 '356 Manton Avenue, Suite 1A',
                 'Providence, RI 02909',
@@ -1080,7 +1080,7 @@ export default function Home() {
                 '@drmarlabizpro',
               ].map(item => (
                 <div key={item} style={{
-                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 13,
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 14,
                   letterSpacing: '0.01em', color: 'var(--cream)',
                 }}>
                   {item}
@@ -1090,8 +1090,8 @@ export default function Home() {
 
             <div style={{
               fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-              letterSpacing: '0.26em', textTransform: 'uppercase',
-              color: 'rgba(242,233,218,0.38)', marginTop: 32,
+              letterSpacing: '0.28em', textTransform: 'uppercase',
+              color: 'rgba(242,233,218,0.38)', marginTop: 36,
             }}>
               DR. MARLA SABATER · A HOUSE OF EIGHT COMPANIES · EST. 1996
             </div>
@@ -1120,20 +1120,20 @@ export default function Home() {
             <div>
               <div style={{
                 fontFamily: 'var(--serif)', fontWeight: 400, fontStyle: 'italic',
-                fontSize: 'clamp(22px,3vw,32px)', letterSpacing: '-0.015em',
+                fontSize: 'clamp(20px,2.6vw,28px)', letterSpacing: '-0.018em',
                 color: 'var(--cream)',
               }}>
                 Dr. Marla
               </div>
               <div style={{
-                fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 12,
-                color: 'rgba(242,233,218,0.45)', marginTop: 4,
+                fontFamily: 'var(--sans)', fontWeight: 400, fontSize: 11,
+                color: 'rgba(242,233,218,0.45)', marginTop: 6,
               }}>
                 MBA · Th.D · Published Author
               </div>
             </div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px 32px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px 28px' }}>
               {[
                 { label: 'Ecosystem', href: '/ecosystem' },
                 { label: 'About', href: '/about' },
@@ -1143,7 +1143,7 @@ export default function Home() {
               ].map(item => (
                 <Link key={item.label} href={item.href} style={{
                   fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-                  letterSpacing: '0.22em', textTransform: 'uppercase',
+                  letterSpacing: '0.24em', textTransform: 'uppercase',
                   color: 'rgba(242,233,218,0.65)', textDecoration: 'none',
                 }}>
                   {item.label}
@@ -1159,7 +1159,7 @@ export default function Home() {
           }}>
             <div style={{
               fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
-              letterSpacing: '0.26em', textTransform: 'uppercase',
+              letterSpacing: '0.28em', textTransform: 'uppercase',
               color: 'rgba(242,233,218,0.35)',
             }}>
               THE HOUSE · EST. 1996 · 356 MANTON AVE, PROVIDENCE RI
