@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'Premium Services Group | Construction & Development | Dr. Marla Sabater',
@@ -49,6 +50,11 @@ const SERVICES = [
 export default function Group() {
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: 'Dr. Marla', url: 'https://marlasabater.com' },
+        { name: 'Ecosystem', url: 'https://marlasabater.com/ecosystem' },
+        { name: 'Premium Services Group', url: 'https://marlasabater.com/ecosystem/group' },
+      ]} />
       {/* SECTION 1 — HERO (light ground, blueprint gridlines) */}
       <section style={{
         position: 'relative',
@@ -78,8 +84,8 @@ export default function Group() {
 
           <h1 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(44px,8.5vw,112px)', lineHeight: 0.92,
-            letterSpacing: '-0.024em', color: 'var(--ink)', maxWidth: '820px',
+            fontSize: 'var(--t-hero)', lineHeight: 'var(--lh-display)',
+            letterSpacing: 'var(--ls-display)', color: 'var(--ink)', maxWidth: '640px', textWrap: 'balance',
           }}>
             Premium Services<br />
             <em style={{ fontStyle: 'italic', color: 'var(--gold-deep)' }}>Group.</em>
@@ -94,7 +100,7 @@ export default function Group() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(19px,2.6vw,28px)', lineHeight: 1.42,
+            fontSize: 'var(--t-lead)', lineHeight: 'var(--lh-lead)',
             color: 'rgba(38,16,20,0.72)', maxWidth: '560px',
           }}>
             Building what a community uses.
@@ -132,8 +138,8 @@ export default function Group() {
 
             <h2 style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(32px,5vw,62px)', lineHeight: 1,
-              letterSpacing: '-0.018em', color: 'var(--ink)',
+              fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+              letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', textWrap: 'balance',
             }}>
               Structural work. Real projects.<br />
               <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>Real communities.</em>
@@ -141,7 +147,7 @@ export default function Group() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'var(--ink-70)', marginTop: '24px', maxWidth: '520px',
             }}>
               Premium Services Group handles construction and development projects across New England. Commercial buildouts, residential work, project management, and development coordination — built with the kind of reliability her community needed and rarely found.
@@ -149,7 +155,7 @@ export default function Group() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'var(--ink-70)', marginTop: '16px', maxWidth: '520px',
             }}>
               She built this company because she saw what happened when communities did not have honest, capable contractors they could trust. That gap was the reason.
@@ -172,7 +178,7 @@ export default function Group() {
                   <div style={{ display: 'flex', alignItems: 'baseline' }}>
                     <span style={{
                       fontFamily: 'var(--sans)', fontWeight: 700,
-                      fontSize: 'clamp(28px,4vw,42px)', lineHeight: 1,
+                      fontSize: 'clamp(22px,3vw,34px)', lineHeight: 1,
                       color: 'var(--gold-deep)',
                     }}>
                       {s.num}
@@ -230,7 +236,7 @@ export default function Group() {
               }}>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(18px,2.2vw,24px)', lineHeight: 1.1,
+                  fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
                   color: 'var(--cream)', marginBottom: '10px',
                 }}>
                   {card.title}
@@ -263,8 +269,8 @@ export default function Group() {
 
         <div style={{
           fontFamily: 'var(--serif)', fontWeight: 400,
-          fontSize: 'clamp(28px,4.5vw,56px)', lineHeight: 1.04,
-          letterSpacing: '-0.018em', color: 'var(--ink)', maxWidth: '800px',
+          fontSize: 'var(--t-headline)', lineHeight: 'var(--lh-headline)',
+          letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', maxWidth: '660px', textWrap: 'balance',
         }}>
           Building what a community uses is not just construction.<br />
           It is <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>investment</em> in what comes next.
@@ -279,7 +285,7 @@ export default function Group() {
 
         <div style={{
           fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-          fontSize: 'clamp(17px,2vw,21px)', lineHeight: 1.55,
+          fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
           color: 'var(--ink-70)', maxWidth: '620px',
         }}>
           Every project Premium Services Group takes on is a commitment to the community it serves. Reliable work, honest pricing, and the kind of quality that holds up over time.
@@ -297,8 +303,8 @@ export default function Group() {
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '700px' }}>
           <h2 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(30px,5vw,58px)', lineHeight: 1.02,
-            letterSpacing: '-0.018em', color: 'var(--cream)',
+            fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+            letterSpacing: 'var(--ls-headline)', color: 'var(--cream)',
           }}>
             Have a project in mind?<br />
             <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Let&apos;s build it.</em>
@@ -306,7 +312,7 @@ export default function Group() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(16px,2vw,19px)', lineHeight: 1.55,
+            fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
             color: 'rgba(242,233,218,0.75)', marginTop: '20px', maxWidth: '480px',
           }}>
             Premium Services Group takes on commercial and residential projects across New England. Get in touch to discuss your project.

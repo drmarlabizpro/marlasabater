@@ -276,11 +276,12 @@ export default function Home() {
           <h1 style={{
             fontFamily: 'var(--serif)',
             fontWeight: 400,
-            fontSize: 'clamp(44px, 8.5vw, 112px)',
-            lineHeight: 0.92,
-            letterSpacing: '-0.024em',
+            fontSize: 'var(--t-hero)',
+            lineHeight: 'var(--lh-display)',
+            letterSpacing: 'var(--ls-display)',
             color: 'var(--cream)',
-            maxWidth: '820px',
+            maxWidth: '720px',
+            textWrap: 'balance',
             opacity: 0,
             animation: 'fadeUp 0.7s ease forwards',
             animationDelay: '100ms',
@@ -302,7 +303,7 @@ export default function Home() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(19px,2.6vw,28px)', lineHeight: 1.42,
+            fontSize: 'var(--t-lead)', lineHeight: 'var(--lh-lead)',
             color: 'rgba(242,233,218,0.82)', maxWidth: 580, marginBottom: 44,
             opacity: 0,
             animation: 'fadeUp 0.5s ease forwards',
@@ -369,7 +370,7 @@ export default function Home() {
                 <div key={i} className="home-stats-block" data-stat-item="true">
                   <div style={{
                     fontFamily: 'var(--serif)', fontWeight: 400,
-                    fontSize: 'clamp(48px,7.5vw,80px)', lineHeight: 0.98,
+                    fontSize: 'clamp(36px,5.5vw,60px)', lineHeight: 0.98,
                     letterSpacing: '-0.02em', color: 'var(--ink)',
                   }}>
                     {s.num}{s.suffix}
@@ -438,8 +439,9 @@ export default function Home() {
 
           <div data-pullquote="true" style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(32px,5.5vw,68px)', lineHeight: 1.04,
-            letterSpacing: '-0.018em', color: 'var(--cream)', maxWidth: 860,
+            fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+            letterSpacing: 'var(--ls-headline)', color: 'var(--cream)', maxWidth: 700,
+            textWrap: 'balance',
           }}>
             {(() => {
               const before = ['“The', 'foundation', 'you', 'choose', 'determines']
@@ -515,13 +517,14 @@ export default function Home() {
                   emText="One house."
                   style={{
                     fontFamily: 'var(--serif)', fontWeight: 400,
-                    fontSize: 'clamp(36px,6vw,76px)', lineHeight: 0.98,
-                    letterSpacing: '-0.02em', color: 'var(--ink)',
+                    fontSize: 'var(--t-display)', lineHeight: 'var(--lh-display)',
+                    letterSpacing: 'var(--ls-display)', color: 'var(--ink)',
+                    textWrap: 'balance',
                   }}
                 />
                 <p style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+                  fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
                   color: 'var(--ink-70)', marginTop: 20, maxWidth: 480,
                 }}>
                   Each division was built because a real need existed in a community Dr. Marla knew personally. Finance came first. Construction followed. Then food, media, hospitality, automotive. Not a portfolio assembled for appearance. Eight answers to eight specific problems.
@@ -607,7 +610,8 @@ export default function Home() {
                       )}
                       <span style={{
                         fontFamily: 'var(--serif)', fontWeight: 400,
-                        fontSize: 'clamp(20px,3.2vw,34px)', letterSpacing: '-0.012em',
+                        fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
+                        letterSpacing: '-0.012em',
                         color: isHover ? ROW_ACCENT[c.no] : 'var(--ink)',
                         transition: 'color 0.2s ease',
                       }}>
@@ -677,8 +681,9 @@ export default function Home() {
               emText="Rooted in it."
               style={{
                 fontFamily: 'var(--serif)', fontWeight: 400,
-                fontSize: 'clamp(32px,5vw,60px)', lineHeight: 1.0,
-                letterSpacing: '-0.018em', color: 'var(--ink)',
+                fontSize: 'var(--t-display)', lineHeight: 'var(--lh-display)',
+                letterSpacing: 'var(--ls-display)', color: 'var(--ink)',
+                textWrap: 'balance',
               }}
             />
           </div>
@@ -697,7 +702,7 @@ export default function Home() {
               }}>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(40px,6vw,68px)', lineHeight: 1, color: 'var(--ink)',
+                  fontSize: 'clamp(32px,5vw,52px)', lineHeight: 1, color: 'var(--ink)',
                 }}>
                   {b.num}
                 </div>
@@ -710,7 +715,7 @@ export default function Home() {
                 </div>
                 <div style={{
                   fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-                  fontSize: 15, lineHeight: 1.62,
+                  fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
                   color: 'var(--ink-70)', marginTop: 16,
                 }}>
                   {b.body}
@@ -747,8 +752,9 @@ export default function Home() {
               emText="Yanice Sabater."
               style={{
                 fontFamily: 'var(--serif)', fontWeight: 400,
-                fontSize: 'clamp(34px,5.5vw,64px)', lineHeight: 1.0,
-                letterSpacing: '-0.02em', color: 'var(--cream)',
+                fontSize: 'var(--t-display)', lineHeight: 'var(--lh-display)',
+                letterSpacing: 'var(--ls-display)', color: 'var(--cream)',
+                textWrap: 'balance',
               }}
               emColor="var(--gold-soft)"
             />
@@ -789,7 +795,7 @@ export default function Home() {
           <div>
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.68,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'rgba(242,233,218,0.82)', maxWidth: 520,
             }}>
               Dr. Marla Yanice Sabater started Premium Services Corporation in Providence, Rhode Island in 1996. The work began because the families and small businesses around her had no one who could explain the numbers clearly, in their language, with their future in mind.
@@ -797,7 +803,7 @@ export default function Home() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-              fontSize: 'clamp(16px,1.9vw,19px)', lineHeight: 1.62,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'rgba(242,233,218,0.68)', marginTop: 24,
             }}>
               What followed was not a strategic plan. Each new company was built because a need showed up that the community did not have a strong answer to. Thirty years later, the answer is eight companies, two published books, and over a thousand clients served.
@@ -832,8 +838,9 @@ export default function Home() {
             emText="start."
             style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(30px,4.5vw,54px)', lineHeight: 1.0,
+              fontSize: 'var(--t-display)', lineHeight: 'var(--lh-display)',
               color: 'var(--ink)', marginBottom: 52,
+              textWrap: 'balance',
             }}
           />
 
@@ -862,7 +869,8 @@ export default function Home() {
                 </div>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(24px,3.5vw,40px)', letterSpacing: '-0.018em',
+                  fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
+                  letterSpacing: '-0.018em',
                   color: 'var(--cream)',
                 }}>
                   Premium Services <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Enterprise.</em>
@@ -873,7 +881,7 @@ export default function Home() {
                   margin: '20px 0', width: 100,
                 }} />
                 <div style={{
-                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15, lineHeight: 1.45,
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
                   color: 'rgba(242,233,218,0.78)',
                 }}>
                   Property, holdings, and the long view.
@@ -912,7 +920,8 @@ export default function Home() {
                 </div>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(24px,3.5vw,40px)', letterSpacing: '-0.018em',
+                  fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
+                  letterSpacing: '-0.018em',
                   color: 'var(--cream)',
                 }}>
                   Premium Services <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Corporation.</em>
@@ -923,7 +932,7 @@ export default function Home() {
                   margin: '20px 0', width: 100,
                 }} />
                 <div style={{
-                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15, lineHeight: 1.45,
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
                   color: 'rgba(242,233,218,0.78)',
                 }}>
                   Tax, accounting, and financial strategy. Built on the right foundation.
@@ -987,7 +996,8 @@ export default function Home() {
                 </div>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(24px,3.5vw,40px)', letterSpacing: '-0.018em',
+                  fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
+                  letterSpacing: '-0.018em',
                   color: 'var(--cream)', textAlign: 'center',
                 }}>
                   Legacy <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Production House.</em>
@@ -998,7 +1008,7 @@ export default function Home() {
                   margin: '20px auto', width: 100,
                 }} />
                 <div style={{
-                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15, lineHeight: 1.45,
+                  fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
                   color: 'rgba(242,233,218,0.78)', textAlign: 'center',
                 }}>
                   A way up for talent without access.
@@ -1041,14 +1051,15 @@ export default function Home() {
             </div>
             <h2 style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(32px,5vw,60px)', lineHeight: 1.0,
-              letterSpacing: '-0.02em', color: 'var(--cream)',
+              fontSize: 'var(--t-display)', lineHeight: 'var(--lh-display)',
+              letterSpacing: 'var(--ls-display)', color: 'var(--cream)',
+              textWrap: 'balance',
             }}>
               Let&apos;s talk about your <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>business.</em>
             </h2>
             <p style={{
               fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-              fontSize: 'clamp(17px,2.2vw,22px)', lineHeight: 1.52,
+              fontSize: 'var(--t-lead)', lineHeight: 'var(--lh-lead)',
               color: 'rgba(242,233,218,0.75)', marginTop: 24, maxWidth: 440,
             }}>
               Schedule a consultation. Dr. Marla works with business owners at every stage, from structuring a new company to managing a growing ecosystem.

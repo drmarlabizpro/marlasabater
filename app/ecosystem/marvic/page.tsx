@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'Marvic Hospitality Group | Hospitality & Entertainment | Dr. Marla Sabater',
@@ -48,6 +49,11 @@ const SERVICES = [
 export default function Marvic() {
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: 'Dr. Marla', url: 'https://marlasabater.com' },
+        { name: 'Ecosystem', url: 'https://marlasabater.com/ecosystem' },
+        { name: 'Marvic Hospitality Group', url: 'https://marlasabater.com/ecosystem/marvic' },
+      ]} />
       {/* SECTION 1 — HERO (deep teal, brass hairline) */}
       <section style={{
         position: 'relative',
@@ -77,8 +83,8 @@ export default function Marvic() {
 
           <h1 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(44px,8.5vw,112px)', lineHeight: 0.92,
-            letterSpacing: '-0.024em', color: '#EFEDE0', maxWidth: '820px',
+            fontSize: 'var(--t-hero)', lineHeight: 'var(--lh-display)',
+            letterSpacing: 'var(--ls-display)', color: '#EFEDE0', maxWidth: '640px', textWrap: 'balance',
           }}>
             Marvic<br />
             <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Hospitality Group.</em>
@@ -93,7 +99,7 @@ export default function Marvic() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(19px,2.6vw,28px)', lineHeight: 1.42,
+            fontSize: 'var(--t-lead)', lineHeight: 'var(--lh-lead)',
             color: 'rgba(239,237,224,0.72)', maxWidth: '560px',
           }}>
             Events, venues, and evenings that connect people and communities.
@@ -131,8 +137,8 @@ export default function Marvic() {
 
             <h2 style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(32px,5vw,62px)', lineHeight: 1,
-              letterSpacing: '-0.018em', color: 'var(--ink)',
+              fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+              letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', textWrap: 'balance',
             }}>
               Hospitality is the business of making people feel<br />
               <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>they belong.</em>
@@ -140,7 +146,7 @@ export default function Marvic() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'var(--ink-70)', marginTop: '24px', maxWidth: '520px',
             }}>
               Marvic Hospitality Group was built on the belief that every great event, every great venue, every great experience starts with one question: do the people here feel welcome? The answer shapes everything else.
@@ -148,7 +154,7 @@ export default function Marvic() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'var(--ink-70)', marginTop: '16px', maxWidth: '520px',
             }}>
               Event management, venue operations, hospitality consulting, and entertainment experiences. From private gatherings to large-scale community events, Marvic brings the structure and the warmth.
@@ -170,7 +176,7 @@ export default function Marvic() {
                   }} />
                   <div style={{
                     fontFamily: 'var(--serif)', fontWeight: 400,
-                    fontSize: 'clamp(18px,2.2vw,24px)', lineHeight: 1.1,
+                    fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
                     color: 'var(--ink)', marginBottom: '8px',
                   }}>
                     {f.title}
@@ -219,7 +225,7 @@ export default function Marvic() {
               }}>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(18px,2.2vw,24px)', lineHeight: 1.1,
+                  fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
                   color: '#EFEDE0', marginBottom: '10px',
                 }}>
                   {card.title}
@@ -252,8 +258,8 @@ export default function Marvic() {
 
         <div style={{
           fontFamily: 'var(--serif)', fontWeight: 400,
-          fontSize: 'clamp(28px,4.5vw,56px)', lineHeight: 1.04,
-          letterSpacing: '-0.018em', color: 'var(--ink)', maxWidth: '800px',
+          fontSize: 'var(--t-headline)', lineHeight: 'var(--lh-headline)',
+          letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', maxWidth: '660px', textWrap: 'balance',
         }}>
           An evening well spent is not an accident.<br />
           It is the result of <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>intention.</em>
@@ -269,7 +275,7 @@ export default function Marvic() {
 
         <div style={{
           fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-          fontSize: 'clamp(17px,2vw,21px)', lineHeight: 1.55,
+          fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
           color: 'var(--ink-70)', maxWidth: '620px',
         }}>
           Marvic Hospitality Group brings the same care to every event it manages. The details that guests notice and the details they do not notice but feel — both matter equally.
@@ -287,8 +293,8 @@ export default function Marvic() {
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '700px' }}>
           <h2 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(30px,5vw,58px)', lineHeight: 1.02,
-            letterSpacing: '-0.018em', color: '#EFEDE0',
+            fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+            letterSpacing: 'var(--ls-headline)', color: '#EFEDE0',
           }}>
             Planning an event?<br />
             <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Let&apos;s make it exceptional.</em>
@@ -296,7 +302,7 @@ export default function Marvic() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(16px,2vw,19px)', lineHeight: 1.55,
+            fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
             color: 'rgba(239,237,224,0.65)', marginTop: '20px', maxWidth: '480px',
           }}>
             Marvic Hospitality Group works with individuals, businesses, and organizations across New England. Get in touch to discuss your event or partnership.

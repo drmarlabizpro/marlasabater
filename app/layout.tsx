@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s",
   },
   description:
-    "Dr. Marla Yanice Sabater is the founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Thirty years building businesses across New England and nationwide. Providence, RI.",
+    "Dr. Marla Yanice Sabater is the founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Thirty years building businesses in New England.",
   keywords: [
     "Dr Marla Sabater",
     "business strategist Providence RI",
@@ -35,24 +35,33 @@ export const metadata: Metadata = {
     "bilingual business advisor Rhode Island",
   ],
   alternates: {
-    canonical: "https://marlasabater.com",
+    canonical: "https://marlasabater.com/",
   },
   openGraph: {
     type: "website",
-    url: "https://marlasabater.com",
+    url: "https://marlasabater.com/",
     siteName: "Dr. Marla Sabater",
     title:
       "Dr. Marla Sabater | Business Strategist & Founder | Providence RI",
     description:
-      "Dr. Marla Yanice Sabater is the founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Thirty years building businesses across New England and nationwide. Providence, RI.",
+      "Dr. Marla Yanice Sabater is the founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Thirty years building businesses in New England.",
     locale: "en_US",
+    images: [
+      {
+        url: "https://marlasabater.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Dr. Marla Sabater — Eight Companies, One Vision",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title:
       "Dr. Marla Sabater | Business Strategist & Founder | Providence RI",
     description:
-      "Dr. Marla Yanice Sabater is the founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Thirty years building businesses across New England and nationwide. Providence, RI.",
+      "Dr. Marla Yanice Sabater is the founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Thirty years building businesses in New England.",
+    images: ["https://marlasabater.com/og-image.jpg"],
   },
   robots: {
     index: true,

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'PSG Motor Group | Automotive Sales & Services | Dr. Marla Sabater',
@@ -40,6 +41,11 @@ const SERVICES = [
 export default function PSG() {
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: 'Dr. Marla', url: 'https://marlasabater.com' },
+        { name: 'Ecosystem', url: 'https://marlasabater.com/ecosystem' },
+        { name: 'PSG Motor Group', url: 'https://marlasabater.com/ecosystem/psg' },
+      ]} />
       {/* SECTION 1 — HERO (sand ground, motion lines) */}
       <section style={{
         position: 'relative',
@@ -68,8 +74,8 @@ export default function PSG() {
 
           <h1 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(44px,8.5vw,112px)', lineHeight: 0.92,
-            letterSpacing: '-0.024em', color: 'var(--ink)', maxWidth: '820px',
+            fontSize: 'var(--t-hero)', lineHeight: 'var(--lh-display)',
+            letterSpacing: 'var(--ls-display)', color: 'var(--ink)', maxWidth: '640px', textWrap: 'balance',
           }}>
             PSG{' '}
             <em style={{ fontStyle: 'italic', color: 'var(--gold-deep)' }}>Motor Group.</em>
@@ -83,7 +89,7 @@ export default function PSG() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(19px,2.6vw,28px)', lineHeight: 1.42,
+            fontSize: 'var(--t-lead)', lineHeight: 'var(--lh-lead)',
             color: 'rgba(38,16,20,0.7)', maxWidth: '560px',
           }}>
             Reliable vehicles, sourced and serviced. Sales, export, and fleet for business.
@@ -121,8 +127,8 @@ export default function PSG() {
 
             <h2 style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(32px,5vw,62px)', lineHeight: 1,
-              letterSpacing: '-0.018em', color: 'var(--ink)',
+              fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+              letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', textWrap: 'balance',
             }}>
               Reliable vehicles for<br />
               <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>serious business.</em>
@@ -130,7 +136,7 @@ export default function PSG() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'var(--ink-70)', marginTop: '24px', maxWidth: '520px',
             }}>
               PSG Motor Group was built because service businesses need reliable vehicles and most of the time they have no one helping them source the right ones. Vehicle sales, fleet sourcing, export services, and detailing — handled with the same precision the rest of the ecosystem demands.
@@ -138,7 +144,7 @@ export default function PSG() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'var(--ink-70)', marginTop: '16px', maxWidth: '520px',
             }}>
               From a single vehicle purchase to a full fleet build-out, PSG Motor Group provides B2B automotive solutions that keep businesses moving.
@@ -161,7 +167,7 @@ export default function PSG() {
                   <div style={{ display: 'flex', alignItems: 'baseline' }}>
                     <span style={{
                       fontFamily: 'var(--sans)', fontWeight: 700,
-                      fontSize: 'clamp(24px,3.5vw,36px)', lineHeight: 1,
+                      fontSize: 'clamp(22px,3vw,34px)', lineHeight: 1,
                       color: 'var(--gold-deep)',
                     }}>
                       {s.num}
@@ -217,7 +223,7 @@ export default function PSG() {
             }}>
               <div style={{
                 fontFamily: 'var(--serif)', fontWeight: 400,
-                fontSize: 'clamp(18px,2.2vw,24px)', lineHeight: 1.1,
+                fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
                 color: 'var(--ink)', marginBottom: '10px',
               }}>
                 {card.title}
@@ -249,8 +255,8 @@ export default function PSG() {
 
         <div style={{
           fontFamily: 'var(--serif)', fontWeight: 400,
-          fontSize: 'clamp(28px,4.5vw,56px)', lineHeight: 1.04,
-          letterSpacing: '-0.018em', color: 'var(--ink)', maxWidth: '800px',
+          fontSize: 'var(--t-headline)', lineHeight: 'var(--lh-headline)',
+          letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', maxWidth: '660px', textWrap: 'balance',
         }}>
           Service businesses need reliable vehicles.<br />
           PSG was built to be<br />
@@ -268,7 +274,7 @@ export default function PSG() {
 
         <div style={{
           fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-          fontSize: 'clamp(17px,2vw,21px)', lineHeight: 1.55,
+          fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
           color: 'var(--ink-70)', maxWidth: '620px',
         }}>
           The ecosystem Dr. Marla built includes construction, food, hospitality, and media companies. Every one of them needs reliable transportation. PSG Motor Group started there and grew into a full automotive service for businesses and individuals across New England.
@@ -307,8 +313,8 @@ export default function PSG() {
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '700px' }}>
           <h2 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(30px,5vw,58px)', lineHeight: 1.02,
-            letterSpacing: '-0.018em', color: 'var(--cream)',
+            fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+            letterSpacing: 'var(--ls-headline)', color: 'var(--cream)',
           }}>
             Need a vehicle or a fleet?<br />
             <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Let&apos;s talk.</em>
@@ -316,7 +322,7 @@ export default function PSG() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(16px,2vw,19px)', lineHeight: 1.55,
+            fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
             color: 'rgba(242,233,218,0.72)', marginTop: '20px', maxWidth: '480px',
           }}>
             PSG Motor Group works with businesses and individuals across New England. Whether you need one vehicle or a full fleet, get in touch to start the conversation.

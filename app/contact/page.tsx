@@ -64,6 +64,20 @@ const valueStyle: React.CSSProperties = {
 export default function Contact() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ContactPage',
+            '@id': 'https://marlasabater.com/contact#page',
+            'url': 'https://marlasabater.com/contact',
+            'name': 'Contact Dr. Marla Sabater',
+            'description': 'Schedule a consultation with Dr. Marla Sabater across any division of the ecosystem.',
+            'mainEntity': { '@id': 'https://marlasabater.com/#business' },
+          })
+        }}
+      />
       {/* SECTION 1 — HERO */}
       <section style={{
         position: 'relative',
@@ -91,8 +105,9 @@ export default function Contact() {
 
           <h1 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(44px,8vw,96px)', lineHeight: 0.92,
-            letterSpacing: '-0.024em', color: 'var(--cream)', maxWidth: '700px',
+            fontSize: 'var(--t-hero)', lineHeight: 'var(--lh-display)',
+            letterSpacing: 'var(--ls-display)', color: 'var(--cream)', maxWidth: '600px',
+            textWrap: 'balance',
           }}>
             Let&apos;s talk about<br />
             <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>your business.</em>
@@ -100,7 +115,7 @@ export default function Contact() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(17px,2.2vw,22px)', lineHeight: 1.45,
+            fontSize: 'var(--t-lead)', lineHeight: 'var(--lh-lead)',
             color: 'rgba(242,233,218,0.72)', maxWidth: '520px', marginTop: '24px',
           }}>
             Schedule a consultation across any division of the Dr. Marla ecosystem. Tax, accounting, investments, construction, food, media, hospitality, or automotive.
@@ -130,8 +145,9 @@ export default function Contact() {
 
             <h2 style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(26px,4vw,44px)', lineHeight: 1.02,
-              letterSpacing: '-0.018em', color: 'var(--ink)', marginBottom: '32px',
+              fontSize: 'var(--t-display)', lineHeight: 'var(--lh-display)',
+              letterSpacing: 'var(--ls-display)', color: 'var(--ink)',
+              textWrap: 'balance', marginBottom: '32px',
             }}>
               Dr. Marla works with business owners at every stage. From the first filing to a full ecosystem strategy.
             </h2>
@@ -252,8 +268,9 @@ export default function Contact() {
 
             <h3 style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(24px,3.5vw,40px)', lineHeight: 1.04,
-              letterSpacing: '-0.015em', color: 'var(--ink)', marginBottom: '20px',
+              fontSize: 'var(--t-display)', lineHeight: 'var(--lh-display)',
+              letterSpacing: 'var(--ls-display)', color: 'var(--ink)',
+              textWrap: 'balance', marginBottom: '20px',
             }}>
               356 Manton Avenue<br />
               Suite 1A, Providence RI
@@ -297,8 +314,9 @@ export default function Contact() {
 
             <h3 style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(24px,3.5vw,40px)', lineHeight: 1.04,
-              letterSpacing: '-0.015em', color: 'var(--ink)', marginBottom: '20px',
+              fontSize: 'var(--t-display)', lineHeight: 'var(--lh-display)',
+              letterSpacing: 'var(--ls-display)', color: 'var(--ink)',
+              textWrap: 'balance', marginBottom: '20px',
             }}>
               Dr. Marla<br />
               <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>Yanice Sabater.</em>

@@ -107,10 +107,12 @@ export default function About() {
             style={{
               fontFamily: "var(--serif)",
               fontWeight: 400,
-              fontSize: "clamp(48px, 9vw, 118px)",
-              lineHeight: 0.9,
-              letterSpacing: "-0.02em",
+              fontSize: "var(--t-hero)",
+              lineHeight: "var(--lh-display)",
+              letterSpacing: "var(--ls-display)",
               color: "var(--cream)",
+              maxWidth: "680px",
+              textWrap: "balance",
               margin: 0,
             }}
           >
@@ -124,7 +126,8 @@ export default function About() {
               fontFamily: "var(--serif)",
               fontStyle: "italic",
               fontWeight: 400,
-              fontSize: "clamp(18px, 2.4vw, 26px)",
+              fontSize: "var(--t-lead)",
+              lineHeight: "var(--lh-lead)",
               color: "rgba(242,233,218,0.75)",
               marginTop: 20,
               maxWidth: 600,
@@ -167,10 +170,11 @@ export default function About() {
               style={{
                 fontFamily: "var(--serif)",
                 fontWeight: 400,
-                fontSize: "clamp(26px, 4vw, 46px)",
-                lineHeight: 1.06,
-                letterSpacing: "-0.015em",
+                fontSize: "var(--t-display)",
+                lineHeight: "var(--lh-headline)",
+                letterSpacing: "var(--ls-headline)",
                 color: "var(--ink)",
+                textWrap: "balance",
                 margin: 0,
               }}
             >
@@ -204,8 +208,8 @@ export default function About() {
             <p
               style={{
                 fontFamily: "var(--serif)",
-                fontSize: "clamp(17px, 2vw, 20px)",
-                lineHeight: 1.55,
+                fontSize: "var(--t-body)",
+                lineHeight: "var(--lh-body)",
                 color: "var(--ink-70)",
                 margin: 0,
               }}
@@ -220,8 +224,8 @@ export default function About() {
             <p
               style={{
                 fontFamily: "var(--serif)",
-                fontSize: "clamp(17px, 2vw, 20px)",
-                lineHeight: 1.55,
+                fontSize: "var(--t-body)",
+                lineHeight: "var(--lh-body)",
                 color: "var(--ink-70)",
                 marginTop: 20,
               }}
@@ -235,8 +239,8 @@ export default function About() {
             <p
               style={{
                 fontFamily: "var(--serif)",
-                fontSize: "clamp(17px, 2vw, 20px)",
-                lineHeight: 1.55,
+                fontSize: "var(--t-body)",
+                lineHeight: "var(--lh-body)",
                 color: "var(--ink-70)",
                 marginTop: 20,
               }}
@@ -347,9 +351,11 @@ export default function About() {
           style={{
             fontFamily: "var(--serif)",
             fontWeight: 400,
-            fontSize: "clamp(28px, 4vw, 48px)",
+            fontSize: "var(--t-display)",
             color: "var(--ink)",
-            lineHeight: 1,
+            lineHeight: "var(--lh-display)",
+            letterSpacing: "var(--ls-display)",
+            textWrap: "balance",
             margin: 0,
           }}
         >
@@ -461,8 +467,10 @@ export default function About() {
             style={{
               fontFamily: "var(--serif)",
               fontWeight: 400,
-              fontSize: "clamp(34px, 6vw, 72px)",
-              lineHeight: 0.96,
+              fontSize: "var(--t-display)",
+              lineHeight: "var(--lh-display)",
+              letterSpacing: "var(--ls-display)",
+              textWrap: "balance",
               margin: 0,
             }}
           >
@@ -475,7 +483,8 @@ export default function About() {
             style={{
               fontFamily: "var(--serif)",
               fontStyle: "italic",
-              fontSize: "clamp(17px, 2.2vw, 22px)",
+              fontSize: "var(--t-lead)",
+              lineHeight: "var(--lh-lead)",
               color: "rgba(242,233,218,0.78)",
               maxWidth: 560,
               marginTop: 20,

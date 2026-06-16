@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'Premium Services Enterprise | Investments & Acquisitions | Dr. Marla Sabater',
@@ -49,6 +50,11 @@ const FOCUS_CARDS = [
 export default function Enterprise() {
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: 'Dr. Marla', url: 'https://marlasabater.com' },
+        { name: 'Ecosystem', url: 'https://marlasabater.com/ecosystem' },
+        { name: 'Premium Services Enterprise', url: 'https://marlasabater.com/ecosystem/enterprise' },
+      ]} />
       {/* SECTION 1 — HERO */}
       <section style={{
         position: 'relative',
@@ -89,8 +95,8 @@ export default function Enterprise() {
 
           <h1 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(52px,10vw,132px)', lineHeight: 0.9,
-            letterSpacing: '-0.025em', color: 'var(--cream)', maxWidth: '900px',
+            fontSize: 'var(--t-hero)', lineHeight: 'var(--lh-display)',
+            letterSpacing: 'var(--ls-display)', color: 'var(--cream)', maxWidth: '640px', textWrap: 'balance',
           }}>
             Premium Services<br />
             <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Enterprise.</em>
@@ -105,7 +111,7 @@ export default function Enterprise() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(20px,2.8vw,30px)', lineHeight: 1.38,
+            fontSize: 'var(--t-lead)', lineHeight: 'var(--lh-lead)',
             color: 'rgba(242,233,218,0.85)', maxWidth: '560px',
           }}>
             Property, holdings, and the long view. The company that owns and builds for the decades ahead.
@@ -143,15 +149,15 @@ export default function Enterprise() {
 
             <h2 style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(32px,5vw,62px)', lineHeight: 1,
-              letterSpacing: '-0.015em', color: 'var(--ink)',
+              fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+              letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', textWrap: 'balance',
             }}>
               Built to hold. Built to <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>last.</em>
             </h2>
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'var(--ink-70)', marginTop: '24px', maxWidth: '520px',
             }}>
               Premium Services Enterprise acquires, holds, and grows. Real estate, business investments, and strategic acquisitions selected for long-term value. Not built to flip. Built to become part of the foundation.
@@ -159,7 +165,7 @@ export default function Enterprise() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'var(--ink-70)', marginTop: '16px', maxWidth: '520px',
             }}>
               Every acquisition is evaluated against one question: will this be worth more in twenty years? If the answer is yes and the fundamentals are sound, Premium Services Enterprise is the answer.
@@ -229,7 +235,7 @@ export default function Enterprise() {
               }}>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(18px,2.4vw,26px)', lineHeight: 1.1,
+                  fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
                   color: 'var(--cream)',
                 }}>
                   {card.title}
@@ -262,8 +268,8 @@ export default function Enterprise() {
 
         <div style={{
           fontFamily: 'var(--serif)', fontWeight: 400,
-          fontSize: 'clamp(28px,4.5vw,56px)', lineHeight: 1.06,
-          letterSpacing: '-0.018em', color: 'var(--ink)', maxWidth: '800px',
+          fontSize: 'var(--t-headline)', lineHeight: 'var(--lh-headline)',
+          letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', maxWidth: '660px', textWrap: 'balance',
         }}>
           “We do not build to sell. We build to hold, to grow, and to leave something <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>stronger</em> than we found it.”
         </div>
@@ -277,7 +283,7 @@ export default function Enterprise() {
 
         <div style={{
           fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-          fontSize: 'clamp(17px,2vw,21px)', lineHeight: 1.55,
+          fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
           color: 'var(--ink-70)', maxWidth: '620px',
         }}>
           Premium Services Enterprise was built as the long-term holding arm of the Dr. Marla ecosystem. Real estate, business acquisitions, and strategic positions are selected not for short-term return but for the value they will carry into the next decade and beyond.
@@ -303,8 +309,8 @@ export default function Enterprise() {
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '700px' }}>
           <h2 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(30px,5vw,58px)', lineHeight: 1.02,
-            letterSpacing: '-0.018em', color: 'var(--cream)',
+            fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+            letterSpacing: 'var(--ls-headline)', color: 'var(--cream)',
           }}>
             Interested in a conversation? <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Get in touch.</em>
           </h2>

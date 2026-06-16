@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import BreadcrumbSchema from '@/components/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'Flavor Movement | Food & Hospitality | Dr. Marla Sabater',
@@ -48,6 +49,11 @@ const OFFERINGS = [
 export default function Flavor() {
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: 'Dr. Marla', url: 'https://marlasabater.com' },
+        { name: 'Ecosystem', url: 'https://marlasabater.com/ecosystem' },
+        { name: 'Flavor Movement', url: 'https://marlasabater.com/ecosystem/flavor' },
+      ]} />
       {/* SECTION 1 — HERO (light, cream-2 ground) */}
       <section style={{
         position: 'relative',
@@ -76,8 +82,8 @@ export default function Flavor() {
 
           <h1 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(44px,8.5vw,112px)', lineHeight: 0.92,
-            letterSpacing: '-0.024em', maxWidth: '820px',
+            fontSize: 'var(--t-hero)', lineHeight: 'var(--lh-display)',
+            letterSpacing: 'var(--ls-display)', maxWidth: '640px', textWrap: 'balance',
           }}>
             <em style={{ fontStyle: 'italic', color: '#8A2330' }}>Flavor</em>
             {' '}
@@ -93,7 +99,7 @@ export default function Flavor() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(19px,2.6vw,28px)', lineHeight: 1.42,
+            fontSize: 'var(--t-lead)', lineHeight: 'var(--lh-lead)',
             color: 'rgba(58,20,24,0.72)', maxWidth: '580px',
           }}>
             Restaurants, catering, and products with soul. Experiences that bring people together.
@@ -131,8 +137,8 @@ export default function Flavor() {
 
             <h2 style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(32px,5vw,62px)', lineHeight: 1,
-              letterSpacing: '-0.018em', color: '#3A1418',
+              fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+              letterSpacing: 'var(--ls-headline)', color: '#3A1418', textWrap: 'balance',
             }}>
               Food is how<br />
               <em style={{ fontStyle: 'italic', color: '#8A2330' }}>community gathers.</em>
@@ -140,7 +146,7 @@ export default function Flavor() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'rgba(58,20,24,0.7)', marginTop: '24px', maxWidth: '520px',
             }}>
               Flavor Movement was built on a simple belief: the table is where relationships are made. Restaurants, catering, food products, sauces, seasonings, and mobile food concepts — each one an experience designed to bring people together.
@@ -148,7 +154,7 @@ export default function Flavor() {
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
               color: 'rgba(58,20,24,0.7)', marginTop: '16px', maxWidth: '520px',
             }}>
               From a dinner to an event to a product on a shelf, Flavor Movement creates the kind of food experiences that people remember and come back to.
@@ -170,7 +176,7 @@ export default function Flavor() {
                   }} />
                   <div style={{
                     fontFamily: 'var(--serif)', fontWeight: 400,
-                    fontSize: 'clamp(18px,2.2vw,24px)', lineHeight: 1.1,
+                    fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
                     color: '#3A1418', marginBottom: '8px',
                   }}>
                     {f.title}
@@ -219,7 +225,7 @@ export default function Flavor() {
               }}>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
-                  fontSize: 'clamp(18px,2.2vw,24px)', lineHeight: 1.1,
+                  fontSize: 'var(--t-subhead)', lineHeight: 'var(--lh-headline)',
                   color: 'var(--cream-2)', marginBottom: '10px',
                 }}>
                   {card.title}
@@ -252,8 +258,8 @@ export default function Flavor() {
 
         <div style={{
           fontFamily: 'var(--serif)', fontWeight: 400,
-          fontSize: 'clamp(28px,4.5vw,56px)', lineHeight: 1.04,
-          letterSpacing: '-0.018em', color: '#3A1418', maxWidth: '800px',
+          fontSize: 'var(--t-headline)', lineHeight: 'var(--lh-headline)',
+          letterSpacing: 'var(--ls-headline)', color: '#3A1418', maxWidth: '660px', textWrap: 'balance',
         }}>
           The table is where relationships are built.<br />
           <em style={{ fontStyle: 'italic', color: '#8A2330' }}>Food is the reason people stay.</em>
@@ -268,7 +274,7 @@ export default function Flavor() {
 
         <div style={{
           fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-          fontSize: 'clamp(17px,2vw,21px)', lineHeight: 1.55,
+          fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
           color: 'rgba(58,20,24,0.7)', maxWidth: '620px',
         }}>
           Flavor Movement was not built to compete in the food industry. It was built to serve the communities Dr. Marla has always been part of. Every concept, every product, every event is grounded in that belief.
@@ -286,8 +292,8 @@ export default function Flavor() {
         <div style={{ maxWidth: '700px' }}>
           <h2 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(30px,5vw,58px)', lineHeight: 1.02,
-            letterSpacing: '-0.018em', color: '#3A1418',
+            fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
+            letterSpacing: 'var(--ls-headline)', color: '#3A1418', textWrap: 'balance',
           }}>
             Interested in working together?<br />
             <em style={{ fontStyle: 'italic', color: '#8A2330' }}>Get in touch.</em>
@@ -295,7 +301,7 @@ export default function Flavor() {
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
-            fontSize: 'clamp(16px,2vw,19px)', lineHeight: 1.55,
+            fontSize: 'var(--t-body)', lineHeight: 'var(--lh-body)',
             color: 'rgba(58,20,24,0.65)', marginTop: '20px', maxWidth: '480px',
           }}>
             Whether you are planning an event, looking for catering, or want to carry Flavor Movement products, we want to hear from you.
