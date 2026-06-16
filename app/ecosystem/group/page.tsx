@@ -142,7 +142,7 @@ export default function Group() {
               letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', textWrap: 'balance',
             }}>
               Structural work. Real projects.<br />
-              <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>Real communities.</em>
+              <em style={{ fontStyle: 'italic', color: '#3C4753' }}>Real communities.</em>
             </h2>
 
             <p style={{
@@ -273,7 +273,7 @@ export default function Group() {
           letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', maxWidth: '660px', textWrap: 'balance',
         }}>
           Building what a community uses is not just construction.<br />
-          It is <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>investment</em> in what comes next.
+          It is <em style={{ fontStyle: 'italic', color: '#3C4753' }}>investment</em> in what comes next.
         </div>
 
         <div style={{

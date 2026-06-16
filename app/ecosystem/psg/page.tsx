@@ -131,7 +131,7 @@ export default function PSG() {
               letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', textWrap: 'balance',
             }}>
               Reliable vehicles for<br />
-              <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>serious business.</em>
+              <em style={{ fontStyle: 'italic', color: '#3A3020' }}>serious business.</em>
             </h2>
 
             <p style={{
@@ -260,7 +260,7 @@ export default function PSG() {
         }}>
           Service businesses need reliable vehicles.<br />
           PSG was built to be<br />
-          <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>the answer.</em>
+          <em style={{ fontStyle: 'italic', color: '#3A3020' }}>the answer.</em>
         </div>
 
         <div style={{

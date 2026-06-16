@@ -141,7 +141,7 @@ export default function Marvic() {
               letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', textWrap: 'balance',
             }}>
               Hospitality is the business of making people feel<br />
-              <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>they belong.</em>
+              <em style={{ fontStyle: 'italic', color: '#193F3C' }}>they belong.</em>
             </h2>
 
             <p style={{
@@ -262,7 +262,7 @@ export default function Marvic() {
           letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', maxWidth: '660px', textWrap: 'balance',
         }}>
           An evening well spent is not an accident.<br />
-          It is the result of <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>intention.</em>
+          It is the result of <em style={{ fontStyle: 'italic', color: '#193F3C' }}>intention.</em>
         </div>
 
         <div style={{

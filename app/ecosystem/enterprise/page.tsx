@@ -152,7 +152,7 @@ export default function Enterprise() {
               fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
               letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', textWrap: 'balance',
             }}>
-              Built to hold. Built to <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>last.</em>
+              Built to hold. Built to <em style={{ fontStyle: 'italic', color: '#7C2230' }}>last.</em>
             </h2>
 
             <p style={{
@@ -271,7 +271,7 @@ export default function Enterprise() {
           fontSize: 'var(--t-headline)', lineHeight: 'var(--lh-headline)',
           letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', maxWidth: '660px', textWrap: 'balance',
         }}>
-          “We do not build to sell. We build to hold, to grow, and to leave something <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>stronger</em> than we found it.”
+          “We do not build to sell. We build to hold, to grow, and to leave something <em style={{ fontStyle: 'italic', color: '#7C2230' }}>stronger</em> than we found it.”
         </div>
 
         <div style={{

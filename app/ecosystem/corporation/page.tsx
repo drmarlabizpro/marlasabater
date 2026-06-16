@@ -142,7 +142,7 @@ export default function Corporation() {
               fontSize: 'var(--t-display)', lineHeight: 'var(--lh-headline)',
               letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', textWrap: 'balance',
             }}>
-              The numbers, handled <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>correctly.</em>
+              The numbers, handled <em style={{ fontStyle: 'italic', color: '#214E40' }}>correctly.</em>
             </h2>
 
             <p style={{
@@ -263,7 +263,7 @@ export default function Corporation() {
           fontSize: 'var(--t-headline)', lineHeight: 'var(--lh-headline)',
           letterSpacing: 'var(--ls-headline)', color: 'var(--ink)', maxWidth: '660px', textWrap: 'balance',
         }}>
-          The foundation you choose determines <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>everything</em> that gets built on top of it.
+          The foundation you choose determines <em style={{ fontStyle: 'italic', color: '#214E40' }}>everything</em> that gets built on top of it.
         </div>
 
         <div style={{
