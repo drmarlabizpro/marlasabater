@@ -404,3 +404,25 @@ html, body {
 .site-mobile-overlay[style*="3A3530"] .site-mobile-endorse {
   color: rgba(242,233,218,0.5);
 }
+
+/* Service page card hover */
+.service-card-link {
+  display: block;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.service-card-link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(38,16,20,0.08);
+}
+
+/* Steps vertical connector */
+.steps-connector {
+  position: absolute;
+  left: 19px;
+  top: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--gold), rgba(201,162,60,0.15));
+  transition: height 1.2s ease 0.3s;
+  z-index: 0;
+}
