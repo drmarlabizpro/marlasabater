@@ -69,41 +69,32 @@ const ROW_ACCENT: Record<string, string> = {
   '08': '#9A7A2C',
 }
 
-function WordReveal({ text, emText, style, emStyle }: {
+function WordReveal({
+  text,
+  emText,
+  style,
+  emColor = 'var(--crimson)',
+}: {
   text: string
   emText?: string
   style?: React.CSSProperties
-  emStyle?: React.CSSProperties
+  emColor?: string
 }) {
   const { ref, visible } = useReveal(0.15)
-  const words = text.split(' ')
-  const emWords = emText ? emText.split(' ') : []
   return (
-    <div ref={ref} style={style}>
-      {words.map((word, i) => (
-        <span key={i} style={{
-          display: 'inline-block',
-          marginRight: '0.22em',
-          opacity: visible ? 1 : 0,
-          transform: visible ? 'none' : 'translateY(16px)',
-          transition: `opacity 0.5s ease ${i * 80}ms, transform 0.5s ease ${i * 80}ms`,
-        }}>
-          {word}
-        </span>
-      ))}
-      {emWords.length > 0 && (
-        <em style={{ fontStyle: 'italic', color: 'var(--crimson)', ...emStyle }}>
-          {emWords.map((word, i) => (
-            <span key={i} style={{
-              display: 'inline-block',
-              marginRight: i < emWords.length - 1 ? '0.22em' : '0',
-              opacity: visible ? 1 : 0,
-              transform: visible ? 'none' : 'translateY(16px)',
-              transition: `opacity 0.5s ease ${(words.length + i) * 80}ms, transform 0.5s ease ${(words.length + i) * 80}ms`,
-            }}>
-              {word}
-            </span>
-          ))}
+    <div
+      ref={ref}
+      style={{
+        ...style,
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'none' : 'translateY(18px)',
+        transition: 'opacity 0.55s ease, transform 0.55s ease',
+      }}
+    >
+      {text}
+      {emText && (
+        <em style={{ fontStyle: 'italic', color: emColor }}>
+          {emText}
         </em>
       )}
     </div>
@@ -260,11 +251,11 @@ export default function Home() {
         padding: 'clamp(120px,16vh,180px) var(--gut) clamp(64px,10vh,120px)',
       }}>
         <Grain opacity={0.06} />
-        <div style={{ position: 'relative', zIndex: 2 }}>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '900px' }}>
           <div style={{
-            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
-            letterSpacing: '0.34em', textTransform: 'uppercase',
-            color: 'rgba(242,233,218,0.55)', marginBottom: 36,
+            fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+            letterSpacing: '0.32em', textTransform: 'uppercase',
+            color: 'rgba(242,233,218,0.55)', marginBottom: 32,
             opacity: 0,
             animation: 'fadeUp 0.5s ease forwards',
             animationDelay: '0ms',
@@ -273,39 +264,20 @@ export default function Home() {
           </div>
 
           <h1 style={{
-            fontFamily: 'var(--serif)', fontWeight: 400,
-            fontSize: 'clamp(48px,9vw,120px)',
-            lineHeight: 0.92, letterSpacing: '-0.025em',
-            color: 'var(--cream)', maxWidth: '900px',
-            margin: '0 0 0 0',
+            fontFamily: 'var(--serif)',
+            fontWeight: 400,
+            fontSize: 'clamp(44px, 8.5vw, 112px)',
+            lineHeight: 0.92,
+            letterSpacing: '-0.024em',
+            color: 'var(--cream)',
+            maxWidth: '820px',
+            opacity: 0,
+            animation: 'fadeUp 0.7s ease forwards',
+            animationDelay: '100ms',
           }}>
-            {['Thirty', 'years', 'building.', 'Eight', 'companies.'].map((word, i) => (
-              <span key={i} style={{
-                display: 'inline-block',
-                marginRight: '0.2em',
-                opacity: 0,
-                transform: 'translateY(20px)',
-                animation: `wordIn 0.55s ease forwards`,
-                animationDelay: `${i * 80}ms`,
-              }}>
-                {word}
-              </span>
-            ))}
-            {' '}
-            <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>
-              {['One', 'vision.'].map((word, i) => (
-                <span key={i} style={{
-                  display: 'inline-block',
-                  marginRight: i < 1 ? '0.2em' : '0',
-                  opacity: 0,
-                  transform: 'translateY(20px)',
-                  animation: `wordIn 0.55s ease forwards`,
-                  animationDelay: `${(5 + i) * 80}ms`,
-                }}>
-                  {word}
-                </span>
-              ))}
-            </em>
+            Thirty years building.<br />
+            Eight companies.{' '}
+            <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>One vision.</em>
           </h1>
 
           <div style={{
@@ -330,7 +302,7 @@ export default function Home() {
           </p>
 
           <div style={{
-            display: 'flex', gap: 16, flexWrap: 'wrap',
+            display: 'flex', gap: '12px', flexWrap: 'wrap',
             opacity: 0,
             animation: 'fadeUp 0.5s ease forwards',
             animationDelay: '740ms',
@@ -340,6 +312,7 @@ export default function Home() {
               letterSpacing: '0.22em', textTransform: 'uppercase',
               background: 'var(--gold)', color: '#261014',
               padding: '15px 32px', textDecoration: 'none', display: 'inline-block',
+              width: 'fit-content', minWidth: '0',
             }}>
               SCHEDULE A CONSULTATION
             </Link>
@@ -348,6 +321,7 @@ export default function Home() {
               letterSpacing: '0.22em', textTransform: 'uppercase',
               border: '1px solid rgba(242,233,218,0.45)', color: 'var(--cream)',
               padding: '15px 32px', textDecoration: 'none', display: 'inline-block',
+              width: 'fit-content', minWidth: '0',
             }}>
               EXPLORE THE ECOSYSTEM →
             </Link>
@@ -766,7 +740,7 @@ export default function Home() {
                 fontSize: 'clamp(34px,5.5vw,64px)', lineHeight: 1.0,
                 letterSpacing: '-0.02em', color: 'var(--cream)',
               }}
-              emStyle={{ color: 'var(--gold-soft)' }}
+              emColor="var(--gold-soft)"
             />
 
             <div style={{
