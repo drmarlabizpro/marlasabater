@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Premium Services Enterprise | Investments & Acquisitions | Dr. Marla Sabater',
@@ -20,8 +21,8 @@ function Grain({ opacity = 0.06 }: { opacity?: number }) {
   return (
     <div aria-hidden style={{
       position: 'absolute', inset: 0, pointerEvents: 'none',
-      opacity, mixBlendMode: 'multiply' as const, backgroundImage: GRAIN,
-      zIndex: 1
+      opacity, mixBlendMode: 'multiply' as const,
+      backgroundImage: GRAIN, zIndex: 1
     }} />
   )
 }
@@ -34,7 +35,7 @@ const STAT_BLOCKS = [
 ]
 
 const FOCUS_CARDS = [
-  { title: 'Real Estate Holdings', body: 'Acquisition and management of commercial and residential property across Rhode Island and nationwide.' },
+  { title: 'Real Estate Holdings', body: 'Acquisition and management of commercial and residential property across New England and nationwide.' },
   { title: 'Business Acquisitions', body: 'Identifying and acquiring businesses with strong fundamentals and long-term growth potential.' },
   { title: 'Strategic Investments', body: "Equity positions in businesses aligned with the ecosystem's vision and values." },
   { title: 'Asset Management', body: 'Active management and protection of acquired assets for sustained generational value.' },
@@ -43,13 +44,6 @@ const FOCUS_CARDS = [
 export default function Enterprise() {
   return (
     <>
-      <style>{`
-        @media (min-width: 880px) {
-          .ent-what-grid { grid-template-columns: 1.2fr 0.8fr !important; }
-          .ent-focus-grid { grid-template-columns: repeat(2, 1fr) !important; }
-        }
-      `}</style>
-
       {/* SECTION 1 — HERO */}
       <section style={{
         position: 'relative',
@@ -65,21 +59,21 @@ export default function Enterprise() {
         <Grain opacity={0.06} />
         <div style={{ position: 'relative', zIndex: 2 }}>
           <div style={{
-            display: 'flex', alignItems: 'center', gap: 8,
+            display: 'flex', alignItems: 'center', gap: '8px',
             fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
             letterSpacing: '0.26em', textTransform: 'uppercase',
-            color: 'rgba(242,233,218,0.42)', marginBottom: 36,
+            color: 'rgba(242,233,218,0.42)', marginBottom: '36px',
           }}>
-            <a href="/" style={{ color: 'inherit', textDecoration: 'none' }}>DR. MARLA</a>
+            <Link href="/" style={{ color: 'inherit', textDecoration: 'none' }}>DR. MARLA</Link>
             <span style={{ opacity: 0.4 }}>/</span>
-            <a href="/ecosystem" style={{ color: 'inherit', textDecoration: 'none' }}>ECOSYSTEM</a>
+            <Link href="/ecosystem" style={{ color: 'inherit', textDecoration: 'none' }}>ECOSYSTEM</Link>
             <span style={{ opacity: 0.4 }}>/</span>
             <span>ENTERPRISE</span>
           </div>
 
           <div style={{
             display: 'inline-block',
-            marginBottom: 20,
+            marginBottom: '20px',
             fontFamily: 'var(--sans)', fontWeight: 700, fontSize: 9,
             letterSpacing: '0.32em', textTransform: 'uppercase',
             background: 'var(--gold-soft)', color: '#651E2A',
@@ -91,7 +85,7 @@ export default function Enterprise() {
           <h1 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
             fontSize: 'clamp(52px,10vw,132px)', lineHeight: 0.9,
-            letterSpacing: '-0.025em', color: 'var(--cream)', maxWidth: 900,
+            letterSpacing: '-0.025em', color: 'var(--cream)', maxWidth: '900px',
           }}>
             Premium Services<br />
             <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Enterprise.</em>
@@ -99,23 +93,22 @@ export default function Enterprise() {
 
           <div style={{
             margin: '36px 0',
-            borderTop: '2px solid var(--gold)',
-            borderBottom: '1px solid var(--gold)',
-            paddingTop: 5,
+            height: '2px',
+            background: 'var(--gold)',
             width: 'clamp(140px,32vw,420px)',
           }} />
 
           <p style={{
             fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
             fontSize: 'clamp(20px,2.8vw,30px)', lineHeight: 1.38,
-            color: 'rgba(242,233,218,0.85)', maxWidth: 560,
+            color: 'rgba(242,233,218,0.85)', maxWidth: '560px',
           }}>
             Property, holdings, and the long view. The company that owns and builds for the decades ahead.
           </p>
         </div>
 
         <div style={{
-          position: 'absolute', bottom: 40, left: 'var(--gut)', zIndex: 2,
+          position: 'absolute', bottom: '40px', left: 'var(--gut)', zIndex: 2,
           fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
           letterSpacing: '0.28em', textTransform: 'uppercase',
           color: 'rgba(242,233,218,0.38)',
@@ -129,14 +122,16 @@ export default function Enterprise() {
         background: 'var(--cream)',
         padding: 'clamp(72px,11vh,120px) var(--gut)',
       }}>
-        <div className="ent-what-grid" style={{
-          display: 'grid', gridTemplateColumns: '1fr', gap: 72,
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '72px',
         }}>
           <div>
             <div style={{
               fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
               letterSpacing: '0.3em', textTransform: 'uppercase',
-              color: 'var(--gold-deep)', marginBottom: 20,
+              color: 'var(--gold-deep)', marginBottom: '20px',
             }}>
               INVESTMENTS & ACQUISITIONS
             </div>
@@ -146,29 +141,28 @@ export default function Enterprise() {
               fontSize: 'clamp(32px,5vw,62px)', lineHeight: 1,
               letterSpacing: '-0.015em', color: 'var(--ink)',
             }}>
-              Built to hold.<br />
-              Built to <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>last.</em>
+              Built to hold. Built to <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>last.</em>
             </h2>
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,1.9vw,19px)', lineHeight: 1.65,
-              color: 'var(--ink-70)', marginTop: 24, maxWidth: 520,
+              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              color: 'var(--ink-70)', marginTop: '24px', maxWidth: '520px',
             }}>
               Premium Services Enterprise acquires, holds, and grows. Real estate, business investments, and strategic acquisitions selected for long-term value. Not built to flip. Built to become part of the foundation.
             </p>
 
             <p style={{
               fontFamily: 'var(--serif)', fontWeight: 400,
-              fontSize: 'clamp(16px,1.9vw,19px)', lineHeight: 1.65,
-              color: 'var(--ink-70)', marginTop: 16, maxWidth: 520,
+              fontSize: 'clamp(16px,2vw,20px)', lineHeight: 1.65,
+              color: 'var(--ink-70)', marginTop: '16px', maxWidth: '520px',
             }}>
               Every acquisition is evaluated against one question: will this be worth more in twenty years? If the answer is yes and the fundamentals are sound, Premium Services Enterprise is the answer.
             </p>
           </div>
 
           <div style={{
-            display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 0,
+            display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0',
           }}>
             {STAT_BLOCKS.map((b, i) => {
               const borderRight = i % 2 === 0 ? '1px solid var(--ink-15)' : 'none'
@@ -189,7 +183,7 @@ export default function Enterprise() {
                   <div style={{
                     fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
                     letterSpacing: '0.18em', textTransform: 'uppercase',
-                    color: 'var(--gold-deep)', marginTop: 8,
+                    color: 'var(--gold-deep)', marginTop: '8px',
                   }}>
                     {b.label}
                   </div>
@@ -212,13 +206,15 @@ export default function Enterprise() {
           <div style={{
             fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
             letterSpacing: '0.3em', textTransform: 'uppercase',
-            color: 'var(--gold-soft)', marginBottom: 48,
+            color: 'var(--gold-soft)', marginBottom: '48px',
           }}>
             FOCUS AREAS
           </div>
 
-          <div className="ent-focus-grid" style={{
-            display: 'grid', gridTemplateColumns: '1fr', gap: 2,
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gap: '2px',
           }}>
             {FOCUS_CARDS.map(card => (
               <div key={card.title} style={{
@@ -236,7 +232,7 @@ export default function Enterprise() {
                 <div style={{
                   fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
                   fontSize: 15, lineHeight: 1.55,
-                  color: 'rgba(242,233,218,0.7)', marginTop: 12,
+                  color: 'rgba(242,233,218,0.7)', marginTop: '12px',
                 }}>
                   {card.body}
                 </div>
@@ -254,29 +250,30 @@ export default function Enterprise() {
         <div style={{
           fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
           letterSpacing: '0.3em', textTransform: 'uppercase',
-          color: 'var(--gold-deep)', marginBottom: 24,
+          color: 'var(--gold-deep)', marginBottom: '24px',
         }}>
           THE APPROACH
         </div>
 
         <div style={{
           fontFamily: 'var(--serif)', fontWeight: 400,
-          fontSize: 'clamp(26px,4vw,52px)', lineHeight: 1.06,
-          letterSpacing: '-0.015em', color: 'var(--ink)', maxWidth: 800,
+          fontSize: 'clamp(28px,4.5vw,56px)', lineHeight: 1.06,
+          letterSpacing: '-0.018em', color: 'var(--ink)', maxWidth: '800px',
         }}>
           “We do not build to sell. We build to hold, to grow, and to leave something <em style={{ fontStyle: 'italic', color: 'var(--crimson)' }}>stronger</em> than we found it.”
         </div>
 
         <div style={{
-          margin: '28px 0',
-          height: 2, background: 'var(--gold)',
+          marginTop: '28px',
+          marginBottom: '28px',
+          height: '2px', background: 'var(--gold)',
           width: 'clamp(80px,14vw,160px)',
         }} />
 
         <div style={{
           fontFamily: 'var(--serif)', fontStyle: 'italic', fontWeight: 400,
           fontSize: 'clamp(17px,2vw,21px)', lineHeight: 1.55,
-          color: 'var(--ink-70)', maxWidth: 620,
+          color: 'var(--ink-70)', maxWidth: '620px',
         }}>
           Premium Services Enterprise was built as the long-term holding arm of the Dr. Marla ecosystem. Real estate, business acquisitions, and strategic positions are selected not for short-term return but for the value they will carry into the next decade and beyond.
         </div>
@@ -284,9 +281,9 @@ export default function Enterprise() {
         <div style={{
           fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 11,
           letterSpacing: '0.2em', textTransform: 'uppercase',
-          color: 'var(--gold-deep)', marginTop: 32,
+          color: 'var(--gold-deep)', marginTop: '32px',
         }}>
-          LICENSED REAL ESTATE · RHODE ISLAND
+          LICENSED REAL ESTATE · NEW ENGLAND
         </div>
       </section>
 
@@ -298,18 +295,17 @@ export default function Enterprise() {
         padding: 'clamp(72px,11vh,120px) var(--gut)',
       }}>
         <Grain opacity={0.06} />
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: 700 }}>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '700px' }}>
           <h2 style={{
             fontFamily: 'var(--serif)', fontWeight: 400,
             fontSize: 'clamp(30px,5vw,58px)', lineHeight: 1.02,
             letterSpacing: '-0.018em', color: 'var(--cream)',
           }}>
-            Interested in a conversation?<br />
-            <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Get in touch.</em>
+            Interested in a conversation? <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Get in touch.</em>
           </h2>
 
           <div style={{
-            display: 'flex', flexDirection: 'column', gap: 14, marginTop: 36,
+            display: 'flex', flexDirection: 'column', gap: '14px', marginTop: '36px',
           }}>
             {[
               '356 Manton Avenue, Suite 1A, Providence, RI 02909',
@@ -317,7 +313,7 @@ export default function Enterprise() {
               'Marla@msabater.com',
             ].map(item => (
               <div key={item} style={{
-                fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 13,
+                fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 14,
                 letterSpacing: '0.01em', color: 'var(--cream)',
               }}>
                 {item}
@@ -325,8 +321,8 @@ export default function Enterprise() {
             ))}
           </div>
 
-          <div style={{ marginTop: 40 }}>
-            <a href="/contact" style={{
+          <div style={{ marginTop: '40px' }}>
+            <Link href="/contact" style={{
               border: '1px solid var(--gold)',
               color: 'var(--gold)',
               padding: '14px 36px',
@@ -339,11 +335,11 @@ export default function Enterprise() {
               display: 'inline-block',
             }}>
               SCHEDULE A CONSULTATION →
-            </a>
+            </Link>
           </div>
 
           <div style={{
-            marginTop: 48,
+            marginTop: '48px',
             fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
             letterSpacing: '0.28em', textTransform: 'uppercase',
             color: 'rgba(242,233,218,0.38)',
