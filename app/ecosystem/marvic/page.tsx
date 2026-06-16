@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     siteName: 'Dr. Marla Sabater',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Marvic Hospitality Group | Hospitality & Entertainment',
+    description: 'Events, venues, and evenings that connect people and communities.',
+  },
   alternates: { canonical: 'https://marlasabater.com/ecosystem/marvic' },
 }
 

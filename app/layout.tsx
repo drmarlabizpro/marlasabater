@@ -22,20 +22,17 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://marlasabater.com"),
   title: {
     default:
-      "Dr. Marla Sabater, MBA Th.D | Accounting, Payroll and Business Services | Providence RI",
-    template: "%s | Dr. Marla Sabater",
+      "Dr. Marla Sabater | Business Strategist & Founder | Providence RI",
+    template: "%s",
   },
   description:
-    "Dr. Marla Sabater brings 30 years of accounting, payroll, and business advisory expertise to small businesses in Rhode Island and nationwide. Bilingual service in English and Spanish. 1,000 clients served.",
+    "Dr. Marla Yanice Sabater is the founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Thirty years building businesses across New England and nationwide. Providence, RI.",
   keywords: [
-    "Rhode Island accounting",
-    "Providence RI accountant",
-    "small business payroll Rhode Island",
-    "bilingual accountant Rhode Island",
-    "contadora bilingue Providence",
-    "accounting services Providence",
-    "payroll services RI",
-    "business advisory Rhode Island",
+    "Dr Marla Sabater",
+    "business strategist Providence RI",
+    "ecosystem founder",
+    "Premium Services Corporation",
+    "bilingual business advisor Rhode Island",
   ],
   alternates: {
     canonical: "https://marlasabater.com",
@@ -45,17 +42,17 @@ export const metadata: Metadata = {
     url: "https://marlasabater.com",
     siteName: "Dr. Marla Sabater",
     title:
-      "Dr. Marla Sabater, MBA Th.D | Accounting, Payroll and Business Services | Providence RI",
+      "Dr. Marla Sabater | Business Strategist & Founder | Providence RI",
     description:
-      "Dr. Marla Sabater brings 30 years of accounting, payroll, and business advisory expertise to small businesses in Rhode Island and nationwide. Bilingual service in English and Spanish. 1,000 clients served.",
+      "Dr. Marla Yanice Sabater is the founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Thirty years building businesses across New England and nationwide. Providence, RI.",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
     title:
-      "Dr. Marla Sabater, MBA Th.D | Accounting, Payroll and Business Services | Providence RI",
+      "Dr. Marla Sabater | Business Strategist & Founder | Providence RI",
     description:
-      "Dr. Marla Sabater brings 30 years of accounting, payroll, and business advisory expertise to small businesses in Rhode Island and nationwide. Bilingual service in English and Spanish. 1,000 clients served.",
+      "Dr. Marla Yanice Sabater is the founder of eight companies spanning finance, construction, food, media, hospitality, and automotive. Thirty years building businesses across New England and nationwide. Providence, RI.",
   },
   robots: {
     index: true,
@@ -75,6 +72,84 @@ export default function RootLayout({
       style={{ colorScheme: "light" }}
     >
       <body style={{ paddingTop: "72px" }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": "https://marlasabater.com/#organization",
+                  "name": "Dr. Marla Sabater",
+                  "url": "https://marlasabater.com",
+                  "foundingDate": "1996",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "356 Manton Avenue, Suite 1A",
+                    "addressLocality": "Providence",
+                    "addressRegion": "RI",
+                    "postalCode": "02909",
+                    "addressCountry": "US",
+                  },
+                  "telephone": "(401) 321-3781",
+                  "email": "Marla@msabater.com",
+                  "sameAs": [
+                    "https://www.linkedin.com/in/marlasabater",
+                    "https://www.instagram.com/drmarlabizpro/",
+                    "https://www.tiktok.com/@marlatheceo",
+                    "http://drmarlabizpro.com/",
+                    "https://drmarla.biz/",
+                  ],
+                },
+                {
+                  "@type": "LocalBusiness",
+                  "@id": "https://marlasabater.com/#business",
+                  "name": "Dr. Marla Sabater",
+                  "url": "https://marlasabater.com",
+                  "telephone": "(401) 321-3781",
+                  "email": "Marla@msabater.com",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "356 Manton Avenue, Suite 1A",
+                    "addressLocality": "Providence",
+                    "addressRegion": "RI",
+                    "postalCode": "02909",
+                    "addressCountry": "US",
+                  },
+                  "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 41.824,
+                    "longitude": -71.4128,
+                  },
+                  "openingHoursSpecification": [
+                    {
+                      "@type": "OpeningHoursSpecification",
+                      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                      "opens": "09:00",
+                      "closes": "17:00",
+                    },
+                  ],
+                  "priceRange": "$$",
+                  "currenciesAccepted": "USD",
+                  "paymentAccepted": "Cash, Credit Card",
+                },
+                {
+                  "@type": "Person",
+                  "@id": "https://marlasabater.com/#founder",
+                  "name": "Dr. Marla Yanice Sabater",
+                  "jobTitle": "Founder & CEO",
+                  "worksFor": { "@id": "https://marlasabater.com/#organization" },
+                  "knowsLanguage": ["en", "es"],
+                  "hasCredential": [
+                    { "@type": "EducationalOccupationalCredential", "credentialCategory": "MBA" },
+                    { "@type": "EducationalOccupationalCredential", "credentialCategory": "Th.D" },
+                  ],
+                },
+              ],
+            }),
+          }}
+        />
         <Header />
         {children}
       </body>

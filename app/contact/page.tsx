@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     siteName: 'Dr. Marla Sabater',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Contact | Dr. Marla Sabater',
+    description: 'Schedule a consultation across any division of the Dr. Marla ecosystem.',
+  },
   alternates: { canonical: 'https://marlasabater.com/contact' },
 }
 

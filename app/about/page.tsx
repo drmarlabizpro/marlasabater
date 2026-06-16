@@ -213,9 +213,9 @@ export default function About() {
               Dr. Marla Yanice Sabater is a business strategist, published
               author, and founder of eight companies spanning finance,
               construction, food, media, hospitality, and automotive. For
-              thirty years she has served clients across Rhode Island, Puerto
-              Rico, and nationwide — building companies that create real
-              economic opportunity in real communities.
+              thirty years she has served clients across New England and
+              nationwide — building companies that create real economic
+              opportunity in real communities.
             </p>
             <p
               style={{
@@ -508,59 +508,116 @@ export default function About() {
 
       <section
         style={{
-          background: "var(--cream-2)",
-          padding: "clamp(40px, 6vh, 72px) var(--gut)",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: 24,
+          position: "relative",
+          overflow: "hidden",
+          background: "linear-gradient(165deg, #7C2230, #5A1A24)",
+          color: "var(--cream)",
+          padding: "var(--section-pad) var(--gut)",
         }}
       >
-        <div
-          style={{
-            fontFamily: "var(--serif)",
-            fontSize: "clamp(20px, 3vw, 32px)",
-            color: "var(--ink)",
-          }}
-        >
-          Ready to build something?
-        </div>
-        <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-          <Link
-            href="/contact"
-            style={{
-              background: "var(--bordeaux)",
-              color: "var(--cream)",
-              padding: "14px 28px",
+        <Grain />
+        <div style={{ position: "relative", zIndex: 2 }}>
+          <h2 style={{
+            fontFamily: "var(--serif)", fontWeight: 400,
+            fontSize: "clamp(28px,4.5vw,52px)", lineHeight: 1.02,
+            letterSpacing: "-0.018em", color: "var(--cream)",
+          }}>
+            Ready to build something?<br />
+            <em style={{ fontStyle: "italic", color: "var(--gold-soft)" }}>Schedule a consultation.</em>
+          </h2>
+          <p style={{
+            fontFamily: "var(--serif)", fontStyle: "italic",
+            fontSize: "clamp(16px,2vw,19px)",
+            color: "rgba(242,233,218,0.72)", marginTop: 16, maxWidth: 480,
+          }}>
+            Dr. Marla works with business owners at every stage. Get in touch to start the conversation.
+          </p>
+          <div style={{ marginTop: 32 }}>
+            <Link href="/contact" style={{
+              border: "1px solid var(--gold)",
+              color: "var(--gold)",
+              padding: "14px 36px",
               fontFamily: "var(--sans)",
               fontWeight: 600,
-              fontSize: 11,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
+              fontSize: "11px",
+              letterSpacing: "0.22em",
+              textTransform: "uppercase" as const,
               textDecoration: "none",
-            }}
-          >
-            Schedule a Consultation
-          </Link>
-          <Link
-            href="/#contact"
-            style={{
-              border: "1px solid var(--ink-15)",
-              color: "var(--ink-70)",
-              padding: "14px 28px",
-              fontFamily: "var(--sans)",
-              fontWeight: 600,
-              fontSize: 11,
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              textDecoration: "none",
-            }}
-          >
-            Contact
-          </Link>
+              display: "inline-block",
+            }}>
+              SCHEDULE A CONSULTATION →
+            </Link>
+          </div>
         </div>
       </section>
+
+      <footer style={{
+        position: "relative", overflow: "hidden",
+        background: "#48141E", color: "var(--cream)",
+        padding: "clamp(48px,8vh,80px) var(--gut) clamp(32px,5vh,56px)",
+      }}>
+        <Grain />
+        <div style={{ position: "relative", zIndex: 2 }}>
+          <div style={{
+            display: "flex", justifyContent: "space-between",
+            alignItems: "flex-start", flexWrap: "wrap", gap: 40,
+            paddingBottom: 32,
+            borderBottom: "1px solid rgba(242,233,218,0.12)",
+          }}>
+            <div>
+              <div style={{
+                fontFamily: "var(--serif)", fontWeight: 400, fontStyle: "italic",
+                fontSize: "clamp(20px,2.6vw,28px)", letterSpacing: "-0.018em",
+                color: "var(--cream)",
+              }}>
+                Dr. <em style={{ color: "var(--gold-soft)" }}>Marla</em>
+              </div>
+              <div style={{
+                fontFamily: "var(--sans)", fontWeight: 600, fontSize: 11,
+                color: "rgba(242,233,218,0.45)", marginTop: 6,
+              }}>
+                MBA · Th.D · Published Author
+              </div>
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "16px 28px" }}>
+              {[
+                { label: "Ecosystem", href: "/ecosystem" },
+                { label: "Contact", href: "/contact" },
+                { label: "Privacy", href: "/privacy" },
+                { label: "Terms", href: "/terms" },
+              ].map(item => (
+                <Link key={item.label} href={item.href} style={{
+                  fontFamily: "var(--sans)", fontWeight: 600, fontSize: 10,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: "rgba(242,233,218,0.65)", textDecoration: "none",
+                }}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div style={{
+            display: "flex", justifyContent: "space-between",
+            alignItems: "center", flexWrap: "wrap", gap: 20,
+            paddingTop: 28,
+          }}>
+            <div style={{
+              fontFamily: "var(--sans)", fontWeight: 600, fontSize: 10,
+              letterSpacing: "0.28em", textTransform: "uppercase",
+              color: "rgba(242,233,218,0.35)",
+            }}>
+              THE HOUSE · EST. 1996 · 356 MANTON AVE, PROVIDENCE RI
+            </div>
+            <div style={{
+              fontFamily: "var(--sans)", fontWeight: 400, fontSize: 11,
+              color: "rgba(242,233,218,0.35)",
+            }}>
+              © 2026 Dr. Marla Sabater. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }

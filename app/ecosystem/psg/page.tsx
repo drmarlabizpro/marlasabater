@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     siteName: 'Dr. Marla Sabater',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PSG Motor Group | Automotive Sales & Services',
+    description: 'Reliable vehicles, sourced and serviced. Sales, export, and fleet for business.',
+  },
   alternates: { canonical: 'https://marlasabater.com/ecosystem/psg' },
 }
 

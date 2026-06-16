@@ -456,6 +456,74 @@ export default function Ecosystem() {
           </Link>
         </div>
       </section>
+
+      <footer style={{
+        position: "relative", overflow: "hidden",
+        background: "#48141E", color: "var(--cream)",
+        padding: "clamp(48px,8vh,80px) var(--gut) clamp(32px,5vh,56px)",
+      }}>
+        <Grain />
+        <div style={{ position: "relative", zIndex: 2 }}>
+          <div style={{
+            display: "flex", justifyContent: "space-between",
+            alignItems: "flex-start", flexWrap: "wrap", gap: 40,
+            paddingBottom: 32,
+            borderBottom: "1px solid rgba(242,233,218,0.12)",
+          }}>
+            <div>
+              <div style={{
+                fontFamily: "var(--serif)", fontWeight: 400, fontStyle: "italic",
+                fontSize: "clamp(20px,2.6vw,28px)", letterSpacing: "-0.018em",
+                color: "var(--cream)",
+              }}>
+                Dr. <em style={{ color: "var(--gold-soft)" }}>Marla</em>
+              </div>
+              <div style={{
+                fontFamily: "var(--sans)", fontWeight: 600, fontSize: 11,
+                color: "rgba(242,233,218,0.45)", marginTop: 6,
+              }}>
+                MBA · Th.D · Published Author
+              </div>
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "16px 28px" }}>
+              {[
+                { label: "Ecosystem", href: "/ecosystem" },
+                { label: "Contact", href: "/contact" },
+                { label: "Privacy", href: "/privacy" },
+                { label: "Terms", href: "/terms" },
+              ].map(item => (
+                <Link key={item.label} href={item.href} style={{
+                  fontFamily: "var(--sans)", fontWeight: 600, fontSize: 10,
+                  letterSpacing: "0.22em", textTransform: "uppercase",
+                  color: "rgba(242,233,218,0.65)", textDecoration: "none",
+                }}>
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div style={{
+            display: "flex", justifyContent: "space-between",
+            alignItems: "center", flexWrap: "wrap", gap: 20,
+            paddingTop: 28,
+          }}>
+            <div style={{
+              fontFamily: "var(--sans)", fontWeight: 600, fontSize: 10,
+              letterSpacing: "0.28em", textTransform: "uppercase",
+              color: "rgba(242,233,218,0.35)",
+            }}>
+              THE HOUSE · EST. 1996 · 356 MANTON AVE, PROVIDENCE RI
+            </div>
+            <div style={{
+              fontFamily: "var(--sans)", fontWeight: 400, fontSize: 11,
+              color: "rgba(242,233,218,0.35)",
+            }}>
+              © 2026 Dr. Marla Sabater. All rights reserved.
+            </div>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }

@@ -81,20 +81,30 @@ function WordReveal({
   emColor?: string
 }) {
   const { ref, visible } = useReveal(0.15)
+  const words = text.split(' ')
+  const emWords = emText ? emText.split(' ') : []
   return (
-    <div
-      ref={ref}
-      style={{
-        ...style,
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'none' : 'translateY(18px)',
-        transition: 'opacity 0.55s ease, transform 0.55s ease',
-      }}
-    >
-      {text}
-      {emText && (
+    <div ref={ref} style={style}>
+      {words.map((word, i) => (
+        <span key={i} style={{
+          display: 'inline',
+          opacity: visible ? 1 : 0,
+          transition: `opacity 0.5s ease ${i * 70}ms`,
+        }}>
+          {word}{i < words.length - 1 ? ' ' : ''}
+        </span>
+      ))}
+      {emWords.length > 0 && (
         <em style={{ fontStyle: 'italic', color: emColor }}>
-          {emText}
+          {emWords.map((word, i) => (
+            <span key={i} style={{
+              display: 'inline',
+              opacity: visible ? 1 : 0,
+              transition: `opacity 0.5s ease ${(words.length + i) * 70}ms`,
+            }}>
+              {i === 0 ? ' ' : ''}{word}{i < emWords.length - 1 ? ' ' : ''}
+            </span>
+          ))}
         </em>
       )}
     </div>
@@ -352,9 +362,9 @@ export default function Home() {
               display: 'flex', flexWrap: 'wrap', gap: 'clamp(32px,6vw,96px)',
             }}>
               {[
-                { num: count30, suffix: '', label: 'YEARS OF LEADERSHIP', ctx: 'Building since 1996 from Providence, RI' },
-                { num: count8, suffix: '', label: 'COMPANIES BUILT', ctx: 'Finance, construction, food, media, hospitality, automotive' },
-                { num: count1000, suffix: '+', label: 'BUSINESSES AND FAMILIES SERVED', ctx: 'Across Rhode Island, Puerto Rico, and nationwide' },
+                { num: statsVisible ? count30 : 30, suffix: '', label: 'YEARS OF LEADERSHIP', ctx: 'Building since 1996 from Providence, RI' },
+                { num: statsVisible ? count8 : 8, suffix: '', label: 'COMPANIES BUILT', ctx: 'Finance, construction, food, media, hospitality, automotive' },
+                { num: statsVisible ? count1000 : 1000, suffix: '+', label: 'BUSINESSES AND FAMILIES SERVED', ctx: 'Across New England and nationwide' },
               ].map((s, i) => (
                 <div key={i} className="home-stats-block" data-stat-item="true">
                   <div style={{
@@ -677,7 +687,7 @@ export default function Home() {
             display: 'grid', gridTemplateColumns: '1fr', gap: 2,
           }}>
             {[
-              { num: '30', label: 'YEARS SERVING PROVIDENCE', body: 'Serving clients across Rhode Island, Puerto Rico, and nationwide since 1996. A practice built on the belief that real communities deserve real financial expertise.' },
+              { num: '30', label: 'YEARS SERVING PROVIDENCE', body: 'Serving clients across New England and nationwide since 1996. A practice built on the belief that real communities deserve real financial expertise.' },
               { num: '9', label: 'INDUSTRIES SERVED', body: 'Finance, construction, food, media, hospitality, automotive, real estate, payroll, and business advisory. The ecosystem covers what a growing business actually needs.' },
               { num: '8', label: 'COMPANIES BUILT WITH PURPOSE', body: 'Each company exists because Dr. Marla saw a gap in her community and built the answer. Not a portfolio. A life\u2019s work in eight chapters.' },
             ].map((b, i) => (

@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     siteName: 'Dr. Marla Sabater',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Premium Services Corporation | Financial & Wealth Management',
+    description: 'Tax, accounting, and financial strategy. Built on the right foundation.',
+  },
   alternates: { canonical: 'https://marlasabater.com/ecosystem/corporation' },
 }
 

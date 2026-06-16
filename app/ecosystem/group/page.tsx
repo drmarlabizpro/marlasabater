@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     siteName: 'Dr. Marla Sabater',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Premium Services Group | Construction & Development',
+    description: 'Building what a community uses.',
+  },
   alternates: { canonical: 'https://marlasabater.com/ecosystem/group' },
 }
 

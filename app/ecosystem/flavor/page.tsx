@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     siteName: 'Dr. Marla Sabater',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Flavor Movement | Food & Hospitality',
+    description: 'Restaurants, catering, and products with soul. Experiences that bring people together.',
+  },
   alternates: { canonical: 'https://marlasabater.com/ecosystem/flavor' },
 }
 

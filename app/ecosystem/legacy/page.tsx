@@ -12,6 +12,11 @@ export const metadata: Metadata = {
     siteName: 'Dr. Marla Sabater',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Legacy Production House | Media & Talent Development',
+    description: 'A way up for talent without access. Developing artists into platforms that last.',
+  },
   alternates: { canonical: 'https://marlasabater.com/ecosystem/legacy' },
 }
 

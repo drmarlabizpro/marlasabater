@@ -11,6 +11,11 @@ export const metadata: Metadata = {
     siteName: 'Dr. Marla Sabater',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Ministry & Community | Dr. Marla Sabater',
+    description: 'Derribando Murallas Christian Center and Shekinah Praise Agency. Faith and community in Providence, RI.',
+  },
   alternates: { canonical: 'https://marlasabater.com/ministry' },
 }
 
