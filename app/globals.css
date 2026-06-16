@@ -49,14 +49,15 @@ html, body {
 
 .site-header {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 200;
   height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--gut);
-  background: var(--bordeaux);
   border-bottom: 1px solid var(--gold);
 }
 
@@ -112,6 +113,10 @@ html, body {
 .site-nav-link:hover {
   color: var(--gold-soft);
   border-bottom-color: var(--gold);
+}
+.site-nav-link--active {
+  color: var(--gold-soft) !important;
+  border-bottom-color: var(--gold) !important;
 }
 .site-nav-cta {
   font-family: var(--sans);
@@ -382,4 +387,8 @@ html, body {
   .site-hamburger {
     display: flex !important;
   }
+}
+
+.site-mobile-overlay[style*="3A3530"] .site-mobile-endorse {
+  color: rgba(242,233,218,0.5);
 }
