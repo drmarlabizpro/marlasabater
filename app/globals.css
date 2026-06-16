@@ -212,12 +212,6 @@ html, body {
   opacity: 0.6;
 }
 
-/* BREAKPOINT: show hamburger, hide desktop nav */
-@media (max-width: 768px) {
-  .site-nav-desktop { display: none !important; }
-  .site-hamburger { display: flex !important; }
-}
-
 /* ============================================
    CONTACT FORM — dark context variant
    ============================================ */
@@ -341,8 +335,51 @@ html, body {
   }
 }
 
-@media (max-width: 480px) {
-  .site-wordmark-est {
-    display: none;
+:root {
+  /* Type scale */
+  --text-display-lg: clamp(48px, 9vw, 120px);
+  --text-display: clamp(36px, 6vw, 76px);
+  --text-headline: clamp(28px, 4.5vw, 54px);
+  --text-subhead: clamp(22px, 3.2vw, 36px);
+  --text-lead: clamp(17px, 2.2vw, 22px);
+  --text-body: 15px;
+  --text-body-sm: 14px;
+  --text-label: 11px;
+  --text-micro: 10px;
+
+  /* Line heights */
+  --lh-display: 0.92;
+  --lh-headline: 1.0;
+  --lh-lead: 1.45;
+  --lh-body: 1.65;
+
+  /* Letter spacing */
+  --ls-display: -0.022em;
+  --ls-headline: -0.018em;
+  --ls-label: 0.28em;
+  --ls-micro: 0.32em;
+
+  /* Section padding */
+  --section-pad: clamp(64px, 10vh, 120px);
+}
+
+/* Responsive type scale overrides at mobile */
+@media screen and (max-width: 768px) {
+  :root {
+    --text-display-lg: clamp(42px, 11vw, 72px);
+    --text-display: clamp(30px, 8vw, 56px);
+    --text-headline: clamp(24px, 7vw, 40px);
+    --text-subhead: clamp(20px, 6vw, 30px);
+    --text-lead: clamp(16px, 4.5vw, 20px);
+    --section-pad: clamp(48px, 8vh, 80px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .site-nav-desktop {
+    display: none !important;
+  }
+  .site-hamburger {
+    display: flex !important;
   }
 }

@@ -310,10 +310,9 @@ export default function Home() {
 
           <div style={{
             margin: '32px 0',
-            borderTop: '2px solid var(--gold)',
-            borderBottom: '1px solid var(--gold)',
-            paddingTop: 5,
-            width: 'clamp(120px,28vw,380px)',
+            height: '2px',
+            background: 'var(--gold)',
+            width: 'clamp(120px, 28vw, 380px)',
             opacity: 0,
             animation: 'fadeUp 0.5s ease forwards',
             animationDelay: '520ms',
@@ -371,7 +370,7 @@ export default function Home() {
       {/* SECTION 2: STATS */}
       <section style={{
         background: 'var(--cream-2)',
-        padding: 'clamp(56px,9vh,96px) var(--gut)',
+        padding: 'var(--section-pad) var(--gut)',
       }}>
         <div ref={statsRef}>
           <div ref={heroReveal.ref} style={revealStyle(heroReveal.visible)}>
@@ -436,7 +435,7 @@ export default function Home() {
         position: 'relative', overflow: 'hidden',
         background: 'linear-gradient(170deg, #7C2230, #5A1A24)',
         color: 'var(--cream)',
-        padding: 'clamp(72px,12vh,130px) var(--gut)',
+        padding: 'var(--section-pad) var(--gut)',
       }}>
         <Grain opacity={0.06} />
         <div aria-hidden style={{
@@ -514,7 +513,7 @@ export default function Home() {
       {/* SECTION 4: THE ECOSYSTEM */}
       <section style={{
         background: 'var(--cream-2)',
-        padding: 'clamp(72px,11vh,120px) var(--gut)',
+        padding: 'var(--section-pad) var(--gut)',
       }}>
         <div>
           <div ref={ecosystemRef} style={revealStyle(ecosystemVisible)}>
@@ -678,7 +677,7 @@ export default function Home() {
       {/* SECTION 5: COMMUNITY IMPACT */}
       <section style={{
         background: 'var(--cream)',
-        padding: 'clamp(72px,11vh,120px) var(--gut)',
+        padding: 'var(--section-pad) var(--gut)',
       }}>
         <div ref={communityReveal.ref} style={revealStyle(communityReveal.visible)}>
           <div style={{ marginBottom: 48 }}>
@@ -743,7 +742,7 @@ export default function Home() {
         position: 'relative', overflow: 'hidden',
         background: 'radial-gradient(100% 80% at 72% 26%, rgba(201,162,60,0.14), rgba(90,26,36,0) 54%), linear-gradient(165deg, #7C2230, #5A1A24 58%, #4A1620)',
         color: 'var(--cream)',
-        padding: 'clamp(72px,11vh,120px) var(--gut)',
+        padding: 'var(--section-pad) var(--gut)',
       }}>
         <Grain opacity={0.06} />
         <div ref={aboutReveal.ref} className="home-about-grid" data-cols="2" style={{
@@ -834,7 +833,7 @@ export default function Home() {
       {/* SECTION 7: FEATURED COMPANIES */}
       <section style={{
         background: 'var(--cream-2)',
-        padding: 'clamp(72px,11vh,120px) var(--gut)',
+        padding: 'var(--section-pad) var(--gut)',
       }}>
         <div ref={featuredReveal.ref} style={revealStyle(featuredReveal.visible)}>
           <div style={{
@@ -885,9 +884,9 @@ export default function Home() {
                   Premium Services <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Enterprise.</em>
                 </div>
                 <div style={{
-                  borderTop: '2px solid var(--gold)',
-                  borderBottom: '1px solid var(--gold)',
-                  paddingTop: 4, margin: '20px 0', width: 100,
+                  height: '2px',
+                  background: 'var(--gold)',
+                  margin: '20px 0', width: 100,
                 }} />
                 <div style={{
                   fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15, lineHeight: 1.45,
@@ -935,9 +934,9 @@ export default function Home() {
                   Premium Services <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Corporation.</em>
                 </div>
                 <div style={{
-                  borderTop: '2px solid var(--gold)',
-                  borderBottom: '1px solid var(--gold)',
-                  paddingTop: 4, margin: '20px 0', width: 100,
+                  height: '2px',
+                  background: 'var(--gold)',
+                  margin: '20px 0', width: 100,
                 }} />
                 <div style={{
                   fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15, lineHeight: 1.45,
@@ -1010,9 +1009,9 @@ export default function Home() {
                   Legacy <em style={{ fontStyle: 'italic', color: 'var(--gold-soft)' }}>Production House.</em>
                 </div>
                 <div style={{
-                  borderTop: '2px solid var(--gold)',
-                  borderBottom: '1px solid var(--gold)',
-                  paddingTop: 4, margin: '20px auto', width: 100,
+                  height: '2px',
+                  background: 'var(--gold)',
+                  margin: '20px auto', width: 100,
                 }} />
                 <div style={{
                   fontFamily: 'var(--serif)', fontStyle: 'italic', fontSize: 15, lineHeight: 1.45,
@@ -1041,7 +1040,7 @@ export default function Home() {
         position: 'relative', overflow: 'hidden',
         background: 'radial-gradient(100% 80% at 28% 26%, rgba(201,162,60,0.14), rgba(90,26,36,0) 55%), linear-gradient(165deg, #7C2230, #5A1A24)',
         color: 'var(--cream)',
-        padding: 'clamp(72px,11vh,120px) var(--gut)',
+        padding: 'var(--section-pad) var(--gut)',
       }}>
         <Grain opacity={0.06} />
         <div className="home-contact-grid" data-contact-cols="true" style={{
