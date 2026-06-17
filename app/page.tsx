@@ -81,31 +81,16 @@ function WordReveal({
   emColor?: string
 }) {
   const { ref, visible } = useReveal(0.15)
-  const words = text.split(' ')
-  const emWords = emText ? emText.split(' ') : []
   return (
-    <div ref={ref} style={style}>
-      {words.map((word, i) => (
-        <span key={i} style={{
-          display: 'inline',
-          opacity: visible ? 1 : 0,
-          transition: `opacity 0.5s ease ${i * 70}ms`,
-        }}>
-          {word}{i < words.length - 1 ? ' ' : ''}
-        </span>
-      ))}
-      {emWords.length > 0 && (
-        <em style={{ fontStyle: 'italic', color: emColor }}>
-          {emWords.map((word, i) => (
-            <span key={i} style={{
-              display: 'inline',
-              opacity: visible ? 1 : 0,
-              transition: `opacity 0.5s ease ${(words.length + i) * 70}ms`,
-            }}>
-              {i === 0 ? ' ' : ''}{word}{i < emWords.length - 1 ? ' ' : ''}
-            </span>
-          ))}
-        </em>
+    <div ref={ref} style={{
+      ...style,
+      opacity: visible ? 1 : 0,
+      transform: visible ? 'none' : 'translateY(16px)',
+      transition: 'opacity 0.6s ease, transform 0.6s ease',
+    }}>
+      {text}{emText ? ' ' : ''}
+      {emText && (
+        <em style={{ fontStyle: 'italic', color: emColor }}>{emText}</em>
       )}
     </div>
   )

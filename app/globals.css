@@ -452,3 +452,200 @@ body {
 .ent-form-field::placeholder {
   color: rgba(242,233,218,0.3);
 }
+
+/* ============================================
+   MOBILE RESPONSIVE — FULL SITE PASS
+   ============================================ */
+
+@media screen and (max-width: 768px) {
+
+  /* --- HERO SECTIONS --- */
+  [data-hero] {
+    min-height: 80vh !important;
+    padding-top: 100px !important;
+    padding-bottom: 48px !important;
+  }
+
+  /* --- TWO COLUMN GRIDS COLLAPSE --- */
+  [data-cols="2"] {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  /* --- THREE COLUMN GRIDS COLLAPSE --- */
+  [data-cols="3"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* --- CARD GRIDS --- */
+  [data-cards] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* --- STAT BLOCKS STACK --- */
+  [data-stats] {
+    flex-direction: column !important;
+    gap: 28px !important;
+    align-items: flex-start !important;
+  }
+
+  [data-stat-item] {
+    border-right: none !important;
+    border-bottom: 1px solid var(--ink-15) !important;
+    padding-bottom: 24px !important;
+    width: 100% !important;
+  }
+
+  /* --- CONTACT SECTION COLLAPSE --- */
+  [data-contact-cols] {
+    flex-direction: column !important;
+    gap: 48px !important;
+  }
+
+  /* --- FOOTER ROWS COLLAPSE --- */
+  [data-footer-row] {
+    flex-direction: column !important;
+    gap: 20px !important;
+    align-items: flex-start !important;
+  }
+
+  /* --- ECOSYSTEM ROWS WRAP --- */
+  [data-eco-row] {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    padding-left: 0 !important;
+  }
+
+  [data-eco-row-right] {
+    width: 100% !important;
+    justify-content: flex-start !important;
+  }
+
+  /* --- PULL QUOTE SIZING --- */
+  [data-pullquote] {
+    font-size: clamp(22px, 5.5vw, 36px) !important;
+  }
+
+  /* --- SECTION PADDING REDUCTION --- */
+  section,
+  [data-section] {
+    padding-top: var(--section-pad) !important;
+    padding-bottom: var(--section-pad) !important;
+  }
+
+  /* --- BREADCRUMBS WRAP --- */
+  .site-breadcrumb {
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+  }
+
+  /* --- CTA BUTTONS STACK --- */
+  .cta-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  /* --- MEGA MENU HIDDEN ON MOBILE --- */
+  .site-nav-desktop {
+    display: none !important;
+  }
+
+  .site-hamburger {
+    display: flex !important;
+  }
+
+  /* --- TIMELINE HORIZONTAL SCROLL ON MOBILE --- */
+  .timeline-row {
+    overflow-x: auto !important;
+    padding-bottom: 16px !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  /* --- STEP CONNECTORS ADJUST --- */
+  .steps-connector {
+    display: none !important;
+  }
+
+  /* --- FEATURED CARDS FULL WIDTH --- */
+  [data-cards="3"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* --- ENDORSEMENT CENTER ROW HIDE --- */
+  .endorse-center {
+    display: none !important;
+  }
+
+  /* --- COMPANY NAV BARS SCROLL --- */
+  .company-nav-bar {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .company-nav-bar::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* --- DROPDOWN FULL WIDTH ON SMALL SCREENS --- */
+  .ecosystem-dropdown {
+    width: 100vw !important;
+    left: calc(-1 * var(--gut)) !important;
+  }
+
+  /* --- INPUT FIELDS FULL WIDTH --- */
+  .corp-form-field,
+  .ent-form-field,
+  .form-field {
+    font-size: 16px !important;
+  }
+
+  /* --- PREVENT ZOOM ON INPUT FOCUS (iOS) --- */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* --- ABOUT PAGE CREDENTIAL TAGS WRAP --- */
+  .credential-tags {
+    flex-wrap: wrap !important;
+  }
+
+  /* --- PILLAR CARDS SINGLE COLUMN --- */
+  .pillar-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* --- TIMELINE NODES STACK --- */
+  .timeline-nodes {
+    flex-direction: column !important;
+    gap: 32px !important;
+  }
+
+}
+
+@media screen and (max-width: 480px) {
+
+  /* --- TIGHTEN GUT ON SMALL PHONES --- */
+  :root {
+    --gut: clamp(18px, 5vw, 32px) !important;
+  }
+
+  /* --- HERO TEXT TIGHTER --- */
+  [data-hero] {
+    padding-top: 88px !important;
+  }
+
+  /* --- FOOTER HIDE MIDDLE COLUMN --- */
+  .endorse-center {
+    display: none !important;
+  }
+
+}
