@@ -1,25 +1,7 @@
-import type { Metadata } from 'next'
+'use client'
+
 import Link from 'next/link'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
-
-export const metadata: Metadata = {
-  title: 'Premium Services Enterprise | Investments & Acquisitions | Dr. Marla Sabater',
-  description: 'Premium Services Enterprise handles real estate holdings, business acquisitions, and strategic investments. The flagship company of the Dr. Marla ecosystem. Providence, RI.',
-  keywords: ['Premium Services Enterprise', 'investment acquisitions Providence RI', 'real estate holdings Rhode Island', 'business acquisitions New England', 'Dr Marla Sabater flagship'],
-  openGraph: {
-    title: 'Premium Services Enterprise | Investments & Acquisitions',
-    description: 'Property, holdings, and the long view. The flagship company of the Dr. Marla ecosystem.',
-    url: 'https://marlasabater.com/ecosystem/enterprise',
-    siteName: 'Dr. Marla Sabater',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Premium Services Enterprise | Investments & Acquisitions',
-    description: 'Property, holdings, and the long view. The flagship company of the Dr. Marla ecosystem.',
-  },
-  alternates: { canonical: 'https://marlasabater.com/ecosystem/enterprise' },
-}
 
 const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
 
@@ -41,10 +23,17 @@ const STAT_BLOCKS = [
 ]
 
 const FOCUS_CARDS = [
-  { title: 'Real Estate Holdings', body: 'Acquisition and management of commercial and residential property across New England and nationwide.' },
-  { title: 'Business Acquisitions', body: 'Identifying and acquiring businesses with strong fundamentals and long-term growth potential.' },
-  { title: 'Strategic Investments', body: "Equity positions in businesses aligned with the ecosystem's vision and values." },
-  { title: 'Asset Management', body: 'Active management and protection of acquired assets for sustained generational value.' },
+  { title: 'Real Estate Holdings', body: 'Acquisition and management of commercial and residential property across New England and nationwide.', href: '/ecosystem/enterprise/real-estate' },
+  { title: 'Business Acquisitions', body: 'Identifying and acquiring businesses with strong fundamentals and long-term growth potential.', href: '/ecosystem/enterprise/acquisitions' },
+  { title: 'Strategic Investments', body: "Equity positions in businesses aligned with the ecosystem's vision and values.", href: '/ecosystem/enterprise/investments' },
+  { title: 'Asset Management', body: 'Active management and protection of acquired assets for sustained generational value.', href: '/ecosystem/enterprise/contact' },
+]
+
+const NAV_LINKS = [
+  { label: 'Real Estate', href: '/ecosystem/enterprise/real-estate' },
+  { label: 'Acquisitions', href: '/ecosystem/enterprise/acquisitions' },
+  { label: 'Investments', href: '/ecosystem/enterprise/investments' },
+  { label: 'Contact Us', href: '/ecosystem/enterprise/contact' },
 ]
 
 export default function Enterprise() {
@@ -127,6 +116,50 @@ export default function Enterprise() {
           A DR. MARLA COMPANY · ESTABLISHED 1996 · NO. 02
         </div>
       </section>
+
+      {/* NAVIGATION ROW */}
+      <nav style={{
+        background: 'rgba(90,26,36,0.95)',
+        padding: '0 var(--gut)',
+        borderBottom: '1px solid rgba(201,162,60,0.2)',
+        overflowX: 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 0,
+      }}>
+        {NAV_LINKS.map((item, i) => {
+          const isLast = i === NAV_LINKS.length - 1
+          const isContact = item.label === 'Contact Us'
+          const baseColor = isContact ? 'var(--gold-soft)' : 'rgba(242,233,218,0.55)'
+          return (
+            <Link key={item.href} href={item.href} style={{
+              padding: '16px 20px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              whiteSpace: 'nowrap',
+              textDecoration: 'none',
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+              letterSpacing: '0.22em', textTransform: 'uppercase',
+              color: baseColor,
+              borderRight: isLast ? 'none' : '1px solid rgba(242,233,218,0.08)',
+              transition: 'color 0.2s, background 0.2s',
+              background: 'transparent',
+            }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLElement
+              if (!isContact) el.style.color = 'var(--cream)'
+              el.style.background = 'rgba(242,233,218,0.06)'
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLElement
+              if (!isContact) el.style.color = baseColor
+              el.style.background = 'transparent'
+            }}>
+              {item.label}
+            </Link>
+          )
+        })}
+      </nav>
 
       {/* SECTION 2 — WHAT IT IS */}
       <section style={{
@@ -228,10 +261,23 @@ export default function Enterprise() {
             gap: '2px',
           }}>
             {FOCUS_CARDS.map(card => (
-              <div key={card.title} style={{
+              <Link key={card.title} href={card.href} style={{
                 background: 'rgba(242,233,218,0.06)',
                 padding: '32px 28px',
                 borderLeft: '3px solid var(--gold)',
+                textDecoration: 'none',
+                display: 'block',
+                transition: 'background 0.2s ease, transform 0.2s ease',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLElement
+                el.style.background = 'rgba(242,233,218,0.12)'
+                el.style.transform = 'translateY(-3px)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLElement
+                el.style.background = 'rgba(242,233,218,0.06)'
+                el.style.transform = 'none'
               }}>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
@@ -247,7 +293,14 @@ export default function Enterprise() {
                 }}>
                   {card.body}
                 </div>
-              </div>
+                <div style={{
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                  letterSpacing: '0.22em', textTransform: 'uppercase',
+                  color: 'var(--gold-soft)', marginTop: 16, display: 'block',
+                }}>
+                  LEARN MORE →
+                </div>
+              </Link>
             ))}
           </div>
         </div>

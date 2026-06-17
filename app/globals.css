@@ -443,3 +443,13 @@ body {
 .corp-form-field::placeholder {
   color: rgba(242,233,218,0.3);
 }
+
+/* Enterprise contact form field focus */
+.ent-form-field:focus {
+  border-color: var(--gold) !important;
+  outline: none;
+  background: rgba(242,233,218,0.1) !important;
+}
+.ent-form-field::placeholder {
+  color: rgba(242,233,218,0.3);
+}
