@@ -426,3 +426,13 @@ html, body {
   transition: height 1.2s ease 0.3s;
   z-index: 0;
 }
+
+/* Corporation contact form field focus */
+.corp-form-field:focus {
+  border-color: var(--gold) !important;
+  outline: none;
+  background: rgba(242,233,218,0.1) !important;
+}
+.corp-form-field::placeholder {
+  color: rgba(242,233,218,0.3);
+}
