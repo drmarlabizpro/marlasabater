@@ -1,25 +1,7 @@
-import type { Metadata } from 'next'
+'use client'
+
 import Link from 'next/link'
 import BreadcrumbSchema from '@/components/BreadcrumbSchema'
-
-export const metadata: Metadata = {
-  title: 'Premium Services Corporation | Financial & Wealth Management | Dr. Marla Sabater',
-  description: 'Tax strategy, accounting, payroll, and financial advisory for business owners in New England and nationwide. Bilingual service in English and Spanish. Providence, RI.',
-  keywords: ['accounting payroll Providence RI', 'bilingual accountant Rhode Island', 'tax strategy small business Providence', 'business financial advisory New England', 'Premium Services Corporation'],
-  openGraph: {
-    title: 'Premium Services Corporation | Financial & Wealth Management',
-    description: 'Tax, accounting, and financial strategy. Built on the right foundation.',
-    url: 'https://marlasabater.com/ecosystem/corporation',
-    siteName: 'Dr. Marla Sabater',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Premium Services Corporation | Financial & Wealth Management',
-    description: 'Tax, accounting, and financial strategy. Built on the right foundation.',
-  },
-  alternates: { canonical: 'https://marlasabater.com/ecosystem/corporation' },
-}
 
 const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`
 
@@ -40,12 +22,21 @@ const STATS = [
 ]
 
 const SERVICES = [
-  { title: 'Tax Strategy', body: 'Clean, compliant tax planning that keeps more in your business and less with the government.' },
-  { title: 'Accounting', body: 'Monthly bookkeeping, financial statements, and full CFO-level advisory.' },
-  { title: 'Payroll', body: 'Accurate, on-time payroll with direct deposit, tax filings, and compliance built in.' },
-  { title: 'Business Advisory', body: 'Strategic guidance for business owners at every stage — from startup through scale.' },
-  { title: 'Financial Planning', body: 'Long-term financial structure for individuals and businesses built to last.' },
-  { title: 'Insurance Advisory', body: 'Understanding what coverage your business actually needs and what it does not.' },
+  { title: 'Tax Strategy', body: 'Clean, compliant tax planning that keeps more in your business and less with the government.', href: '/ecosystem/corporation/tax-strategy' },
+  { title: 'Accounting', body: 'Monthly bookkeeping, financial statements, and full CFO-level advisory.', href: '/ecosystem/corporation/accounting' },
+  { title: 'Payroll', body: 'Accurate, on-time payroll with direct deposit, tax filings, and compliance built in.', href: '/ecosystem/corporation/payroll' },
+  { title: 'Business Advisory', body: 'Strategic guidance for business owners at every stage — from startup through scale.', href: '/ecosystem/corporation/business-advisory' },
+  { title: 'Financial Planning', body: 'Long-term financial structure for individuals and businesses built to last.', href: '/ecosystem/corporation/financial-planning' },
+  { title: 'Insurance Advisory', body: 'Understanding what coverage your business actually needs and what it does not.', href: '/ecosystem/corporation/contact' },
+]
+
+const NAV_LINKS = [
+  { label: 'Tax Strategy', href: '/ecosystem/corporation/tax-strategy' },
+  { label: 'Accounting', href: '/ecosystem/corporation/accounting' },
+  { label: 'Payroll', href: '/ecosystem/corporation/payroll' },
+  { label: 'Business Advisory', href: '/ecosystem/corporation/business-advisory' },
+  { label: 'Financial Planning', href: '/ecosystem/corporation/financial-planning' },
+  { label: 'Contact Us', href: '/ecosystem/corporation/contact' },
 ]
 
 export default function Corporation() {
@@ -117,6 +108,50 @@ export default function Corporation() {
           A DR. MARLA COMPANY · ESTABLISHED 1996 · NO. 03
         </div>
       </section>
+
+      {/* NAVIGATION ROW */}
+      <nav style={{
+        background: 'rgba(33,78,64,0.95)',
+        padding: '0 var(--gut)',
+        borderBottom: '1px solid rgba(201,162,60,0.2)',
+        overflowX: 'auto',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 0,
+      }}>
+        {NAV_LINKS.map((item, i) => {
+          const isLast = i === NAV_LINKS.length - 1
+          const isContact = item.label === 'Contact Us'
+          const baseColor = isContact ? 'var(--gold-soft)' : 'rgba(242,233,218,0.55)'
+          return (
+            <Link key={item.href} href={item.href} style={{
+              padding: '16px 20px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              whiteSpace: 'nowrap',
+              textDecoration: 'none',
+              fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+              letterSpacing: '0.22em', textTransform: 'uppercase',
+              color: baseColor,
+              borderRight: isLast ? 'none' : '1px solid rgba(242,233,218,0.08)',
+              transition: 'color 0.2s, background 0.2s',
+              background: 'transparent',
+            }}
+            onMouseEnter={e => {
+              const el = e.currentTarget as HTMLElement
+              if (!isContact) el.style.color = 'var(--cream)'
+              el.style.background = 'rgba(242,233,218,0.06)'
+            }}
+            onMouseLeave={e => {
+              const el = e.currentTarget as HTMLElement
+              if (!isContact) el.style.color = baseColor
+              el.style.background = 'transparent'
+            }}>
+              {item.label}
+            </Link>
+          )
+        })}
+      </nav>
 
       {/* SECTION 2 — WHAT IT DOES */}
       <section style={{
@@ -220,10 +255,23 @@ export default function Corporation() {
             gap: '2px',
           }}>
             {SERVICES.map(card => (
-              <div key={card.title} style={{
+              <Link key={card.title} href={card.href} style={{
                 background: 'rgba(242,233,218,0.06)',
                 padding: '28px 24px',
                 borderLeft: '3px solid var(--gold)',
+                textDecoration: 'none',
+                display: 'block',
+                transition: 'background 0.2s ease, transform 0.2s ease',
+              }}
+              onMouseEnter={e => {
+                const el = e.currentTarget as HTMLElement
+                el.style.background = 'rgba(242,233,218,0.12)'
+                el.style.transform = 'translateY(-3px)'
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget as HTMLElement
+                el.style.background = 'rgba(242,233,218,0.06)'
+                el.style.transform = 'none'
               }}>
                 <div style={{
                   fontFamily: 'var(--serif)', fontWeight: 400,
@@ -239,7 +287,14 @@ export default function Corporation() {
                 }}>
                   {card.body}
                 </div>
-              </div>
+                <div style={{
+                  fontFamily: 'var(--sans)', fontWeight: 600, fontSize: 10,
+                  letterSpacing: '0.22em', textTransform: 'uppercase',
+                  color: 'var(--gold-soft)', marginTop: 16, display: 'block',
+                }}>
+                  LEARN MORE →
+                </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -351,7 +406,7 @@ export default function Corporation() {
           </div>
 
           <div style={{ marginTop: '40px' }}>
-            <Link href="/contact" style={{
+            <Link href="/ecosystem/corporation/contact" style={{
               border: '1px solid var(--gold)',
               color: 'var(--gold)',
               padding: '14px 36px',
